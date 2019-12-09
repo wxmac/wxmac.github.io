@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>二、vsCode终端打开问题 | WXMax</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="之前打开vscode时，报 终端进程命令”&#x2F;bin&#x2F;bash -l”无法启动 (退出代码: 1)； 其他报错也可以参考一下： 有以下几个解决思路1.重装vscode；（我是这个方法解决的） 2.因为 VSCode 工作区的文件夹有变更（删除、移动等），导致 VSCode 打开终端时，找不到此文件夹而报错； 3.配置下 git 路径不对，重新配置一下git；在设置里修改 “terminal.inte">
+<meta name="keywords" content="react 多页面">
+<meta property="og:type" content="article">
+<meta property="og:title" content="二、vsCode终端打开问题">
+<meta property="og:url" content="https:&#x2F;&#x2F;wxmac.github.io&#x2F;2019&#x2F;12&#x2F;09&#x2F;vsCode%E7%BB%88%E7%AB%AF%E6%89%93%E5%BC%80%E9%97%AE%E9%A2%98&#x2F;index.html">
+<meta property="og:site_name" content="WXMax">
+<meta property="og:description" content="之前打开vscode时，报 终端进程命令”&#x2F;bin&#x2F;bash -l”无法启动 (退出代码: 1)； 其他报错也可以参考一下： 有以下几个解决思路1.重装vscode；（我是这个方法解决的） 2.因为 VSCode 工作区的文件夹有变更（删除、移动等），导致 VSCode 打开终端时，找不到此文件夹而报错； 3.配置下 git 路径不对，重新配置一下git；在设置里修改 “terminal.inte">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-12-09T02:41:10.356Z">
+<meta name="twitter:card" content="summary">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">WXMax</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">进步不是由满足的人创造的 -- 加油</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/archives">专区</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        <!-- <a id="nav-search-btn" class="nav-icon" title="搜索"></a> -->
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://wxmac.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-vsCode终端打开问题" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/12/09/vsCode%E7%BB%88%E7%AB%AF%E6%89%93%E5%BC%80%E9%97%AE%E9%A2%98/" class="article-date">
+  <time datetime="2019-12-08T16:00:00.000Z" itemprop="datePublished">2019-12-09</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      二、vsCode终端打开问题
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>之前打开vscode时，报 终端进程命令”/bin/bash -l”无法启动 (退出代码: 1)；</p>
+<p>其他报错也可以参考一下：</p>
+<h2 id="有以下几个解决思路"><a href="#有以下几个解决思路" class="headerlink" title="有以下几个解决思路"></a>有以下几个解决思路</h2><p>1.重装vscode；（我是这个方法解决的）</p>
+<p>2.因为 VSCode 工作区的文件夹有变更（删除、移动等），导致 VSCode 打开终端时，找不到此文件夹而报错；</p>
+<p>3.配置下 git 路径不对，重新配置一下git；在设置里修改 “terminal.integrated.shell.windows”: “git路径base.exe”；</p>
+<p>4.用管理员的权限来执行vscode，要不然它没有权限使用cmd;右击快捷键点击属性然后选择以管理员的身份运行</p>
+<ol start="5">
+<li><a href="https://github.com/Microsoft/vscode/issues/17450" target="_blank" rel="noopener">github解决思路</a></li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/12/12/%E4%B8%80%E4%BA%9B%E8%87%AA%E5%B7%B1%E5%9C%A8%E4%BD%BF%E7%94%A8css%E3%80%81js%E6%8A%80%E5%B7%A7/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          三、一些自己在使用css、js技巧
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/12/06/react%20%E5%A4%9A%E9%A1%B5%E9%9D%A2%E6%89%93%E5%8C%85/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">一、React 多页面打包</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/12/12/%E4%B8%80%E4%BA%9B%E8%87%AA%E5%B7%B1%E5%9C%A8%E4%BD%BF%E7%94%A8css%E3%80%81js%E6%8A%80%E5%B7%A7/">三、一些自己在使用css、js技巧</a>
+          </li>
+        
+          <li>
+            <a href="/2019/12/09/vsCode%E7%BB%88%E7%AB%AF%E6%89%93%E5%BC%80%E9%97%AE%E9%A2%98/">二、vsCode终端打开问题</a>
+          </li>
+        
+          <li>
+            <a href="/2019/12/06/react%20%E5%A4%9A%E9%A1%B5%E9%9D%A2%E6%89%93%E5%8C%85/">一、React 多页面打包</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 hwh<br>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">专区</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
