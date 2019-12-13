@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>四、react &amp; html2canvas 生成图片下载实践 | 每周一记</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="html2canvas的选择现在一般生成图片有前端处理和后端处理两种方式，后端生成的方案不需要前端出力，只需要拿路径渲染，但是会出现数据延时，模板更换困难等问题，出于灵活性和减少后端工作量考虑，我们采取 html2canvas  绘制页面。  html2canvas npm html2canvas 介绍 1.在react中的使用1#安装2npm install --save html2canvas">
+<meta name="keywords" content="wxmac 个人博客">
+<meta property="og:type" content="article">
+<meta property="og:title" content="四、react &amp; html2canvas 生成图片下载实践">
+<meta property="og:url" content="https:&#x2F;&#x2F;wxmac.github.io&#x2F;2019&#x2F;12&#x2F;16&#x2F;react%20&amp;%20html2canvas%E5%AE%9E%E8%B7%B5&#x2F;index.html">
+<meta property="og:site_name" content="每周一记">
+<meta property="og:description" content="html2canvas的选择现在一般生成图片有前端处理和后端处理两种方式，后端生成的方案不需要前端出力，只需要拿路径渲染，但是会出现数据延时，模板更换困难等问题，出于灵活性和减少后端工作量考虑，我们采取 html2canvas  绘制页面。  html2canvas npm html2canvas 介绍 1.在react中的使用1#安装2npm install --save html2canvas">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-12-13T08:37:47.399Z">
+<meta name="twitter:card" content="summary">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">每周一记</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">记录自己的代码点滴 -- 九层之台，起于累土</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">首页</a>
+        
+          <a class="main-nav-link" href="/archives">专区</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        <!-- <a id="nav-search-btn" class="nav-icon" title="搜索"></a> -->
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://wxmac.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-react &amp; html2canvas实践" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/12/16/react%20&%20html2canvas%E5%AE%9E%E8%B7%B5/" class="article-date">
+  <time datetime="2019-12-15T16:00:00.000Z" itemprop="datePublished">2019-12-16</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      四、react &amp; html2canvas 生成图片下载实践
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="html2canvas的选择"><a href="#html2canvas的选择" class="headerlink" title="html2canvas的选择"></a>html2canvas的选择</h2><p>现在一般生成图片有前端处理和后端处理两种方式，后端生成的方案不需要前端出力，只需要拿路径渲染，但是会出现数据延时，模板更换困难等问题，出于灵活性和减少后端工作量考虑，我们采取 html2canvas  绘制页面。</p>
+<p> <a href="https://www.npmjs.com/package/html2canvas" target="_blank" rel="noopener">html2canvas npm</a><br> <a href="http://html2canvas.hertzen.com/" target="_blank" rel="noopener">html2canvas 介绍</a></p>
+<h3 id="1-在react中的使用"><a href="#1-在react中的使用" class="headerlink" title="1.在react中的使用"></a>1.在react中的使用</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="comment">#安装</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">npm install --save html2canvas</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">or</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">yarn add html2canvas</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"><span class="comment">#引入</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">import html2canvas from <span class="string">'html2canvas'</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line"><span class="comment">#使用</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">html2canvas(document.body).<span class="keyword">then</span>(<span class="keyword">function</span>(canvas) &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">    document.body.appendChild(canvas);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">&#125;);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line"><span class="comment">#如果想生成一部分页面的话，html2canvas可以换成 this.refs.demo</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line"><span class="comment">#&lt;div ref="demo"&gt;&lt;/div&gt;</span></span></pre></td></tr></table></figure>
+
+<p>上面就会把页面简单的绘制出来。</p>
+<h2 id="2-canvas-下载"><a href="#2-canvas-下载" class="headerlink" title="2.canvas 下载"></a>2.canvas 下载</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">html2canvas(this.refs.demo).<span class="keyword">then</span>(<span class="keyword">function</span>(canvas) &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">    const imgUrl = canvas.toDataURL(<span class="string">"image/png"</span>); <span class="comment"># 获取图片的url</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">    const elA = document.createElement(<span class="string">"a"</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">    elA.download = +new Date() + <span class="string">".png"</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">    elA.href = imgUrl ;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">    elA.click();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">    elA.remove();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">&#125;);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line"><span class="comment">#微信中不能下载图片，可以展示图片并提示用户长按保存图片</span></span></pre></td></tr></table></figure>
+
+<h2 id="3-参考"><a href="#3-参考" class="headerlink" title="3.参考"></a>3.参考</h2><p> <a href="https://juejin.im/post/5df2e8ab6fb9a0163770816d" target="_blank" rel="noopener">参考1</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2019/12/12/%E4%B8%80%E4%BA%9B%E8%87%AA%E5%B7%B1%E5%9C%A8%E4%BD%BF%E7%94%A8css%E3%80%81js%E6%8A%80%E5%B7%A7/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">三、一些自己在使用css、js技巧</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/12/16/react%20&%20html2canvas%E5%AE%9E%E8%B7%B5/">四、react &amp; html2canvas 生成图片下载实践</a>
+          </li>
+        
+          <li>
+            <a href="/2019/12/12/%E4%B8%80%E4%BA%9B%E8%87%AA%E5%B7%B1%E5%9C%A8%E4%BD%BF%E7%94%A8css%E3%80%81js%E6%8A%80%E5%B7%A7/">三、一些自己在使用css、js技巧</a>
+          </li>
+        
+          <li>
+            <a href="/2019/12/09/vsCode%E7%BB%88%E7%AB%AF%E6%89%93%E5%BC%80%E9%97%AE%E9%A2%98/">二、vsCode终端打开问题</a>
+          </li>
+        
+          <li>
+            <a href="/2019/12/06/react%20%E5%A4%9A%E9%A1%B5%E9%9D%A2%E6%89%93%E5%8C%85/">一、React 多页面打包</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 hwh<br>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">专区</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
