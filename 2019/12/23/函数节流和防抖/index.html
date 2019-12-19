@@ -382,7 +382,7 @@
                           
                               
                               <h6 class="tags">
-                                  <a class="tag" href="/tags/%E6%8B%B7%E8%B4%9D/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> 拷贝</a> <a class="tag" href="/tags/js/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> js</a> <a class="tag" href="/tags/%E5%B0%8F%E6%8A%80%E5%B7%A7/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> 小技巧</a>
+                                  <a class="tag" href="/tags/js/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> js</a> <a class="tag" href="/tags/%E6%8B%B7%E8%B4%9D/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> 拷贝</a> <a class="tag" href="/tags/%E5%B0%8F%E6%8A%80%E5%B7%A7/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> 小技巧</a>
                               </h6>
                           
                       </span>
@@ -399,7 +399,21 @@
 
 
 
-  
+  <article class="post white-box comments">
+    <section class="article typo">
+      <h4><i class="fas fa-comments fa-fw" aria-hidden="true"></i>&nbsp;评论</h4>
+      
+      
+      
+      
+        <section id="comments">
+          <div id="valine_container" class="valine_thread">
+            <i class="fas fa-spinner fa-spin fa-fw"></i>
+          </div>
+        </section>
+      
+    </section>
+  </article>
 
 
 
@@ -793,6 +807,36 @@
 
 
 
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  
+    
+      <script src="/js/volantis.js"></script>
+    
+  
+  <script>
+  var GUEST_INFO = ['nick','mail','link'];
+  var guest_info = 'nick,mail'.split(',').filter(function(item){
+    return GUEST_INFO.indexOf(item) > -1
+  });
+  var notify = 'true' == true;
+  var verify = 'true' == true;
+  var valine = new Valine();
+  valine.init({
+    el: '#valine_container',
+    notify: notify,
+    verify: verify,
+    guest_info: guest_info,
+    
+    appId: "6clP1BEAuM8LjCTmJON7godt-gzGzoHsz",
+    appKey: "TH5FPTPYJHpWi9KDHni6NA8Y",
+    placeholder: "快来评论吧~",
+    pageSize:'10',
+    avatar:'mp',
+    lang:'zh-cn',
+    highlight:'true'
+  })
+  </script>
 
 
 
