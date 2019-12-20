@@ -317,7 +317,7 @@
         
           
   
-  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/js/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>js</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E6%8B%B7%E8%B4%9D/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>拷贝</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E5%B0%8F%E6%8A%80%E5%B7%A7/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>小技巧</p></a></div>
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E6%8B%B7%E8%B4%9D/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>拷贝</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/js/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>js</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E5%B0%8F%E6%8A%80%E5%B7%A7/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>小技巧</p></a></div>
 
 
         
@@ -426,7 +426,7 @@
                           
                               
                               <h6 class="tags">
-                                  <a class="tag" href="/tags/react/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> react</a> <a class="tag" href="/tags/js/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> js</a> <a class="tag" href="/tags/html2canvas/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> html2canvas</a>
+                                  <a class="tag" href="/tags/js/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> js</a> <a class="tag" href="/tags/react/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> react</a> <a class="tag" href="/tags/html2canvas/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> html2canvas</a>
                               </h6>
                           
                       </span>
@@ -761,8 +761,114 @@
     
     。
   </div>
+
+  <div class="cat">
+    <div class="head_content">
+        <div class="ear_left"></div>
+        <div class="ear_right"></div>
+        <div class="head"></div>
+        <div class="brow_left"></div>
+        <div class="brow_right"></div>
+        <div class="eye_left">
+            <div id="pL" class="pupil" style="top: 16.9189px; left: 33.8913px;"></div>
+        </div>
+        <div class="eye_right">
+            <div id="pR" class="pupil" style="top: 16.9189px; left: 33.8913px;"></div>
+        </div>
+        <div class="beard_left1"></div>
+        <div class="beard_left2"></div>
+        <div class="beard_left3"></div>
+        <div class="beard_right1"></div>
+        <div class="beard_right2"></div>
+        <div class="beard_right3"></div>
+        <div class="nose"></div>
+        <div class="mouse">
+            <div class="mouse_top"></div>
+            <div class="mouse_left"></div>
+            <div class="mouse_right"></div>
+            <div class="mouse_bottom"></div>
+            <div class="mouse_bottom_show"></div>
+            <div class="miao">汪~</div>
+        </div>
+    </div>
+    <div class="body_content">
+        <div class="body"></div>
+        <div class="arm_left"></div>
+        <div class="arm_right"></div>
+        <div class="leg_left"></div>
+        <div class="leg_right"></div>
+        <div class="tail">
+            <div class="tail1"></div>
+            <div class="tail2"></div>
+            <div class="tail3"></div>
+        </div>
+    </div>
+</div>
 </footer>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 <script>setLoadingBarProgress(80);</script>
+<script >
+  $("<link>")
+.attr({
+rel: "stylesheet",
+type: "text/css",
+href: "https://blog-static.cnblogs.com/files/justSmile2/cat.css"
+})
+.appendTo("head");
+
+//获取cat所在div的位置
+var catx=document.getElementsByClassName("cat")[0].offsetLeft;
+var pL=document.getElementById("pL");
+var pR=document.getElementById("pR");
+var r=17;
+
+document.onmousemove=function(ev) {
+    var e = ev || event;
+    var m=[];
+    m.x=e.clientX-catx;  //鼠标坐标能落在左边等位置
+    m.y=e.clientY-170;   //head_content、head、eye离上方的距离，使鼠标能落在上方区域
+    var s=[];
+    s.x=pL.offsetLeft;
+    s.y=pL.offsetTop;
+    var mosx = Math.abs(m.x - s.x);
+    var mosy = Math.abs(m.y - s.y);
+    var angle = Math.atan(mosy / mosx);
+    var cx = 0, cy = 0;
+    if (m.x >= s.x && m.y <= s.y) {
+        cx = Math.cos(angle) * r;
+        cy = Math.sin(angle) * -r;
+//            console.log("右下");
+    }
+    if (m.x < s.x && m.y < s.y) {
+        cx = Math.cos(angle) * -r;
+        cy = Math.sin(angle) * -r;
+//            console.log("左下");
+    }
+    if (m.x < s.x && m.y > s.y) {
+        cx = Math.cos(angle) * -r;
+        cy = Math.sin(angle) * r;
+//            console.log("左上");
+    }
+    if (m.x > s.x && m.y > s.y) {
+        cx = Math.cos(angle) * r;
+        cy = Math.sin(angle) * r;
+//            console.log("右上");
+    }
+
+    if((m.x+catx)>=catx && (m.x+catx)<=(catx+345) && (m.y+170)>=100 && (m.y+170)<=360){
+        pL.style.top =15+'px';
+        pR.style.top =15+'px';
+        pL.style.left =18+'px';
+        pR.style.left =18+'px';
+    }else{
+        pL.style.top = 15+ cy + 'px';
+        pR.style.top = 15+ cy + 'px';
+        pL.style.left =17+cx + 'px';
+        pR.style.left =17+cx + 'px';
+    }
+}
+
+</script>
 
 
       <script>setLoadingBarProgress(60);</script>
