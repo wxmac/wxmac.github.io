@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   
-  <title>四、react &amp; html2canvas 生成图片下载实践 | 随缘笔记</title>
+  <title>四、react &amp; html2canvas 生成图片下载实践 | wxmac的前端笔记</title>
   
   <meta name="keywords" content="wxmac 个人博客">
   
@@ -29,7 +29,7 @@
   
 
   
-    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/style.css" type="text/css">
   
 
   <script>
@@ -76,7 +76,7 @@
 		<div class="nav-main container container--flex">
       <a class="logo flat-box" href='/' >
         
-          随缘笔记
+          wxmac的前端笔记
         
       </a>
 			<div class='menu navgation'>
@@ -119,18 +119,18 @@
 			
 			<ul class='switcher h-list'>
 				
-					<li class='s-search'><a class="fas fa-search fa-fw" href='javascript:void(0)' target="_blank" rel="noopener"></a></li>
+					<li class='s-search'><a class="fas fa-search fa-fw" href='javascript:void(0)'></a></li>
 				
-				<li class='s-menu'><a class="fas fa-bars fa-fw" href='javascript:void(0)' target="_blank" rel="noopener"></a></li>
+				<li class='s-menu'><a class="fas fa-bars fa-fw" href='javascript:void(0)'></a></li>
 			</ul>
 		</div>
 
 		<div class='nav-sub container container--flex'>
 			<a class="logo flat-box"></a>
 			<ul class='switcher h-list'>
-				<li class='s-comment'><a class="flat-btn fas fa-comments fa-fw" href='javascript:void(0)' target="_blank" rel="noopener"></a></li>
+				<li class='s-comment'><a class="flat-btn fas fa-comments fa-fw" href='javascript:void(0)'></a></li>
         
-          <li class='s-toc'><a class="flat-btn fas fa-list fa-fw" href='javascript:void(0)' target="_blank" rel="noopener"></a></li>
+          <li class='s-toc'><a class="flat-btn fas fa-list fa-fw" href='javascript:void(0)'></a></li>
         
 			</ul>
 		</div>
@@ -189,7 +189,7 @@
         
   
     <h1 class="title">
-      <a href="/2019/12/16/react%20&%20html2canvas%E5%AE%9E%E8%B7%B5/">
+      <a href="/2019/12/16/react & html2canvas实践/">
         四、react & html2canvas 生成图片下载实践
       </a>
     </h1>
@@ -205,7 +205,7 @@
             
   <div class='new-meta-item author'>
     
-      <a href="/https:/wxmac.github.io" rel="nofollow">
+      <a href="https://wxmac.github.io" rel="nofollow">
         
           <i class="fas fa-user" aria-hidden="true"></i>
         
@@ -272,15 +272,15 @@
     <section class="article typo">
       <div class="article-entry" itemprop="articleBody">
         <h2 id="html2canvas的选择"><a href="#html2canvas的选择" class="headerlink" title="html2canvas的选择"></a>html2canvas的选择</h2><p>现在一般生成图片有前端处理和后端处理两种方式，后端生成的方案不需要前端出力，只需要拿路径渲染，但是会出现数据延时，模板更换困难等问题，出于灵活性和减少后端工作量考虑，我们采取 html2canvas  绘制页面。</p>
-<p> <a href="https://www.npmjs.com/package/html2canvas" target="_blank" rel="noopener">html2canvas npm</a><br> <a href="http://html2canvas.hertzen.com/" target="_blank" rel="noopener">html2canvas 介绍</a></p>
+<p> <a href="https://www.npmjs.com/package/html2canvas" target="_blank" rel="external">html2canvas npm</a><br> <a href="http://html2canvas.hertzen.com/" target="_blank" rel="external">html2canvas 介绍</a></p>
  <a id="more"></a>
 
-<h3 id="1-在react中的使用"><a href="#1-在react中的使用" class="headerlink" title="1.在react中的使用"></a>1.在react中的使用</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="comment">#安装</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">npm install --save html2canvas</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">or</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">yarn add html2canvas</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"><span class="comment">#引入</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">import html2canvas from <span class="string">'html2canvas'</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line"><span class="comment">#使用</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">html2canvas(document.body).<span class="keyword">then</span>(<span class="keyword">function</span>(canvas) &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">    document.body.appendChild(canvas);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">&#125;);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line"><span class="comment">#如果想生成一部分页面的话，html2canvas可以换成 this.refs.demo</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line"><span class="comment">#&lt;div ref="demo"&gt;&lt;/div&gt;</span></span></pre></td></tr></table></figure>
+<h3 id="1-在react中的使用"><a href="#1-在react中的使用" class="headerlink" title="1.在react中的使用"></a>1.在react中的使用</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//安装</span></span><br><span class="line">npm install --save html2canvas</span><br><span class="line">or</span><br><span class="line">yarn add html2canvas</span><br><span class="line"></span><br><span class="line"><span class="comment">//引入</span></span><br><span class="line"><span class="keyword">import</span> html2canvas <span class="keyword">from</span> <span class="string">'html2canvas'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//使用</span></span><br><span class="line">html2canvas(<span class="built_in">document</span>.body).then(<span class="function"><span class="keyword">function</span>(<span class="params">canvas</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">document</span>.body.appendChild(canvas);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">//如果想生成一部分页面的话，html2canvas可以换成 this.refs.demo</span></span><br><span class="line"><span class="comment">//&lt;div ref="demo"&gt;&lt;/div&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p>上面就会把页面简单的绘制出来。</p>
-<h2 id="2-canvas-下载"><a href="#2-canvas-下载" class="headerlink" title="2.canvas 下载"></a>2.canvas 下载</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">html2canvas(this.refs.demo).<span class="keyword">then</span>(<span class="keyword">function</span>(canvas) &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">    const imgUrl = canvas.toDataURL(<span class="string">"image/png"</span>); <span class="comment"># 获取图片的url</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">    const elA = document.createElement(<span class="string">"a"</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">    elA.download = +new Date() + <span class="string">".png"</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">    elA.href = imgUrl ;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">    elA.click();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">    elA.remove();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">&#125;);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line"><span class="comment">#微信中不能下载图片，可以展示图片并提示用户长按保存图片</span></span></pre></td></tr></table></figure>
+<h2 id="2-canvas-下载"><a href="#2-canvas-下载" class="headerlink" title="2.canvas 下载"></a>2.canvas 下载</h2><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">html2canvas(this.refs.demo).then(function(canvas) &#123;</span><br><span class="line">    const imgUrl = canvas.toDataURL("image/png"); # 获取图片的url</span><br><span class="line">    const elA = document.createElement("a");</span><br><span class="line">    elA.download = +new Date() + ".png";</span><br><span class="line">    elA.href = imgUrl ;</span><br><span class="line">    elA.click();</span><br><span class="line">    elA.remove();</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">//微信中不能下载图片，可以展示图片并提示用户长按保存图片</span><br></pre></td></tr></table></figure>
 
-<h2 id="3-参考"><a href="#3-参考" class="headerlink" title="3.参考"></a>3.参考</h2><p> <a href="https://juejin.im/post/5df2e8ab6fb9a0163770816d" target="_blank" rel="noopener">参考1</a></p>
+<h2 id="3-参考"><a href="#3-参考" class="headerlink" title="3.参考"></a>3.参考</h2><p> <a href="https://juejin.im/post/5df2e8ab6fb9a0163770816d" target="_blank" rel="external">参考1</a></p>
 
       </div>
       
@@ -293,10 +293,10 @@
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2019-12-19T10:16:33+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2019-12-24T15:56:57+08:00">
   <a class='notlink'>
     <i class="fas fa-clock" aria-hidden="true"></i>
-    <p>更新于 2019年12月19日</p>
+    <p>更新于 2019年12月24日</p>
   </a>
 </div>
 
@@ -305,7 +305,7 @@
         
           
   
-  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/react/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>react</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/js/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>js</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/html2canvas/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>html2canvas</p></a></div>
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/html2canvas/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>html2canvas</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/js/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>js</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/react/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>react</p></a></div>
 
 
         
@@ -318,7 +318,7 @@
       
         <a class="-mob-share-qq" title="QQ好友" rel="external nofollow noopener noreferrer"
           
-          href="http://connect.qq.com/widget/shareqq/index.html?url=https://wxmac.github.io/2019/12/16/react%20&%20html2canvas%E5%AE%9E%E8%B7%B5/&title=四、react & html2canvas 生成图片下载实践 | 随缘笔记&summary=html2canvas的选择现在一般生成图片有前端处理和后端处理两种方式，后端生成的方案不需要前端出力，只需要拿路径渲染，但是会出现数据延时，模板更换困难等问题，出于灵活性和减少后端工作量考虑，我们采取 html2canvas  绘制页面。
+          href="http://connect.qq.com/widget/shareqq/index.html?url=https://wxmac.github.io/2019/12/16/react & html2canvas实践/&title=四、react & html2canvas 生成图片下载实践 | wxmac的前端笔记&summary=html2canvas的选择现在一般生成图片有前端处理和后端处理两种方式，后端生成的方案不需要前端出力，只需要拿路径渲染，但是会出现数据延时，模板更换困难等问题，出于灵活性和减少后端工作量考虑，我们采取 html2canvas  绘制页面。
  html2canvas npm html2canvas 介绍"
           
           >
@@ -331,7 +331,7 @@
       
         <a class="-mob-share-qzone" title="QQ空间" rel="external nofollow noopener noreferrer"
           
-          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://wxmac.github.io/2019/12/16/react%20&%20html2canvas%E5%AE%9E%E8%B7%B5/&title=四、react & html2canvas 生成图片下载实践 | 随缘笔记&summary=html2canvas的选择现在一般生成图片有前端处理和后端处理两种方式，后端生成的方案不需要前端出力，只需要拿路径渲染，但是会出现数据延时，模板更换困难等问题，出于灵活性和减少后端工作量考虑，我们采取 html2canvas  绘制页面。
+          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://wxmac.github.io/2019/12/16/react & html2canvas实践/&title=四、react & html2canvas 生成图片下载实践 | wxmac的前端笔记&summary=html2canvas的选择现在一般生成图片有前端处理和后端处理两种方式，后端生成的方案不需要前端出力，只需要拿路径渲染，但是会出现数据延时，模板更换困难等问题，出于灵活性和减少后端工作量考虑，我们采取 html2canvas  绘制页面。
  html2canvas npm html2canvas 介绍"
           
           >
@@ -344,7 +344,7 @@
       
         <a class="-mob-share-weibo" title="微博" rel="external nofollow noopener noreferrer"
           
-          href="http://service.weibo.com/share/share.php?url=https://wxmac.github.io/2019/12/16/react%20&%20html2canvas%E5%AE%9E%E8%B7%B5/&title=四、react & html2canvas 生成图片下载实践 | 随缘笔记&summary=html2canvas的选择现在一般生成图片有前端处理和后端处理两种方式，后端生成的方案不需要前端出力，只需要拿路径渲染，但是会出现数据延时，模板更换困难等问题，出于灵活性和减少后端工作量考虑，我们采取 html2canvas  绘制页面。
+          href="http://service.weibo.com/share/share.php?url=https://wxmac.github.io/2019/12/16/react & html2canvas实践/&title=四、react & html2canvas 生成图片下载实践 | wxmac的前端笔记&summary=html2canvas的选择现在一般生成图片有前端处理和后端处理两种方式，后端生成的方案不需要前端出力，只需要拿路径渲染，但是会出现数据延时，模板更换困难等问题，出于灵活性和减少后端工作量考虑，我们采取 html2canvas  绘制页面。
  html2canvas npm html2canvas 介绍"
           
           >
@@ -373,7 +373,7 @@
                       <span class="art-item-left">
                           <h6><i class="fas fa-chevron-left" aria-hidden="true"></i>&nbsp;上一页</h6>
                           <h4>
-                              <a href="/2019/12/18/js%20%E6%B7%B1%E6%8B%B7%E8%B4%9D%E4%B8%8E%E6%B5%85%E6%8B%B7%E8%B4%9D/" rel="prev" title="五、js 深拷贝与浅拷贝">
+                              <a href="/2019/12/18/js 深拷贝与浅拷贝/" rel="prev" title="五、js 深拷贝与浅拷贝">
                                 
                                     五、js 深拷贝与浅拷贝
                                 
@@ -382,7 +382,7 @@
                           
                               
                               <h6 class="tags">
-                                  <a class="tag" href="/tags/js/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> js</a> <a class="tag" href="/tags/%E5%B0%8F%E6%8A%80%E5%B7%A7/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> 小技巧</a> <a class="tag" href="/tags/%E6%8B%B7%E8%B4%9D/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> 拷贝</a>
+                                  <a class="tag" href="/tags/js/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> js</a> <a class="tag" href="/tags/小技巧/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> 小技巧</a> <a class="tag" href="/tags/拷贝/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> 拷贝</a>
                               </h6>
                           
                       </span>
@@ -393,7 +393,7 @@
                       <span class="art-item-right" aria-hidden="true">
                           <h6>下一页&nbsp;<i class="fas fa-chevron-right" aria-hidden="true"></i></h6>
                           <h4>
-                              <a href="/2019/12/12/%E4%B8%80%E4%BA%9B%E8%87%AA%E5%B7%B1%E5%9C%A8%E4%BD%BF%E7%94%A8css%E3%80%81js%E6%8A%80%E5%B7%A7/" rel="prev" title="三、一些自己在使用css、js技巧">
+                              <a href="/2019/12/12/一些自己在使用css、js技巧/" rel="prev" title="三、一些自己在使用css、js技巧">
                                   
                                       三、一些自己在使用css、js技巧
                                   
@@ -402,7 +402,7 @@
                           
                               
                               <h6 class="tags">
-                                  <a class="tag" href="/tags/js/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> js</a> <a class="tag" href="/tags/css/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> css</a> <a class="tag" href="/tags/%E5%B0%8F%E6%8A%80%E5%B7%A7/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> 小技巧</a>
+                                  <a class="tag" href="/tags/css/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> css</a> <a class="tag" href="/tags/js/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> js</a> <a class="tag" href="/tags/小技巧/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> 小技巧</a>
                               </h6>
                           
                       </span>
@@ -475,7 +475,7 @@
         
         
         
-          <p><span id="jinrishici-sentence">随缘笔记</span></p>
+          <p><span id="jinrishici-sentence">wxmac的前端笔记</span></p>
           <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
         
       </div>
@@ -544,7 +544,7 @@
 <header class='pure'>
   <div><i class="fas fa-list fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;本文目录</div>
   
-    <!-- <div class='wrapper'><a class="s-toc rightBtn" rel="external nofollow noopener noreferrer noopener" href="javascript:void(0)" target="_blank"><i class="fas fa-thumbtack fa-fw"></i></a></div> -->
+    <!-- <div class='wrapper'><a class="s-toc rightBtn" rel="external nofollow noopener noreferrer" href="javascript:void(0)"><i class="fas fa-thumbtack fa-fw"></i></a></div> -->
   
 </header>
 
@@ -662,7 +662,7 @@
 </header>
 
     <div class='content pure'>
-      <a href="/tags/css/" style="font-size: 14px; color: #999">css</a> <a href="/tags/flat/" style="font-size: 14px; color: #999">flat</a> <a href="/tags/html2canvas/" style="font-size: 14px; color: #999">html2canvas</a> <a href="/tags/js/" style="font-size: 24px; color: #555">js</a> <a href="/tags/pushState/" style="font-size: 14px; color: #999">pushState</a> <a href="/tags/react/" style="font-size: 19px; color: #777">react</a> <a href="/tags/reduce/" style="font-size: 14px; color: #999">reduce</a> <a href="/tags/url/" style="font-size: 14px; color: #999">url</a> <a href="/tags/vscode/" style="font-size: 14px; color: #999">vscode</a> <a href="/tags/webpack/" style="font-size: 14px; color: #999">webpack</a> <a href="/tags/%E5%87%BD%E6%95%B0/" style="font-size: 14px; color: #999">函数</a> <a href="/tags/%E5%B0%8F%E6%8A%80%E5%B7%A7/" style="font-size: 19px; color: #777">小技巧</a> <a href="/tags/%E6%89%81%E5%B9%B3%E5%8C%96%E6%95%B0%E7%BB%84/" style="font-size: 14px; color: #999">扁平化数组</a> <a href="/tags/%E6%8B%B7%E8%B4%9D/" style="font-size: 14px; color: #999">拷贝</a> <a href="/tags/%E6%95%B0%E7%BB%84/" style="font-size: 14px; color: #999">数组</a> <a href="/tags/%E8%8A%82%E6%B5%81-%E9%98%B2%E6%8A%96/" style="font-size: 14px; color: #999">节流/防抖</a>
+      <a href="/tags/css/" style="font-size: 14px; color: #999">css</a><a href="/tags/flat/" style="font-size: 14px; color: #999">flat</a><a href="/tags/html2canvas/" style="font-size: 14px; color: #999">html2canvas</a><a href="/tags/js/" style="font-size: 24px; color: #555">js</a><a href="/tags/pushState/" style="font-size: 14px; color: #999">pushState</a><a href="/tags/react/" style="font-size: 19px; color: #777">react</a><a href="/tags/reduce/" style="font-size: 14px; color: #999">reduce</a><a href="/tags/url/" style="font-size: 14px; color: #999">url</a><a href="/tags/vscode/" style="font-size: 14px; color: #999">vscode</a><a href="/tags/webpack/" style="font-size: 14px; color: #999">webpack</a><a href="/tags/函数/" style="font-size: 14px; color: #999">函数</a><a href="/tags/小技巧/" style="font-size: 19px; color: #777">小技巧</a><a href="/tags/扁平化数组/" style="font-size: 14px; color: #999">扁平化数组</a><a href="/tags/拷贝/" style="font-size: 14px; color: #999">拷贝</a><a href="/tags/数组/" style="font-size: 14px; color: #999">数组</a><a href="/tags/节流-防抖/" style="font-size: 14px; color: #999">节流/防抖</a>
     </div>
   </section>
 
@@ -851,7 +851,7 @@ document.onmousemove=function(ev) {
 
       <script>setLoadingBarProgress(60);</script>
     </div>
-    <a class="s-top fas fa-arrow-up fa-fw" href='javascript:void(0)' target="_blank" rel="noopener"></a>
+    <a class="s-top fas fa-arrow-up fa-fw" href='javascript:void(0)'></a>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
 
@@ -939,7 +939,7 @@ document.onmousemove=function(ev) {
   <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
   
     
-      <script src="/js/volantis.js"></script>
+      <script src="/js/volantis.js" type="text/javascript"></script>
     
   
   <script>
@@ -968,10 +968,10 @@ document.onmousemove=function(ev) {
 
 
 
-  <script src="/js/app.js"></script>
+  <script src="/js/app.js" type="text/javascript"></script>
 
 
-  <script src="/js/search.js"></script>
+  <script src="/js/search.js" type="text/javascript"></script>
 
 
 
@@ -998,9 +998,9 @@ document.onmousemove=function(ev) {
 
       clipboard.on('success', function(e) {
         //您可以加入成功提示
-        console.info('Action:', e.action);
-        console.info('Text:', e.text);
-        console.info('Trigger:', e.trigger);
+        // console.info('Action:', e.action);
+        // console.info('Text:', e.text);
+        // console.info('Trigger:', e.trigger);
         success_prompt(COPY_SUCCESS);
         e.clearSelection();
       });
