@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   
-  <title>八、扁平化数组 | wxmac的前端笔记</title>
+  <title>二、vsCode终端打开问题 | wxmac的前端笔记</title>
   
   <meta name="keywords" content="wxmac 个人博客">
   
@@ -189,8 +189,8 @@
         
   
     <h1 class="title">
-      <a href="/2019/12/30/扁平化数组/">
-        八、扁平化数组
+      <a href="/2019/12/09/2.vsCode终端打开问题/">
+        二、vsCode终端打开问题
       </a>
     </h1>
   
@@ -221,7 +221,7 @@
             <div class="new-meta-item date">
   <a class='notlink'>
     <i class="fas fa-calendar-alt" aria-hidden="true"></i>
-    <p>2019-12-30</p>
+    <p>2019-12-09</p>
   </a>
 </div>
 
@@ -271,18 +271,18 @@
 
     <section class="article typo">
       <div class="article-entry" itemprop="articleBody">
-        <h2 id="一：Array-prototype-flat"><a href="#一：Array-prototype-flat" class="headerlink" title="一：Array.prototype.flat()"></a>一：Array.prototype.flat()</h2><a id="more"></a>
+        <p>之前打开vscode时，报 终端进程命令”/bin/bash -l”无法启动 (退出代码: 1)；</p>
+<p><img src="/images/one.png" alt></p>
+<a id="more"></a>
 
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> arr = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,[<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,[<span class="number">7</span>,<span class="number">8</span>]],<span class="number">9</span>,<span class="number">10</span>];</span><br><span class="line"><span class="comment">// 不传参数时，默认“拉平”一层</span></span><br><span class="line">arr.flat();</span><br><span class="line"><span class="comment">// // [1, 2, 3, 4, 5, 6, [7,8], 9, 10]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 传入一个整数参数，整数即“拉平”的层数</span></span><br><span class="line">arr.flat(<span class="number">2</span>);</span><br><span class="line"><span class="comment">// // [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Infinity 关键字作为参数时，无论多少层嵌套，都会转为一维数组</span></span><br><span class="line"><span class="comment">// Infinity(无穷大)在 JS 中是一个特殊的数字，它的特性是：它比任何有限的数字都大。</span></span><br><span class="line">arr.flat(<span class="literal">Infinity</span>);</span><br><span class="line"> <span class="comment">// [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 传入 &lt;=0 的整数将返回原数组，不“拉平”</span></span><br><span class="line">arr.flat(<span class="number">0</span>);</span><br><span class="line">arr.flat(-<span class="number">10</span>);</span><br><span class="line"> <span class="comment">// [1,2,3,[4,5,6,[7,8]],9,10]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//如果原数组有空位，flat()方法会过滤空位</span></span><br><span class="line">[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,,].flat()</span><br><span class="line"><span class="comment">// [1, 2, 3]</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="二：其他方法实现"><a href="#二：其他方法实现" class="headerlink" title="二：其他方法实现"></a>二：其他方法实现</h2><h3 id="1-reduce"><a href="#1-reduce" class="headerlink" title="1.reduce"></a>1.reduce</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> flat = (arr) =&gt; &#123;</span><br><span class="line">    <span class="keyword">return</span> arr.reduce((prv,cur) =&gt; &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">Array</span>.isArray(cur) ? prv.concat(flat(cur)) : prv.concat(cur) </span><br><span class="line">    &#125;,[])</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="2-使用栈的思想实现-flat-函数"><a href="#2-使用栈的思想实现-flat-函数" class="headerlink" title="2.使用栈的思想实现 flat 函数"></a>2.使用栈的思想实现 flat 函数</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">const flat = (arr) =&gt; &#123;</span><br><span class="line">    const stack = [...arr];</span><br><span class="line">    const res = [];</span><br><span class="line">    <span class="keyword">while</span>( stack.length )&#123;</span><br><span class="line">        const next = stack.pop();</span><br><span class="line">        <span class="keyword">if</span>(Array.isArray(next))&#123;</span><br><span class="line">            stack.push(...next);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            res.push(next)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">return</span> res.reverse();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="3-通过传入整数参数控制“拉平”层数"><a href="#3-通过传入整数参数控制“拉平”层数" class="headerlink" title="3.通过传入整数参数控制“拉平”层数"></a>3.通过传入整数参数控制“拉平”层数</h3> <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">const flat = (arr, num = <span class="number">1</span>) =&gt; &#123;</span><br><span class="line">    <span class="built_in">return</span> num &gt; <span class="number">0</span> ?</span><br><span class="line">        arr.reduce(</span><br><span class="line">        (pre, cur) =&gt; pre.concat(Array.isArray(cur) ? flat(cur, num - <span class="number">1</span>) : cur),[])</span><br><span class="line">    :</span><br><span class="line">    arr.slice()</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">#const arr = [1,2,3,[1,2,3,4, [2,3,4]]];</span></span><br><span class="line"><span class="comment">#flat(arr,Infinity)</span></span><br></pre></td></tr></table></figure>
-
-<p><a href="https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Global_Objects/Array/flat" target="_blank" rel="external">MDN参考链接</a></p>
-<p><a href="https://juejin.im/post/5dff18a4e51d455804256d31" target="_blank" rel="external">其他参考</a></p>
+<p>其他报错也可以参考一下：</p>
+<h2 id="有以下几个解决思路"><a href="#有以下几个解决思路" class="headerlink" title="有以下几个解决思路"></a>有以下几个解决思路</h2><p>1.重装vscode；（我是这个方法解决的）</p>
+<p>2.因为 VSCode 工作区的文件夹有变更（删除、移动等），导致 VSCode 打开终端时，找不到此文件夹而报错；</p>
+<p>3.配置下 git 路径不对，重新配置一下git；在设置里修改 “terminal.integrated.shell.windows”: “git路径base.exe”；</p>
+<p>4.用管理员的权限来执行vscode，要不然它没有权限使用cmd;右击快捷键点击属性然后选择以管理员的身份运行</p>
+<ol start="5">
+<li><a href="https://github.com/Microsoft/vscode/issues/17450" target="_blank" rel="external">github解决思路</a></li>
+</ol>
 
       </div>
       
@@ -295,10 +295,10 @@
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2019-12-24T16:12:47+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2019-12-26T11:01:31+08:00">
   <a class='notlink'>
     <i class="fas fa-clock" aria-hidden="true"></i>
-    <p>更新于 2019年12月24日</p>
+    <p>更新于 2019年12月26日</p>
   </a>
 </div>
 
@@ -307,7 +307,7 @@
         
           
   
-  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/flat/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>flat</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/扁平化数组/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>扁平化数组</p></a></div>
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/vscode/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>vscode</p></a></div>
 
 
         
@@ -320,7 +320,7 @@
       
         <a class="-mob-share-qq" title="QQ好友" rel="external nofollow noopener noreferrer"
           
-          href="http://connect.qq.com/widget/shareqq/index.html?url=https://wxmac.github.io/2019/12/30/扁平化数组/&title=八、扁平化数组 | wxmac的前端笔记&summary=一：Array.prototype.flat()"
+          href="http://connect.qq.com/widget/shareqq/index.html?url=https://wxmac.github.io/2019/12/09/2.vsCode终端打开问题/&title=二、vsCode终端打开问题 | wxmac的前端笔记&summary=之前打开vscode时，报 终端进程命令”/bin/bash -l”无法启动 (退出代码: 1)；"
           
           >
           
@@ -332,7 +332,7 @@
       
         <a class="-mob-share-qzone" title="QQ空间" rel="external nofollow noopener noreferrer"
           
-          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://wxmac.github.io/2019/12/30/扁平化数组/&title=八、扁平化数组 | wxmac的前端笔记&summary=一：Array.prototype.flat()"
+          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://wxmac.github.io/2019/12/09/2.vsCode终端打开问题/&title=二、vsCode终端打开问题 | wxmac的前端笔记&summary=之前打开vscode时，报 终端进程命令”/bin/bash -l”无法启动 (退出代码: 1)；"
           
           >
           
@@ -344,7 +344,7 @@
       
         <a class="-mob-share-weibo" title="微博" rel="external nofollow noopener noreferrer"
           
-          href="http://service.weibo.com/share/share.php?url=https://wxmac.github.io/2019/12/30/扁平化数组/&title=八、扁平化数组 | wxmac的前端笔记&summary=一：Array.prototype.flat()"
+          href="http://service.weibo.com/share/share.php?url=https://wxmac.github.io/2019/12/09/2.vsCode终端打开问题/&title=二、vsCode终端打开问题 | wxmac的前端笔记&summary=之前打开vscode时，报 终端进程命令”/bin/bash -l”无法启动 (退出代码: 1)；"
           
           >
           
@@ -372,16 +372,16 @@
                       <span class="art-item-left">
                           <h6><i class="fas fa-chevron-left" aria-hidden="true"></i>&nbsp;上一页</h6>
                           <h4>
-                              <a href="/2020/01/01/属性合并/" rel="prev" title="九、将具有相同属性的对象合并到一个数组中">
+                              <a href="/2019/12/12/3.一些自己在使用css、js技巧/" rel="prev" title="三、一些自己在使用css、js技巧">
                                 
-                                    九、将具有相同属性的对象合并到一个数组中
+                                    三、一些自己在使用css、js技巧
                                 
                               </a>
                           </h4>
                           
                               
                               <h6 class="tags">
-                                  <a class="tag" href="/tags/reduce/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> reduce</a> <a class="tag" href="/tags/数组/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> 数组</a>
+                                  <a class="tag" href="/tags/css/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> css</a> <a class="tag" href="/tags/js/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> js</a> <a class="tag" href="/tags/小技巧/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> 小技巧</a>
                               </h6>
                           
                       </span>
@@ -392,16 +392,16 @@
                       <span class="art-item-right" aria-hidden="true">
                           <h6>下一页&nbsp;<i class="fas fa-chevron-right" aria-hidden="true"></i></h6>
                           <h4>
-                              <a href="/2019/12/25/不刷新修改url链接/" rel="prev" title="七、不刷新修改url链接">
+                              <a href="/2019/12/06/1.react 多页面打包/" rel="prev" title="一、React 多页面打包">
                                   
-                                      七、不刷新修改url链接
+                                      一、React 多页面打包
                                   
                               </a>
                           </h4>
                           
                               
                               <h6 class="tags">
-                                  <a class="tag" href="/tags/pushState/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> pushState</a> <a class="tag" href="/tags/url/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> url</a>
+                                  <a class="tag" href="/tags/js/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> js</a> <a class="tag" href="/tags/react/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> react</a> <a class="tag" href="/tags/webpack/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> webpack</a>
                               </h6>
                           
                       </span>
@@ -445,7 +445,7 @@
 
   <script>
     window.subData = {
-      title: '八、扁平化数组',
+      title: '二、vsCode终端打开问题',
       tools: true
     }
   </script>
@@ -548,7 +548,7 @@
 </header>
 
     <div class='content pure'>
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一：Array-prototype-flat"><span class="toc-text">一：Array.prototype.flat()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二：其他方法实现"><span class="toc-text">二：其他方法实现</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-reduce"><span class="toc-text">1.reduce</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-使用栈的思想实现-flat-函数"><span class="toc-text">2.使用栈的思想实现 flat 函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-通过传入整数参数控制“拉平”层数"><span class="toc-text">3.通过传入整数参数控制“拉平”层数</span></a></li></ol></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#有以下几个解决思路"><span class="toc-text">有以下几个解决思路</span></a></li></ol>
     </div>
   </section>
 
@@ -661,7 +661,7 @@
 </header>
 
     <div class='content pure'>
-      <a href="/tags/css/" style="font-size: 14px; color: #999">css</a><a href="/tags/flat/" style="font-size: 14px; color: #999">flat</a><a href="/tags/html2canvas/" style="font-size: 14px; color: #999">html2canvas</a><a href="/tags/js/" style="font-size: 24px; color: #555">js</a><a href="/tags/pushState/" style="font-size: 14px; color: #999">pushState</a><a href="/tags/react/" style="font-size: 19px; color: #777">react</a><a href="/tags/reduce/" style="font-size: 14px; color: #999">reduce</a><a href="/tags/url/" style="font-size: 14px; color: #999">url</a><a href="/tags/vscode/" style="font-size: 14px; color: #999">vscode</a><a href="/tags/webpack/" style="font-size: 14px; color: #999">webpack</a><a href="/tags/函数/" style="font-size: 14px; color: #999">函数</a><a href="/tags/小技巧/" style="font-size: 19px; color: #777">小技巧</a><a href="/tags/扁平化数组/" style="font-size: 14px; color: #999">扁平化数组</a><a href="/tags/拷贝/" style="font-size: 14px; color: #999">拷贝</a><a href="/tags/数组/" style="font-size: 14px; color: #999">数组</a><a href="/tags/节流-防抖/" style="font-size: 14px; color: #999">节流/防抖</a>
+      <a href="/tags/canvas/" style="font-size: 14px; color: #999">canvas</a><a href="/tags/css/" style="font-size: 14px; color: #999">css</a><a href="/tags/flat/" style="font-size: 14px; color: #999">flat</a><a href="/tags/html2canvas/" style="font-size: 14px; color: #999">html2canvas</a><a href="/tags/js/" style="font-size: 24px; color: #555">js</a><a href="/tags/lottery/" style="font-size: 14px; color: #999">lottery</a><a href="/tags/pushState/" style="font-size: 14px; color: #999">pushState</a><a href="/tags/react/" style="font-size: 19px; color: #777">react</a><a href="/tags/reduce/" style="font-size: 14px; color: #999">reduce</a><a href="/tags/url/" style="font-size: 14px; color: #999">url</a><a href="/tags/vscode/" style="font-size: 14px; color: #999">vscode</a><a href="/tags/webpack/" style="font-size: 14px; color: #999">webpack</a><a href="/tags/函数/" style="font-size: 14px; color: #999">函数</a><a href="/tags/小技巧/" style="font-size: 19px; color: #777">小技巧</a><a href="/tags/小挂件/" style="font-size: 14px; color: #999">小挂件</a><a href="/tags/扁平化数组/" style="font-size: 14px; color: #999">扁平化数组</a><a href="/tags/抽奖/" style="font-size: 14px; color: #999">抽奖</a><a href="/tags/拷贝/" style="font-size: 14px; color: #999">拷贝</a><a href="/tags/数组/" style="font-size: 14px; color: #999">数组</a><a href="/tags/节流-防抖/" style="font-size: 14px; color: #999">节流/防抖</a>
     </div>
   </section>
 

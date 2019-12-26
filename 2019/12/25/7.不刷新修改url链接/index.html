@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   
-  <title>六、函数节流和防抖 | wxmac的前端笔记</title>
+  <title>七、不刷新修改url链接 | wxmac的前端笔记</title>
   
   <meta name="keywords" content="wxmac 个人博客">
   
@@ -189,8 +189,8 @@
         
   
     <h1 class="title">
-      <a href="/2019/12/23/函数节流和防抖/">
-        六、函数节流和防抖
+      <a href="/2019/12/25/7.不刷新修改url链接/">
+        七、不刷新修改url链接
       </a>
     </h1>
   
@@ -221,7 +221,7 @@
             <div class="new-meta-item date">
   <a class='notlink'>
     <i class="fas fa-calendar-alt" aria-hidden="true"></i>
-    <p>2019-12-23</p>
+    <p>2019-12-25</p>
   </a>
 </div>
 
@@ -271,18 +271,22 @@
 
     <section class="article typo">
       <div class="article-entry" itemprop="articleBody">
-        <h2 id="1-节流"><a href="#1-节流" class="headerlink" title="1.节流"></a>1.节流</h2><p>核心思想: 如果在定时器的时间范围内再次触发，则不予理睬，等当前定时器完成，才能启动下一个定时器任务。</p>
+        <p>有一个这样的需求，点击分页，不刷新页面。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//我们的page参数是记录在url里的： https://xxx.html?page=1</span></span><br><span class="line"><span class="comment">//如果采取硬拼接的方式，无疑会刷新页面</span></span><br><span class="line"><span class="built_in">window</span>.location.href = <span class="built_in">window</span>.location.pathname + <span class="string">`?page=<span class="subst">$&#123;page&#125;</span>`</span></span><br></pre></td></tr></table></figure>
+
 <a id="more"></a>
 
- <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> throttle = (fn, delay) =&gt; &#123;</span><br><span class="line">    <span class="keyword">let</span> flag = <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">return</span> (...args) =&gt; &#123;</span><br><span class="line">        <span class="keyword">let</span> context = <span class="keyword">this</span>;</span><br><span class="line">        <span class="keyword">if</span> (!flag) <span class="keyword">return</span>;</span><br><span class="line">        flag = <span class="literal">false</span>;</span><br><span class="line">        setTimeout(() =&gt; &#123;</span><br><span class="line">            fn.apply(context, args);</span><br><span class="line">            flag = <span class="literal">true</span>;</span><br><span class="line">        &#125;, delay);</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="1-pushState-方法"><a href="#1-pushState-方法" class="headerlink" title="1.pushState() 方法"></a>1.pushState() 方法</h2><p><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/History_API" target="_blank" rel="external">MDN链接</a><br>一个状态对象, 一个标题 (目前被忽略), 和 (可选的) 一个URL. 让我们来解释下这三个参数详细内容：：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">- 状态对象 — 状态对象state是一个JavaScript对象，通过pushState () 创建新的历史记录条目。无论什么时候用户导航到新的状态，popstate事件就会被触发，且该事件的state属性包含该历史记录条目状态对象的副本</span><br><span class="line">- 标题 — Firefox 目前忽略这个参数，但未来可能会用到。在此处传一个空字符串应该可以安全的防范未来这个方法的更改。或者，你可以为跳转的state传递一个短标题</span><br><span class="line">- URL — 该参数定义了新的历史URL记录。注意，调用 pushState() 后浏览器并不会立即加载这个URL，但可能会在稍后某些情况下加载这个URL，比如在用户重新打开浏览器时。新URL不必须为绝对路径。如果新URL是相对路径，那么它将被作为相对于当前URL处理。新URL必须与当前URL同源，否则 pushState() 会抛出一个异常。该参数是可选的，缺省为当前URL</span><br></pre></td></tr></table></figure>
 
-<h2 id="2-防抖"><a href="#2-防抖" class="headerlink" title="2.防抖"></a>2.防抖</h2><p> 核心思想: 每次事件触发都删除原来的定时器，建立新的定时器，反复触发函数，那么从最后一次触发开始计时。</p>
- <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> debounce = (fn, delay) =&gt; &#123;</span><br><span class="line">    <span class="keyword">let</span> timer = <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">return</span>  (...args) =&gt; &#123;</span><br><span class="line">        <span class="keyword">let</span> context = <span class="keyword">this</span>;</span><br><span class="line">        <span class="keyword">if</span>(timer)&#123;  </span><br><span class="line">            clearTimeout(timer)</span><br><span class="line">        &#125;;</span><br><span class="line">        timer = setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">            fn.apply(context, args);</span><br><span class="line">        &#125;, delay);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="2-pushState使用"><a href="#2-pushState使用" class="headerlink" title="2.pushState使用"></a>2.pushState使用</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> pageSize = <span class="number">2</span>;</span><br><span class="line"><span class="keyword">const</span> url = <span class="string">`<span class="subst">$&#123;window.location.pathname&#125;</span>?page=<span class="subst">$&#123;pageSize&#125;</span>`</span></span><br><span class="line"><span class="built_in">window</span>.history.pushState(&#123;url: url&#125;, <span class="string">''</span>, url);</span><br></pre></td></tr></table></figure>
 
-<h2 id="3-合并"><a href="#3-合并" class="headerlink" title="3.合并"></a>3.合并</h2><p> 现在我们可以把防抖和节流放到一起，有时候触发的太频繁会导致一次响应都没有，我们希望到了固定的时间必须给用户一个响应。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span>  throttle = (fn, delay) =&gt; &#123;</span><br><span class="line">    <span class="keyword">let</span> flag = <span class="literal">true</span>, timer = <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params">...args</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">let</span> context = <span class="keyword">this</span>;</span><br><span class="line">        <span class="keyword">if</span>( !flag )&#123; <span class="keyword">return</span> &#125;;  </span><br><span class="line">        clearTimeout(timer);</span><br><span class="line">        flag = <span class="literal">false</span>;</span><br><span class="line">        timer = setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">            flag = <span class="literal">true</span>;</span><br><span class="line">            fn.apply(context, args);</span><br><span class="line">        &#125;, delay);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>以上就能实现页面无刷新修改url链接。</p>
+<p>顺便放上获取和修改url的函数：</p>
+<h2 id="3-获取和修改url的函数："><a href="#3-获取和修改url的函数：" class="headerlink" title="3.获取和修改url的函数："></a>3.获取和修改url的函数：</h2><h3 id="获取url参数"><a href="#获取url参数" class="headerlink" title="获取url参数"></a>获取url参数</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getParams</span> (<span class="params">name</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> reg = <span class="keyword">new</span> <span class="built_in">RegExp</span>(<span class="string">"(^|&amp;)"</span> + name + <span class="string">"=([^&amp;]*)(&amp;|$)"</span>);</span><br><span class="line">    <span class="keyword">let</span> r = <span class="built_in">window</span>.location.search.substr(<span class="number">1</span>).match(reg);</span><br><span class="line">    <span class="keyword">if</span> (r != <span class="literal">null</span>) <span class="keyword">return</span> <span class="built_in">unescape</span>(r[<span class="number">2</span>]); <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h2 id="4-实践-–-图片懒加载"><a href="#4-实践-–-图片懒加载" class="headerlink" title="4.实践 – 图片懒加载"></a>4.实践 – 图片懒加载</h2><h3 id="clientHeight-、scrollTop-、-offsetTop"><a href="#clientHeight-、scrollTop-、-offsetTop" class="headerlink" title="clientHeight 、scrollTop 、 offsetTop"></a>clientHeight 、scrollTop 、 offsetTop</h3><p>思路： 给img一个默认图片，以及data-src属性，当页面滚动到对应img元素的时候，把data-src赋值给src。<br> <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">//给img一个默认图片</span><br><span class="line">&lt;img src="default.png" data-src="xxx/img.png" /&gt;</span><br><span class="line"></span><br><span class="line">//通过监听 scroll 事件来判断图片是否到达视口:</span><br><span class="line">let img = document.getElementsByTagName("img");</span><br><span class="line">let num = img.length;</span><br><span class="line">let count = 0; #计数器，从第一张图片开始计</span><br><span class="line"></span><br><span class="line">lazyload(); #首次加载</span><br><span class="line"></span><br><span class="line">window.addEventListener('scroll', throttle(lazyload, 200)); //节流</span><br><span class="line"></span><br><span class="line">function lazyload() &#123;</span><br><span class="line">    let viewHeight = document.documentElement.clientHeight;#视口高度</span><br><span class="line">    let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;#滚动条滚动的高度</span><br><span class="line">    for(let i = count; i &lt; num; i++) &#123;</span><br><span class="line">        //元素现在已经出现在视口中</span><br><span class="line">        if( img[i].offsetTop &lt; scrollHeight + viewHeight ) &#123;</span><br><span class="line">            if(img[i].getAttribute('src') !== 'default.png') continue; #如果src不是default.png'，跳过循环，继续往下循环</span><br><span class="line">            img[i].src = img[i].getAttribute("data-src");</span><br><span class="line">            count ++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">//scrollTop + clientHeight === scrollHeight 即触发下拉加载的条件</span><br></pre></td></tr></table></figure></p>
+<h3 id="更改url参数"><a href="#更改url参数" class="headerlink" title="更改url参数"></a>更改url参数</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">replaceParamVal</span>(<span class="params">paramName,replaceWith</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> oUrl = <span class="built_in">window</span>.location.href.toString();</span><br><span class="line">    <span class="keyword">var</span> re = evil(<span class="string">'/('</span>+ paramName+<span class="string">'=)([^&amp;]*)/gi'</span>);</span><br><span class="line">    <span class="keyword">var</span> nUrl = oUrl.replace(re,paramName+<span class="string">'='</span>+replaceWith);</span><br><span class="line">    <span class="keyword">this</span>.location = nUrl;</span><br><span class="line">    <span class="built_in">window</span>.location.href=nUrl</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">evil</span>(<span class="params">fn</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> Fn = <span class="built_in">Function</span>; <span class="comment">//一个变量指向Function，防止有些前端编译工具报错</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> Fn(<span class="string">'return '</span> + fn)();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 
       </div>
       
@@ -295,10 +299,10 @@
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2019-12-24T16:13:02+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2019-12-26T11:00:43+08:00">
   <a class='notlink'>
     <i class="fas fa-clock" aria-hidden="true"></i>
-    <p>更新于 2019年12月24日</p>
+    <p>更新于 2019年12月26日</p>
   </a>
 </div>
 
@@ -307,7 +311,7 @@
         
           
   
-  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/函数/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>函数</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/节流-防抖/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>节流/防抖</p></a></div>
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/pushState/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>pushState</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/url/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>url</p></a></div>
 
 
         
@@ -320,7 +324,8 @@
       
         <a class="-mob-share-qq" title="QQ好友" rel="external nofollow noopener noreferrer"
           
-          href="http://connect.qq.com/widget/shareqq/index.html?url=https://wxmac.github.io/2019/12/23/函数节流和防抖/&title=六、函数节流和防抖 | wxmac的前端笔记&summary=1.节流核心思想: 如果在定时器的时间范围内再次触发，则不予理睬，等当前定时器完成，才能启动下一个定时器任务。"
+          href="http://connect.qq.com/widget/shareqq/index.html?url=https://wxmac.github.io/2019/12/25/7.不刷新修改url链接/&title=七、不刷新修改url链接 | wxmac的前端笔记&summary=有一个这样的需求，点击分页，不刷新页面。
+123//我们的page参数是记录在url里的： https://xxx.html?page=1//如果采取硬拼接的方式，无疑会刷新页面window.location.href = window.location.pathname + `?page=$&#123;page&#125;`"
           
           >
           
@@ -332,7 +337,8 @@
       
         <a class="-mob-share-qzone" title="QQ空间" rel="external nofollow noopener noreferrer"
           
-          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://wxmac.github.io/2019/12/23/函数节流和防抖/&title=六、函数节流和防抖 | wxmac的前端笔记&summary=1.节流核心思想: 如果在定时器的时间范围内再次触发，则不予理睬，等当前定时器完成，才能启动下一个定时器任务。"
+          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://wxmac.github.io/2019/12/25/7.不刷新修改url链接/&title=七、不刷新修改url链接 | wxmac的前端笔记&summary=有一个这样的需求，点击分页，不刷新页面。
+123//我们的page参数是记录在url里的： https://xxx.html?page=1//如果采取硬拼接的方式，无疑会刷新页面window.location.href = window.location.pathname + `?page=$&#123;page&#125;`"
           
           >
           
@@ -344,7 +350,8 @@
       
         <a class="-mob-share-weibo" title="微博" rel="external nofollow noopener noreferrer"
           
-          href="http://service.weibo.com/share/share.php?url=https://wxmac.github.io/2019/12/23/函数节流和防抖/&title=六、函数节流和防抖 | wxmac的前端笔记&summary=1.节流核心思想: 如果在定时器的时间范围内再次触发，则不予理睬，等当前定时器完成，才能启动下一个定时器任务。"
+          href="http://service.weibo.com/share/share.php?url=https://wxmac.github.io/2019/12/25/7.不刷新修改url链接/&title=七、不刷新修改url链接 | wxmac的前端笔记&summary=有一个这样的需求，点击分页，不刷新页面。
+123//我们的page参数是记录在url里的： https://xxx.html?page=1//如果采取硬拼接的方式，无疑会刷新页面window.location.href = window.location.pathname + `?page=$&#123;page&#125;`"
           
           >
           
@@ -372,16 +379,16 @@
                       <span class="art-item-left">
                           <h6><i class="fas fa-chevron-left" aria-hidden="true"></i>&nbsp;上一页</h6>
                           <h4>
-                              <a href="/2019/12/25/不刷新修改url链接/" rel="prev" title="七、不刷新修改url链接">
+                              <a href="/2019/12/30/8.扁平化数组/" rel="prev" title="八、扁平化数组">
                                 
-                                    七、不刷新修改url链接
+                                    八、扁平化数组
                                 
                               </a>
                           </h4>
                           
                               
                               <h6 class="tags">
-                                  <a class="tag" href="/tags/pushState/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> pushState</a> <a class="tag" href="/tags/url/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> url</a>
+                                  <a class="tag" href="/tags/flat/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> flat</a> <a class="tag" href="/tags/扁平化数组/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> 扁平化数组</a>
                               </h6>
                           
                       </span>
@@ -392,16 +399,16 @@
                       <span class="art-item-right" aria-hidden="true">
                           <h6>下一页&nbsp;<i class="fas fa-chevron-right" aria-hidden="true"></i></h6>
                           <h4>
-                              <a href="/2019/12/18/js 深拷贝与浅拷贝/" rel="prev" title="五、js 深拷贝与浅拷贝">
+                              <a href="/2019/12/23/6.函数节流和防抖/" rel="prev" title="六、函数节流和防抖">
                                   
-                                      五、js 深拷贝与浅拷贝
+                                      六、函数节流和防抖
                                   
                               </a>
                           </h4>
                           
                               
                               <h6 class="tags">
-                                  <a class="tag" href="/tags/js/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> js</a> <a class="tag" href="/tags/小技巧/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> 小技巧</a> <a class="tag" href="/tags/拷贝/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> 拷贝</a>
+                                  <a class="tag" href="/tags/函数/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> 函数</a> <a class="tag" href="/tags/节流-防抖/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> 节流/防抖</a>
                               </h6>
                           
                       </span>
@@ -445,7 +452,7 @@
 
   <script>
     window.subData = {
-      title: '六、函数节流和防抖',
+      title: '七、不刷新修改url链接',
       tools: true
     }
   </script>
@@ -548,7 +555,7 @@
 </header>
 
     <div class='content pure'>
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-节流"><span class="toc-text">1.节流</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-防抖"><span class="toc-text">2.防抖</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-合并"><span class="toc-text">3.合并</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-实践-–-图片懒加载"><span class="toc-text">4.实践 – 图片懒加载</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#clientHeight-、scrollTop-、-offsetTop"><span class="toc-text">clientHeight 、scrollTop 、 offsetTop</span></a></li></ol></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-pushState-方法"><span class="toc-text">1.pushState() 方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-pushState使用"><span class="toc-text">2.pushState使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-获取和修改url的函数："><span class="toc-text">3.获取和修改url的函数：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#获取url参数"><span class="toc-text">获取url参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#更改url参数"><span class="toc-text">更改url参数</span></a></li></ol></li></ol>
     </div>
   </section>
 
@@ -661,7 +668,7 @@
 </header>
 
     <div class='content pure'>
-      <a href="/tags/css/" style="font-size: 14px; color: #999">css</a><a href="/tags/flat/" style="font-size: 14px; color: #999">flat</a><a href="/tags/html2canvas/" style="font-size: 14px; color: #999">html2canvas</a><a href="/tags/js/" style="font-size: 24px; color: #555">js</a><a href="/tags/pushState/" style="font-size: 14px; color: #999">pushState</a><a href="/tags/react/" style="font-size: 19px; color: #777">react</a><a href="/tags/reduce/" style="font-size: 14px; color: #999">reduce</a><a href="/tags/url/" style="font-size: 14px; color: #999">url</a><a href="/tags/vscode/" style="font-size: 14px; color: #999">vscode</a><a href="/tags/webpack/" style="font-size: 14px; color: #999">webpack</a><a href="/tags/函数/" style="font-size: 14px; color: #999">函数</a><a href="/tags/小技巧/" style="font-size: 19px; color: #777">小技巧</a><a href="/tags/扁平化数组/" style="font-size: 14px; color: #999">扁平化数组</a><a href="/tags/拷贝/" style="font-size: 14px; color: #999">拷贝</a><a href="/tags/数组/" style="font-size: 14px; color: #999">数组</a><a href="/tags/节流-防抖/" style="font-size: 14px; color: #999">节流/防抖</a>
+      <a href="/tags/canvas/" style="font-size: 14px; color: #999">canvas</a><a href="/tags/css/" style="font-size: 14px; color: #999">css</a><a href="/tags/flat/" style="font-size: 14px; color: #999">flat</a><a href="/tags/html2canvas/" style="font-size: 14px; color: #999">html2canvas</a><a href="/tags/js/" style="font-size: 24px; color: #555">js</a><a href="/tags/lottery/" style="font-size: 14px; color: #999">lottery</a><a href="/tags/pushState/" style="font-size: 14px; color: #999">pushState</a><a href="/tags/react/" style="font-size: 19px; color: #777">react</a><a href="/tags/reduce/" style="font-size: 14px; color: #999">reduce</a><a href="/tags/url/" style="font-size: 14px; color: #999">url</a><a href="/tags/vscode/" style="font-size: 14px; color: #999">vscode</a><a href="/tags/webpack/" style="font-size: 14px; color: #999">webpack</a><a href="/tags/函数/" style="font-size: 14px; color: #999">函数</a><a href="/tags/小技巧/" style="font-size: 19px; color: #777">小技巧</a><a href="/tags/小挂件/" style="font-size: 14px; color: #999">小挂件</a><a href="/tags/扁平化数组/" style="font-size: 14px; color: #999">扁平化数组</a><a href="/tags/抽奖/" style="font-size: 14px; color: #999">抽奖</a><a href="/tags/拷贝/" style="font-size: 14px; color: #999">拷贝</a><a href="/tags/数组/" style="font-size: 14px; color: #999">数组</a><a href="/tags/节流-防抖/" style="font-size: 14px; color: #999">节流/防抖</a>
     </div>
   </section>
 

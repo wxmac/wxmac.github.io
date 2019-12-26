@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   
-  <title>Tag: pushState | wxmac的前端笔记</title>
+  <title>wxmac的前端笔记</title>
   
   <meta name="keywords" content="wxmac 个人博客">
   
@@ -45,29 +45,7 @@
 <body>
   
   
-  <div class="cover-wrapper">
-    <cover class='cover  half'>
-      
-        
-  <h1 class='title'>wxmac的前端笔记</h1>
-
-
-  <div class="m_search">
-    <form name="searchform" class="form u-search-form">
-      <input type="text" class="input u-search-input" placeholder="" />
-      <i class="icon fas fa-search fa-fw"></i>
-    </form>
-  </div>
-
-<div class='menu navgation'>
-  <ul class='h-list'>
-    
-  </ul>
-</div>
-
-      
-    </cover>
-    <header class="l_header pure">
+  <header class="l_header pure">
   <div id="loading-bar-wrapper">
     <div id="loading-bar" class="pure"></div>
   </div>
@@ -169,23 +147,13 @@
 	</aside>
 <script>setLoadingBarProgress(40);</script>
 
-  </div>
 
 
-  <div class="l_body">
+  <div class="l_body nocover">
     <div class='body-wrapper'>
-      
-<div class='l_main'>
+      <div class='l_main'>
   
-    
-      
   <section class="post-list">
-    
-      
-        
-          
-        
-      
     
     
       
@@ -202,8 +170,8 @@
       
         
   <h2 class="title">
-    <a href="/2019/12/25/7.不刷新修改url链接/">
-      七、不刷新修改url链接
+    <a href="/2019/12/06/1.react 多页面打包/">
+      一、React 多页面打包
     </a>
   </h2>
 
@@ -233,7 +201,7 @@
             <div class="new-meta-item date">
   <a class='notlink'>
     <i class="fas fa-calendar-alt" aria-hidden="true"></i>
-    <p>2019-12-25</p>
+    <p>2019-12-06</p>
   </a>
 </div>
 
@@ -265,11 +233,11 @@
 
   <section class="article typo">
     <div class="article-entry" itemprop="articleBody">
-      <p>有一个这样的需求，点击分页，不刷新页面。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//我们的page参数是记录在url里的： https://xxx.html?page=1</span></span><br><span class="line"><span class="comment">//如果采取硬拼接的方式，无疑会刷新页面</span></span><br><span class="line"><span class="built_in">window</span>.location.href = <span class="built_in">window</span>.location.pathname + <span class="string">`?page=<span class="subst">$&#123;page&#125;</span>`</span></span><br></pre></td></tr></table></figure>
+      <h2 id="缘由"><a href="#缘由" class="headerlink" title="缘由"></a>缘由</h2><p>之前我们用的是react单页面打包，方便是方便，开包即用。但是因为我们做的是活动页面，一般每次都只有一个页面，不仅要建大量的路由，而且资源冗杂，即使已经做了资源分割。还有做多页面最重要的原因是：单页面打包，会影响所有的页面，如果一个页面报错，那么其他的页面也无法访问。下面开始配置:</p>
+<h3 id="一-webpack及react版本"><a href="#一-webpack及react版本" class="headerlink" title="一.webpack及react版本"></a>一.webpack及react版本</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"webpack"</span>: <span class="string">"^4.19.1"</span>,</span><br><span class="line"><span class="string">"react"</span>: <span class="string">"^16.8.3"</span>,</span><br></pre></td></tr></table></figure>
       
         <div class="readmore">
-          <a href="/2019/12/25/7.不刷新修改url链接/" class="flat-box">
+          <a href="/2019/12/06/1.react 多页面打包/" class="flat-box">
             <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
             阅读全文
           </a>
@@ -279,9 +247,11 @@
     
       <div class="full-width auto-padding tags">
         
-          <a href="/tags/pushState/" rel="nofollow"><i class="fas fa-tag fa-fw"></i> pushState</a>
+          <a href="/tags/js/" rel="nofollow"><i class="fas fa-tag fa-fw"></i> js</a>
         
-          <a href="/tags/url/" rel="nofollow"><i class="fas fa-tag fa-fw"></i> url</a>
+          <a href="/tags/react/" rel="nofollow"><i class="fas fa-tag fa-fw"></i> react</a>
+        
+          <a href="/tags/webpack/" rel="nofollow"><i class="fas fa-tag fa-fw"></i> webpack</a>
         
       </div>
     
@@ -295,6 +265,24 @@
   </section>
   
     
+      <br>
+      <div class="prev-next">
+        <div class="prev-next">
+          
+            <a class="prev" rel="prev" href="/">
+              <section class="post prev" >
+                <i class="fas fa-chevron-left" aria-hidden="true"></i>&nbsp;上一页&nbsp;
+              </section>
+            </a>
+          
+          <p class="current">
+            2 / 2
+          </p>
+          
+        </div>
+      </div>
+
+    
     <!-- 根据主题中的设置决定是否在archive中针对摘要部分的MathJax公式加载mathjax.js文件 -->
     
     
@@ -302,8 +290,6 @@
   
 
 
-    
-  
 </div>
 <aside class='l_side'>
   
