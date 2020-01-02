@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   
-  <title>二、vsCode终端打开问题 | wxmac的前端笔记</title>
+  <title>十二、数组去重 | wxmac的前端笔记</title>
   
   <meta name="keywords" content="wxmac 个人博客">
   
@@ -189,8 +189,8 @@
         
   
     <h1 class="title">
-      <a href="/2019/12/09/2.vsCode终端打开问题/">
-        二、vsCode终端打开问题
+      <a href="/2020/01/15/12.数组去重/">
+        十二、数组去重
       </a>
     </h1>
   
@@ -221,7 +221,7 @@
             <div class="new-meta-item date">
   <a class='notlink'>
     <i class="fas fa-calendar-alt" aria-hidden="true"></i>
-    <p>2019-12-09</p>
+    <p>2020-01-15</p>
   </a>
 </div>
 
@@ -271,18 +271,29 @@
 
     <section class="article typo">
       <div class="article-entry" itemprop="articleBody">
-        <p>之前打开vscode时，报 终端进程命令”/bin/bash -l”无法启动 (退出代码: 1)；</p>
-<p><img src="/images/one.png" alt></p>
-<a id="more"></a>
+        <h2 id="数组去重"><a href="#数组去重" class="headerlink" title="数组去重"></a>数组去重</h2><a id="more"></a>
 
-<p>其他报错也可以参考一下：</p>
-<h2 id="有以下几个解决思路"><a href="#有以下几个解决思路" class="headerlink" title="有以下几个解决思路"></a>有以下几个解决思路</h2><p>1.重装vscode；（我是这个方法解决的）</p>
-<p>2.因为 VSCode 工作区的文件夹有变更（删除、移动等），导致 VSCode 打开终端时，找不到此文件夹而报错；</p>
-<p>3.配置下 git 路径不对，重新配置一下git；在设置里修改 “terminal.integrated.shell.windows”: “git路径base.exe”；</p>
-<p>4.用管理员的权限来执行vscode，要不然它没有权限使用cmd;右击快捷键点击属性然后选择以管理员的身份运行</p>
-<ol start="5">
-<li><a href="https://github.com/Microsoft/vscode/issues/17450" target="_blank" rel="external">github解决思路</a></li>
-</ol>
+<ul>
+<li><p>reduce + find</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> data = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">6</span>,<span class="number">7</span>];</span><br><span class="line"><span class="keyword">const</span> distinct = (arr) =&gt; &#123;</span><br><span class="line">    <span class="keyword">return</span> arr.reduce((total,curr, index) =&gt; &#123;</span><br><span class="line">        <span class="comment">// find返回数组中满足提供的测试函数的第一个元素的值</span></span><br><span class="line">        <span class="keyword">const</span> exist = total.find((item) =&gt; item == arr[index]);</span><br><span class="line">        <span class="keyword">if</span>(!exist)&#123;</span><br><span class="line">            total.push(curr)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> total</span><br><span class="line">    &#125;,[])</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(distinct(data)); <span class="comment">// // [1, 2, 3, 4, 5, 6, 7]</span></span><br><span class="line"><span class="comment">// 利用find查找是否存在相同元素，如果不存在就push到数组里</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>1.filter + indexOf</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> arr = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">1</span>,<span class="number">2</span>];</span><br><span class="line"><span class="keyword">const</span> distinct = (arr) =&gt; &#123;</span><br><span class="line">    <span class="keyword">return</span> arr.filter((item,index) =&gt; &#123;</span><br><span class="line">        <span class="keyword">return</span> arr.indexOf(item) === index</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">console</span>.log(distinct(arr));<span class="comment">// [1, 2, 3, 4, 5]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 利用indexOf检测元素在数组中第一次出现的位置是否和元素现在的位置相等，如果不等则说明该元素是重复元素</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>双重for循环</p>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> data = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">1</span>,<span class="number">2</span>];</span><br><span class="line"><span class="keyword">const</span> distinct = (arr) =&gt; &#123;</span><br><span class="line">     <span class="keyword">for</span>( <span class="keyword">let</span> i = <span class="number">0</span>; i &lt; arr.length; i++ )&#123;</span><br><span class="line">         <span class="keyword">for</span>(<span class="keyword">let</span> j = i + <span class="number">1</span>; j &lt; arr.length; j++)&#123;</span><br><span class="line">             <span class="keyword">if</span>(arr[i] === arr[j])&#123;</span><br><span class="line">                 arr.splice(j, <span class="number">1</span>);</span><br><span class="line">                 j--;</span><br><span class="line">             &#125;</span><br><span class="line">         &#125;</span><br><span class="line">     &#125;</span><br><span class="line">     <span class="keyword">return</span> arr;</span><br><span class="line">&#125;;</span><br><span class="line"> <span class="built_in">console</span>.log(distinct(data)); <span class="comment">// [1, 2, 3, 4, 5]</span></span><br><span class="line"></span><br><span class="line"> <span class="comment">// 先定义一个包含原始数组第一个元素的数组，然后遍历原始数组，将原始数组中的每个元素与新数组中的每个元素进行比对，如果不重复则添加到新数组中，最后返回新数组</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>ES6 中的 Set 去重</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> data = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">1</span>,<span class="number">2</span>];</span><br><span class="line"><span class="keyword">const</span> distinct = (arr) =&gt; &#123;</span><br><span class="line">    <span class="keyword">return</span> [...new <span class="built_in">Set</span>(arr)]</span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">console</span>.log(distinct(data)); <span class="comment">// [1, 2, 3, 4, 5]</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>例子🌰</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span><br><span class="line">   （携程）算法手写题</span><br><span class="line">    已知如下数组：</span><br><span class="line">    var arr = [ [1, 2, 2], [3, 4, 5, 5], [6, 7, 8, 9, [11, 12, [12, 13, [14] ] ] ], 10];</span><br><span class="line">    编写一个程序将数组扁平化并去除其中重复部分数据，最终得到一个升序且不重复的数组</span><br><span class="line">**/</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> arr = [ [<span class="number">1</span>, <span class="number">2</span>, <span class="number">2</span>], [<span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">5</span>], [<span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>, [<span class="number">11</span>, <span class="number">12</span>, [<span class="number">12</span>, <span class="number">13</span>, [<span class="number">14</span>] ] ] ], <span class="number">10</span>];</span><br><span class="line"><span class="keyword">const</span> flat = (arr) =&gt; &#123; <span class="comment">// 扁平化数组</span></span><br><span class="line">    <span class="keyword">return</span> arr.reduce((prv, curr) =&gt; &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">Array</span>.isArray(curr) ? prv.concat(flat(curr)) : prv.concat(curr) </span><br><span class="line">    &#125;,[])</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> newArr = flat(arr);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> removeRepeat = (arr) =&gt; &#123; <span class="comment">// 数组去重</span></span><br><span class="line">    <span class="keyword">return</span> arr.filter((item,index) =&gt; &#123;</span><br><span class="line">        <span class="keyword">return</span> arr.indexOf(item) === index</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> res = removeRepeat(newArr)</span><br><span class="line"><span class="built_in">console</span>.log(res.sort((a,b) =&gt; a - b))</span><br><span class="line"><span class="comment">// [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span><br><span class="line">    简便解法：</span><br><span class="line">    Array.from( new Set( arr.flat(Infinity)) ).sort(( a, b )=&gt;a - b)</span><br><span class="line">**/</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
 
       </div>
       
@@ -295,10 +306,10 @@
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2019-12-26T11:01:31+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2019-12-31T13:45:44+08:00">
   <a class='notlink'>
     <i class="fas fa-clock" aria-hidden="true"></i>
-    <p>更新于 2019年12月26日</p>
+    <p>更新于 2019年12月31日</p>
   </a>
 </div>
 
@@ -307,7 +318,7 @@
         
           
   
-  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/vscode/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>vscode</p></a></div>
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/数组/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>数组</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/数组去重/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>数组去重</p></a></div>
 
 
         
@@ -320,7 +331,7 @@
       
         <a class="-mob-share-qq" title="QQ好友" rel="external nofollow noopener noreferrer"
           
-          href="http://connect.qq.com/widget/shareqq/index.html?url=https://wxmac.github.io/2019/12/09/2.vsCode终端打开问题/&title=二、vsCode终端打开问题 | wxmac的前端笔记&summary=之前打开vscode时，报 终端进程命令”/bin/bash -l”无法启动 (退出代码: 1)；"
+          href="http://connect.qq.com/widget/shareqq/index.html?url=https://wxmac.github.io/2020/01/15/12.数组去重/&title=十二、数组去重 | wxmac的前端笔记&summary=数组去重"
           
           >
           
@@ -332,7 +343,7 @@
       
         <a class="-mob-share-qzone" title="QQ空间" rel="external nofollow noopener noreferrer"
           
-          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://wxmac.github.io/2019/12/09/2.vsCode终端打开问题/&title=二、vsCode终端打开问题 | wxmac的前端笔记&summary=之前打开vscode时，报 终端进程命令”/bin/bash -l”无法启动 (退出代码: 1)；"
+          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://wxmac.github.io/2020/01/15/12.数组去重/&title=十二、数组去重 | wxmac的前端笔记&summary=数组去重"
           
           >
           
@@ -344,7 +355,7 @@
       
         <a class="-mob-share-weibo" title="微博" rel="external nofollow noopener noreferrer"
           
-          href="http://service.weibo.com/share/share.php?url=https://wxmac.github.io/2019/12/09/2.vsCode终端打开问题/&title=二、vsCode终端打开问题 | wxmac的前端笔记&summary=之前打开vscode时，报 终端进程命令”/bin/bash -l”无法启动 (退出代码: 1)；"
+          href="http://service.weibo.com/share/share.php?url=https://wxmac.github.io/2020/01/15/12.数组去重/&title=十二、数组去重 | wxmac的前端笔记&summary=数组去重"
           
           >
           
@@ -372,16 +383,16 @@
                       <span class="art-item-left">
                           <h6><i class="fas fa-chevron-left" aria-hidden="true"></i>&nbsp;上一页</h6>
                           <h4>
-                              <a href="/2019/12/12/3.一些自己在使用css、js技巧/" rel="prev" title="三、一些自己在使用css、js技巧">
+                              <a href="/2020/01/20/13.数组和字符串相关方法/" rel="prev" title="十三、数组和字符串相关方法">
                                 
-                                    三、一些自己在使用css、js技巧
+                                    十三、数组和字符串相关方法
                                 
                               </a>
                           </h4>
                           
                               
                               <h6 class="tags">
-                                  <a class="tag" href="/tags/css/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> css</a> <a class="tag" href="/tags/js/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> js</a> <a class="tag" href="/tags/小技巧/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> 小技巧</a>
+                                  <a class="tag" href="/tags/字符串/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> 字符串</a> <a class="tag" href="/tags/字符串方法/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> 字符串方法</a> <a class="tag" href="/tags/数组/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> 数组</a> <a class="tag" href="/tags/数组方法/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> 数组方法</a>
                               </h6>
                           
                       </span>
@@ -392,16 +403,16 @@
                       <span class="art-item-right" aria-hidden="true">
                           <h6>下一页&nbsp;<i class="fas fa-chevron-right" aria-hidden="true"></i></h6>
                           <h4>
-                              <a href="/2019/12/06/1.react 多页面打包/" rel="prev" title="一、React 多页面打包">
+                              <a href="/2020/01/10/11.九宫格抽奖/" rel="prev" title="十一、九宫格抽奖">
                                   
-                                      一、React 多页面打包
+                                      十一、九宫格抽奖
                                   
                               </a>
                           </h4>
                           
                               
                               <h6 class="tags">
-                                  <a class="tag" href="/tags/js/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> js</a> <a class="tag" href="/tags/react/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> react</a> <a class="tag" href="/tags/webpack/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> webpack</a>
+                                  <a class="tag" href="/tags/lottery/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> lottery</a> <a class="tag" href="/tags/抽奖/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> 抽奖</a>
                               </h6>
                           
                       </span>
@@ -445,7 +456,7 @@
 
   <script>
     window.subData = {
-      title: '二、vsCode终端打开问题',
+      title: '十二、数组去重',
       tools: true
     }
   </script>
@@ -548,7 +559,7 @@
 </header>
 
     <div class='content pure'>
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#有以下几个解决思路"><span class="toc-text">有以下几个解决思路</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#数组去重"><span class="toc-text">数组去重</span></a></li></ol>
     </div>
   </section>
 

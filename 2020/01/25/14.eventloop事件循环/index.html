@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   
-  <title>二、vsCode终端打开问题 | wxmac的前端笔记</title>
+  <title>十四、eventloop事件循环 | wxmac的前端笔记</title>
   
   <meta name="keywords" content="wxmac 个人博客">
   
@@ -189,8 +189,8 @@
         
   
     <h1 class="title">
-      <a href="/2019/12/09/2.vsCode终端打开问题/">
-        二、vsCode终端打开问题
+      <a href="/2020/01/25/14.eventloop事件循环/">
+        十四、eventloop事件循环
       </a>
     </h1>
   
@@ -221,7 +221,7 @@
             <div class="new-meta-item date">
   <a class='notlink'>
     <i class="fas fa-calendar-alt" aria-hidden="true"></i>
-    <p>2019-12-09</p>
+    <p>2020-01-25</p>
   </a>
 </div>
 
@@ -271,18 +271,23 @@
 
     <section class="article typo">
       <div class="article-entry" itemprop="articleBody">
-        <p>之前打开vscode时，报 终端进程命令”/bin/bash -l”无法启动 (退出代码: 1)；</p>
-<p><img src="/images/one.png" alt></p>
-<a id="more"></a>
+        <h2 id="eventloop事件循环"><a href="#eventloop事件循环" class="headerlink" title="eventloop事件循环"></a>eventloop事件循环</h2><ul>
+<li>js是单线程执行的，eventloop事件循环就是解决javaScript单线程运行阻塞的一种机制。</li>
+</ul>
+<h3 id="一、宏任务和微任务"><a href="#一、宏任务和微任务" class="headerlink" title="一、宏任务和微任务"></a>一、宏任务和微任务</h3> <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">在 js 中，任务分为宏任务(macrotask)和微任务(microtask)，这两个任务分别维护一个队列，均采用先进先出(类似放盘子)的策略进行执行，同步执行的任务都在宏任务上执行。</span><br><span class="line">宏任务主要有：script(整体代码)、setTimeout、setInterval、I/O、UI 交互事件、postMessage、MessageChannel、setImmediate(Node.js 环境)。</span><br><span class="line">微任务主要有：<span class="built_in">Promise</span>.then、 MutationObserver、 process.nextTick(Node.js 环境)。</span><br><span class="line"></span><br><span class="line">宏任务是由多个微任务组成的，先执行微任务，后执行宏任务。</span><br></pre></td></tr></table></figure>
 
-<p>其他报错也可以参考一下：</p>
-<h2 id="有以下几个解决思路"><a href="#有以下几个解决思路" class="headerlink" title="有以下几个解决思路"></a>有以下几个解决思路</h2><p>1.重装vscode；（我是这个方法解决的）</p>
-<p>2.因为 VSCode 工作区的文件夹有变更（删除、移动等），导致 VSCode 打开终端时，找不到此文件夹而报错；</p>
-<p>3.配置下 git 路径不对，重新配置一下git；在设置里修改 “terminal.integrated.shell.windows”: “git路径base.exe”；</p>
-<p>4.用管理员的权限来执行vscode，要不然它没有权限使用cmd;右击快捷键点击属性然后选择以管理员的身份运行</p>
-<ol start="5">
-<li><a href="https://github.com/Microsoft/vscode/issues/17450" target="_blank" rel="external">github解决思路</a></li>
-</ol>
+<h3 id="二、运行机制"><a href="#二、运行机制" class="headerlink" title="二、运行机制"></a>二、运行机制</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">在事件循环中，每进行一次循环操作称为 tick，每一次 tick 的任务处理模型是比较复杂的，但关键步骤如下：</span><br><span class="line"></span><br><span class="line">- 执行一个宏任务（栈中没有就从事件队列中获取）</span><br><span class="line">- 执行过程中如果遇到微任务，就将它添加到微任务的任务队列中</span><br><span class="line">- 宏任务执行完毕后，立即执行当前微任务队列中的所有微任务（依次执行）</span><br><span class="line">- 当前宏任务执行完毕，开始检查渲染，然后GUI线程接管渲染</span><br><span class="line">- 渲染完毕后，JS线程继续接管，开始下一个宏任务（从事件队列中获取）</span><br></pre></td></tr></table></figure>
+
+<h3 id="三、🌰"><a href="#三、🌰" class="headerlink" title="三、🌰"></a>三、🌰</h3><h3 id="1-尝试输出以下代码"><a href="#1-尝试输出以下代码" class="headerlink" title="1.尝试输出以下代码"></a>1.尝试输出以下代码</h3> <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="number">1</span>);</span><br><span class="line">setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="number">2</span>);</span><br><span class="line">&#125;, <span class="number">0</span>);</span><br><span class="line"><span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="number">3</span>);</span><br><span class="line">    resolve(<span class="built_in">Date</span>.now());</span><br><span class="line">&#125;).then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="number">4</span>);</span><br><span class="line">&#125;);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">5</span>);</span><br><span class="line">setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve</span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="number">6</span>);</span><br><span class="line">        resolve(<span class="built_in">Date</span>.now());</span><br><span class="line">    &#125;).then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="number">7</span>);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;, <span class="number">0</span>);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>那么以上代码的执行过程是什么样的呢？</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//  1 3 5 4 2 6 7 </span></span><br><span class="line"><span class="number">1.</span>代码从上往下执行，首先输出 <span class="number">1</span>，</span><br><span class="line"><span class="number">2.</span>遇到setTimeout，推入宏任务，待后面执行，</span><br><span class="line"><span class="number">3.</span>遇到<span class="built_in">Promise</span>，首先打印 <span class="number">3</span>，把then后面的推入微任务，</span><br><span class="line"><span class="number">4.</span>直接打印 <span class="number">5</span>，</span><br><span class="line"><span class="number">6.</span>遇到setTimeout，推入宏任务，待后面执行，</span><br><span class="line"><span class="number">7.</span>微任务按顺序执行，打印 <span class="number">4</span>，</span><br><span class="line"><span class="number">8.</span>宏任务按顺序执行，打印 <span class="number">2</span>，任务队列中没有微任务，下一步，</span><br><span class="line"><span class="number">9.</span>执行宏任务，打印 <span class="number">6</span>，把then后面的推入微任务，</span><br><span class="line"><span class="number">10.</span>执行微任务，打印 <span class="number">7</span>，完成。</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-尝试输出以下代码"><a href="#2-尝试输出以下代码" class="headerlink" title="2.尝试输出以下代码"></a>2.尝试输出以下代码</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">async1</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'async1 start'</span>);</span><br><span class="line">    <span class="keyword">await</span> async2();</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'async1 end'</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">async2</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'async2'</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'script start'</span>);</span><br><span class="line">setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'setTimeout'</span>);</span><br><span class="line">&#125;, <span class="number">0</span>)</span><br><span class="line">async1();</span><br><span class="line"><span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'promise1'</span>);</span><br><span class="line">    resolve();</span><br><span class="line">&#125;).then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'promise2'</span>);</span><br><span class="line">&#125;);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'script end'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span><br><span class="line">    await async2()等价于</span><br><span class="line">    async2().then(() =&gt; &#123;</span><br><span class="line">            console.log('async1 end');</span><br><span class="line">    &#125;)</span><br><span class="line">**/</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span><br><span class="line">    script start</span><br><span class="line">    async1 start</span><br><span class="line">    async2</span><br><span class="line">    promise1</span><br><span class="line">    script end</span><br><span class="line">    async1 end</span><br><span class="line">    promise2</span><br><span class="line">    setTimeout</span><br><span class="line">*/</span></span><br><span class="line"><span class="number">1.</span>首先定义了两个<span class="keyword">async</span>，没调用，直接下一步，</span><br><span class="line"><span class="number">2.</span>执行 script start，</span><br><span class="line"><span class="number">3.</span>遇到setTimeout， 推入宏任务，</span><br><span class="line"><span class="number">3.</span>执行 async1函数,在<span class="keyword">await</span>之前的代码是立即执行的，所以会立即输出 async1 start,遇到了<span class="keyword">await</span>时，会将<span class="keyword">await</span>后面的表达式执行一遍，所以就紧接着输出async2,打印async2，</span><br><span class="line"><span class="number">4.</span>往下走，遇到<span class="built_in">Promise</span>，打印promise1， then推入微任务，</span><br><span class="line"><span class="number">5.</span>往下走，打印script end，</span><br><span class="line"><span class="number">6.</span>继续按顺序执行之前任务队列中的微任务，先打印async1 end， 再打印 promise2，</span><br><span class="line"><span class="number">7.</span>执行宏任务，打印setTimeout。</span><br></pre></td></tr></table></figure></li>
+</ul>
 
       </div>
       
@@ -295,10 +300,10 @@
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2019-12-26T11:01:31+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-01-02T10:44:14+08:00">
   <a class='notlink'>
     <i class="fas fa-clock" aria-hidden="true"></i>
-    <p>更新于 2019年12月26日</p>
+    <p>更新于 2020年1月2日</p>
   </a>
 </div>
 
@@ -307,7 +312,7 @@
         
           
   
-  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/vscode/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>vscode</p></a></div>
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/eventloop/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>eventloop</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/事件循环/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>事件循环</p></a></div>
 
 
         
@@ -320,7 +325,7 @@
       
         <a class="-mob-share-qq" title="QQ好友" rel="external nofollow noopener noreferrer"
           
-          href="http://connect.qq.com/widget/shareqq/index.html?url=https://wxmac.github.io/2019/12/09/2.vsCode终端打开问题/&title=二、vsCode终端打开问题 | wxmac的前端笔记&summary=之前打开vscode时，报 终端进程命令”/bin/bash -l”无法启动 (退出代码: 1)；"
+          href="http://connect.qq.com/widget/shareqq/index.html?url=https://wxmac.github.io/2020/01/25/14.eventloop事件循环/&title=十四、eventloop事件循环 | wxmac的前端笔记&summary="
           
           >
           
@@ -332,7 +337,7 @@
       
         <a class="-mob-share-qzone" title="QQ空间" rel="external nofollow noopener noreferrer"
           
-          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://wxmac.github.io/2019/12/09/2.vsCode终端打开问题/&title=二、vsCode终端打开问题 | wxmac的前端笔记&summary=之前打开vscode时，报 终端进程命令”/bin/bash -l”无法启动 (退出代码: 1)；"
+          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://wxmac.github.io/2020/01/25/14.eventloop事件循环/&title=十四、eventloop事件循环 | wxmac的前端笔记&summary="
           
           >
           
@@ -344,7 +349,7 @@
       
         <a class="-mob-share-weibo" title="微博" rel="external nofollow noopener noreferrer"
           
-          href="http://service.weibo.com/share/share.php?url=https://wxmac.github.io/2019/12/09/2.vsCode终端打开问题/&title=二、vsCode终端打开问题 | wxmac的前端笔记&summary=之前打开vscode时，报 终端进程命令”/bin/bash -l”无法启动 (退出代码: 1)；"
+          href="http://service.weibo.com/share/share.php?url=https://wxmac.github.io/2020/01/25/14.eventloop事件循环/&title=十四、eventloop事件循环 | wxmac的前端笔记&summary="
           
           >
           
@@ -368,40 +373,21 @@
       
           <div class="prev-next">
               
-                  <section class="prev">
-                      <span class="art-item-left">
-                          <h6><i class="fas fa-chevron-left" aria-hidden="true"></i>&nbsp;上一页</h6>
-                          <h4>
-                              <a href="/2019/12/12/3.一些自己在使用css、js技巧/" rel="prev" title="三、一些自己在使用css、js技巧">
-                                
-                                    三、一些自己在使用css、js技巧
-                                
-                              </a>
-                          </h4>
-                          
-                              
-                              <h6 class="tags">
-                                  <a class="tag" href="/tags/css/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> css</a> <a class="tag" href="/tags/js/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> js</a> <a class="tag" href="/tags/小技巧/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> 小技巧</a>
-                              </h6>
-                          
-                      </span>
-                  </section>
-              
               
                   <section class="next">
                       <span class="art-item-right" aria-hidden="true">
                           <h6>下一页&nbsp;<i class="fas fa-chevron-right" aria-hidden="true"></i></h6>
                           <h4>
-                              <a href="/2019/12/06/1.react 多页面打包/" rel="prev" title="一、React 多页面打包">
+                              <a href="/2020/01/20/13.数组和字符串相关方法/" rel="prev" title="十三、数组和字符串相关方法">
                                   
-                                      一、React 多页面打包
+                                      十三、数组和字符串相关方法
                                   
                               </a>
                           </h4>
                           
                               
                               <h6 class="tags">
-                                  <a class="tag" href="/tags/js/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> js</a> <a class="tag" href="/tags/react/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> react</a> <a class="tag" href="/tags/webpack/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> webpack</a>
+                                  <a class="tag" href="/tags/字符串/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> 字符串</a> <a class="tag" href="/tags/字符串方法/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> 字符串方法</a> <a class="tag" href="/tags/数组/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> 数组</a> <a class="tag" href="/tags/数组方法/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> 数组方法</a>
                               </h6>
                           
                       </span>
@@ -445,7 +431,7 @@
 
   <script>
     window.subData = {
-      title: '二、vsCode终端打开问题',
+      title: '十四、eventloop事件循环',
       tools: true
     }
   </script>
@@ -548,7 +534,7 @@
 </header>
 
     <div class='content pure'>
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#有以下几个解决思路"><span class="toc-text">有以下几个解决思路</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#eventloop事件循环"><span class="toc-text">eventloop事件循环</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#一、宏任务和微任务"><span class="toc-text">一、宏任务和微任务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二、运行机制"><span class="toc-text">二、运行机制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三、🌰"><span class="toc-text">三、🌰</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-尝试输出以下代码"><span class="toc-text">1.尝试输出以下代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-尝试输出以下代码"><span class="toc-text">2.尝试输出以下代码</span></a></li></ol></li></ol>
     </div>
   </section>
 

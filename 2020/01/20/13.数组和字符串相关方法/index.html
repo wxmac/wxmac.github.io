@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  
+  <title>十三、数组和字符串相关方法 | wxmac的前端笔记</title>
+  
+  <meta name="keywords" content="wxmac 个人博客">
+  
+  
+
+  
+
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <!-- meta -->
+  
+
+  <!-- link -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.css">
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.10.1/css/all.min.css">
+  
+
+  
+
+  
+    <link rel="stylesheet" href="/style.css" type="text/css">
+  
+
+  <script>
+    function setLoadingBarProgress(num) {
+      document.getElementById('loading-bar').style.width=num+"%";
+    }
+  </script>
+
+  
+  
+</head>
+
+<body>
+  
+  
+  <div class="cover-wrapper">
+    <cover class='cover post half'>
+      
+        
+  <h1 class='title'>wxmac的前端笔记</h1>
+
+
+  <div class="m_search">
+    <form name="searchform" class="form u-search-form">
+      <input type="text" class="input u-search-input" placeholder="" />
+      <i class="icon fas fa-search fa-fw"></i>
+    </form>
+  </div>
+
+<div class='menu navgation'>
+  <ul class='h-list'>
+    
+  </ul>
+</div>
+
+      
+    </cover>
+    <header class="l_header pure">
+  <div id="loading-bar-wrapper">
+    <div id="loading-bar" class="pure"></div>
+  </div>
+
+	<div class='wrapper'>
+		<div class="nav-main container container--flex">
+      <a class="logo flat-box" href='/' >
+        
+          wxmac的前端笔记
+        
+      </a>
+			<div class='menu navgation'>
+				<ul class='h-list'>
+          
+  					
+  						<li>
+								<a class="nav flat-box" href="/tags/"
+                  
+                    rel="nofollow"
+                  
+                  
+                  id="tags">
+									<i class='fas fa-hashtag fa-fw'></i>&nbsp;标签
+								</a>
+							</li>
+      			
+  						<li>
+								<a class="nav flat-box" href="/archives"
+                  
+                    rel="nofollow"
+                  
+                  
+                  id="archives">
+									<i class='fas fa-archive fa-fw'></i>&nbsp;归档
+								</a>
+							</li>
+      			
+      		
+				</ul>
+			</div>
+
+			
+				<div class="m_search">
+					<form name="searchform" class="form u-search-form">
+						<input type="text" class="input u-search-input" placeholder="搜索" />
+						<i class="icon fas fa-search fa-fw"></i>
+					</form>
+				</div>
+			
+			<ul class='switcher h-list'>
+				
+					<li class='s-search'><a class="fas fa-search fa-fw" href='javascript:void(0)'></a></li>
+				
+				<li class='s-menu'><a class="fas fa-bars fa-fw" href='javascript:void(0)'></a></li>
+			</ul>
+		</div>
+
+		<div class='nav-sub container container--flex'>
+			<a class="logo flat-box"></a>
+			<ul class='switcher h-list'>
+				<li class='s-comment'><a class="flat-btn fas fa-comments fa-fw" href='javascript:void(0)'></a></li>
+        
+          <li class='s-toc'><a class="flat-btn fas fa-list fa-fw" href='javascript:void(0)'></a></li>
+        
+			</ul>
+		</div>
+	</div>
+</header>
+	<aside class="menu-phone">
+    <header>
+		<nav class="menu navgation">
+      <ul>
+        
+          
+            <li>
+							<a class="nav flat-box" href="/"
+                
+                
+                id="home">
+								<i class='fas fa-clock fa-fw'></i>&nbsp;近期文章
+							</a>
+            </li>
+          
+            <li>
+							<a class="nav flat-box" href="/archives/"
+                
+                  rel="nofollow"
+                
+                
+                id="archives">
+								<i class='fas fa-archive fa-fw'></i>&nbsp;文章归档
+							</a>
+            </li>
+          
+       
+      </ul>
+		</nav>
+    </header>
+	</aside>
+<script>setLoadingBarProgress(40);</script>
+
+  </div>
+
+
+  <div class="l_body">
+    <div class='body-wrapper'>
+      <div class='l_main'>
+  
+
+  <article id="post" class="post white-box article-type-post" itemscope itemprop="blogPost">
+    
+
+
+  <section class='meta'>
+    
+    
+    <div class="meta" id="header-meta">
+      
+        
+  
+    <h1 class="title">
+      <a href="/2020/01/20/13.数组和字符串相关方法/">
+        十三、数组和字符串相关方法
+      </a>
+    </h1>
+  
+
+
+      
+      <div class='new-meta-box'>
+        
+          
+        
+          
+            
+  <div class='new-meta-item author'>
+    
+      <a href="https://wxmac.github.io" rel="nofollow">
+        
+          <i class="fas fa-user" aria-hidden="true"></i>
+        
+        <p>hwh</p>
+      </a>
+    
+  </div>
+
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+    <p>2020-01-20</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+
+          
+        
+          
+            
+  
+    <div class="new-meta-item browse busuanzi">
+      <a class='notlink'>
+        <i class="fas fa-eye" aria-hidden="true"></i>
+        <p>
+          <span id="busuanzi_value_page_pv">
+            <i class="fas fa-spinner fa-spin fa-fw" aria-hidden="true"></i>
+          </span>
+        </p>
+      </a>
+    </div>
+  
+
+
+          
+        
+          
+            
+  
+
+          
+        
+          
+            
+
+          
+        
+      </div>
+      
+        <hr>
+      
+    </div>
+  </section>
+
+
+    <section class="article typo">
+      <div class="article-entry" itemprop="articleBody">
+        <h2 id="一：数组方法"><a href="#一：数组方法" class="headerlink" title="一：数组方法"></a>一：数组方法</h2><a id="more"></a>
+
+<h3 id="1-splice-–-拼接数组"><a href="#1-splice-–-拼接数组" class="headerlink" title="1.splice() – 拼接数组"></a>1.splice() – 拼接数组</h3> <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">// 使用1： 删除元素</span></span><br><span class="line"><span class="keyword">const</span> arr = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>];</span><br><span class="line">arr.splice(<span class="number">0</span>,<span class="number">1</span>); <span class="comment">// [1]</span></span><br><span class="line"><span class="comment">/**</span><br><span class="line">    第一个参数（0）定义了删除元素的位置（下标）;</span><br><span class="line">    第二个参数（1）定义应删除多少元素;</span><br><span class="line">    该方法返回一个包含已删除项的数组,改变原数组 [2,3]</span><br><span class="line">**/</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用2： 向指定位置添加元素</span></span><br><span class="line"><span class="keyword">const</span> arr = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>];</span><br><span class="line">arr.splice(<span class="number">2</span>,<span class="number">0</span>,<span class="number">5</span>,<span class="number">6</span>); <span class="comment">// []</span></span><br><span class="line"><span class="comment">/**</span><br><span class="line">    第一个参数（2）定义了应添加新元素的位置（下标）;</span><br><span class="line">    第二个参数（0）定义应删除多少元素;</span><br><span class="line">    其余参数（'5','6'）定义要添加的新元素.</span><br><span class="line">    该方法返回一个包含已删除项的数组,改变原数组 [1, 2, 5, 6, 3]</span><br><span class="line">**/</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用3： 向指定位置替换元素</span></span><br><span class="line"><span class="keyword">const</span> arr = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>];</span><br><span class="line">arr.splice(<span class="number">2</span>,<span class="number">1</span>,<span class="number">5</span>,<span class="number">6</span>); <span class="comment">// [3]</span></span><br><span class="line"><span class="comment">/**</span><br><span class="line">    第一个参数（2）定义了应添加新元素的位置（下标）;</span><br><span class="line">    第二个参数（1）定义应删除多少元素;</span><br><span class="line">    其余参数（'5','6'）定义要添加的新元素.</span><br><span class="line">    该方法返回一个包含已删除项的数组,改变原数组 [1, 2, 5, 6]</span><br><span class="line">**/</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="2-slice-–-裁剪数组"><a href="#2-slice-–-裁剪数组" class="headerlink" title="2.slice() – 裁剪数组"></a>2.slice() – 裁剪数组</h3>  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"> </span><br><span class="line"> <span class="comment">// 使用1： 只有一个参数 -- 从下标 1 开始切出一段数组，结束参数被省略，则 slice() 会切出数组的剩余部分</span></span><br><span class="line"> <span class="keyword">const</span> arr = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>];</span><br><span class="line"> arr.slice(<span class="number">1</span>); <span class="comment">// [2,3,4,5];</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// 使用1： 两个参数 -- 从下标 1 到 3 切出一段数组（不包括结束参数）</span></span><br><span class="line"> <span class="keyword">const</span> arr = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>];</span><br><span class="line"> arr.slice(<span class="number">1</span>,<span class="number">3</span>); <span class="comment">// [2,3];</span></span><br><span class="line"> </span><br><span class="line"><span class="comment">// 该方法创建新数组,不会改变原数组</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="3-toString-、join-–-把数组转换为字符串"><a href="#3-toString-、join-–-把数组转换为字符串" class="headerlink" title="3.toString()、join() – 把数组转换为字符串"></a>3.toString()、join() – 把数组转换为字符串</h3> <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> arr = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>];</span><br><span class="line">arr.toString(); <span class="comment">// 1,2,3</span></span><br><span class="line">arr.join(<span class="string">'-'</span>); <span class="comment">// 1-2-3 join() 可以规定分隔符 -</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="4-pop-–-方法从数组中删除最后一个元素"><a href="#4-pop-–-方法从数组中删除最后一个元素" class="headerlink" title="4.pop() – 方法从数组中删除最后一个元素"></a>4.pop() – 方法从数组中删除最后一个元素</h3> <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"> <span class="keyword">const</span> arr = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>];</span><br><span class="line"> arr.pop(); <span class="comment">// 3 </span></span><br><span class="line"> <span class="comment">// 该方法返回被删除的元素, 改变原数组 [1,2]</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span><br><span class="line">   使用栈的思想扁平化数组：</span><br><span class="line">   const flat = (arr) =&gt; &#123;</span><br><span class="line">      const stack = [...arr];</span><br><span class="line">      const res = [];</span><br><span class="line">      while( stack.length )&#123;</span><br><span class="line">         const next = stack.pop();</span><br><span class="line">         if(Array.isArray(next))&#123;</span><br><span class="line">               stack.push(...next);</span><br><span class="line">         &#125; else &#123;</span><br><span class="line">               res.push(next)</span><br><span class="line">         &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      return res.reverse();</span><br><span class="line">&#125;*/</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="5-push-–-向数组末尾添加一个新的元素"><a href="#5-push-–-向数组末尾添加一个新的元素" class="headerlink" title="5.push() – 向数组末尾添加一个新的元素"></a>5.push() – 向数组末尾添加一个新的元素</h3> <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> arr = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>];</span><br><span class="line">arr.push(<span class="number">4</span>); <span class="comment">// 4</span></span><br><span class="line"><span class="comment">// 该方法返回新数组的长度 length, 改变原数组 [1,2,3,4]</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="6-shift-–-删除首个数组元素"><a href="#6-shift-–-删除首个数组元素" class="headerlink" title="6.shift() – 删除首个数组元素"></a>6.shift() – 删除首个数组元素</h3> <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> arr = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>];</span><br><span class="line">arr.shift(); <span class="comment">// 1</span></span><br><span class="line"><span class="comment">// 该方法返回被删除的元素, 改变原数组 [2,3]</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="7-unshift-–-向数组头部添加新元素"><a href="#7-unshift-–-向数组头部添加新元素" class="headerlink" title="7.unshift() – 向数组头部添加新元素"></a>7.unshift() – 向数组头部添加新元素</h3> <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> arr = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>];</span><br><span class="line">arr.unshift(<span class="number">9</span>); <span class="comment">// 4</span></span><br><span class="line"><span class="comment">// 该方法返回新数组的长度 length, 改变原数组 [9,1,2,3]</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="8-concat-–-合并数组"><a href="#8-concat-–-合并数组" class="headerlink" title="8.concat() – 合并数组"></a>8.concat() – 合并数组</h3> <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> arr = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>];</span><br><span class="line"><span class="keyword">const</span> newArr = [<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>];</span><br><span class="line">arr.concat(newArr); <span class="comment">// [1,2,3,4,5,6]</span></span><br><span class="line"><span class="comment">// 该方法不会更改现有数组，它总是返回一个新数组 [1,2,3,4,5,6]</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="9-sort-–-数组排序"><a href="#9-sort-–-数组排序" class="headerlink" title="9.sort() – 数组排序"></a>9.sort() – 数组排序</h3> <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> arr = [<span class="number">2</span>,<span class="number">1</span>,<span class="number">3</span>];</span><br><span class="line">arr.sort(); <span class="comment">// [1,2,3]</span></span><br><span class="line">arr.sort((a,b) =&gt; b - a) <span class="comment">// [3,2,1]</span></span><br><span class="line"><span class="comment">// 该方法不会更改现有数组，它总是返回一个新数组 [1,2,3,4,5,6]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span><br><span class="line">    // 1.排序</span><br><span class="line">        const compare = (property,desc) =&gt; &#123;</span><br><span class="line">            return function (a, b) &#123;</span><br><span class="line">                var value1 = a[property];</span><br><span class="line">                var value2 = b[property];</span><br><span class="line">                if(desc)&#123;</span><br><span class="line">                    // 升序排列</span><br><span class="line">                    return value1 - value2;</span><br><span class="line">                &#125;else&#123;</span><br><span class="line">                    // 降序排列</span><br><span class="line">                    return value2 - value1;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    2. 查找最大值</span><br><span class="line">        Math.max.apply(null, arr);</span><br><span class="line"></span><br><span class="line">    3. 查找最小值</span><br><span class="line">        Math.min.apply(null, arr);</span><br><span class="line">*/</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="9-reverse-–-反转数组"><a href="#9-reverse-–-反转数组" class="headerlink" title="9.reverse() – 反转数组"></a>9.reverse() – 反转数组</h3> <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> arr = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>];</span><br><span class="line">arr.reverse(arr); <span class="comment">// [3,2,1]</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="二：字符串方法"><a href="#二：字符串方法" class="headerlink" title="二：字符串方法"></a>二：字符串方法</h2><h3 id="1-indexOf-–-返回字符串中指定文本-首次-出现的索引（位置）"><a href="#1-indexOf-–-返回字符串中指定文本-首次-出现的索引（位置）" class="headerlink" title="1.indexOf() – 返回字符串中指定文本 首次 出现的索引（位置）"></a>1.indexOf() – 返回字符串中指定文本 首次 出现的索引（位置）</h3> <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> str = <span class="string">'indexOf'</span>;</span><br><span class="line">str.indexOf(<span class="string">'index'</span>); <span class="comment">// 0</span></span><br><span class="line"><span class="comment">// 如果未找到文本， 返回 -1</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="2-lastIndexOf-–-返回指定文本在字符串中-最后-一次出现的索引"><a href="#2-lastIndexOf-–-返回指定文本在字符串中-最后-一次出现的索引" class="headerlink" title="2.lastIndexOf() – 返回指定文本在字符串中 最后 一次出现的索引"></a>2.lastIndexOf() – 返回指定文本在字符串中 最后 一次出现的索引</h3> <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> str = <span class="string">'lastIndexOf'</span>;</span><br><span class="line">str.lastIndexOf(<span class="string">'last'</span>); <span class="comment">// 0</span></span><br><span class="line"><span class="comment">// 如果未找到文本， 返回 -1</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="3-slice-、substring-、substr-–-裁剪字符串"><a href="#3-slice-、substring-、substr-–-裁剪字符串" class="headerlink" title="3.slice()、substring()、substr() – 裁剪字符串"></a>3.slice()、substring()、substr() – 裁剪字符串</h3> <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//有三种提取部分字符串的方法：</span></span><br><span class="line"> - slice(start, end)</span><br><span class="line"> - substring(start, end)</span><br><span class="line"> - substr(start, length)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>slice() – 提取字符串的某个部分并在新字符串中返回被提取的部分</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> str = <span class="string">'提取字符串'</span>;</span><br><span class="line">str.slice(<span class="number">2</span>,<span class="number">3</span>); <span class="comment">// '字'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 如果某个参数为负，则从字符串的结尾开始计数。</span></span><br><span class="line">str.slice(-<span class="number">3</span>,-<span class="number">2</span>); <span class="comment">// '字'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 如果省略第二个参数，则该方法将裁剪字符串的剩余部分：</span></span><br><span class="line">str.slice(<span class="number">1</span>); <span class="comment">// '取字符串'</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>substring() – 类似于 slice(), 但是无法接受负的索引</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> str = <span class="string">'提取字符串'</span>;</span><br><span class="line">str.substring(<span class="number">2</span>,<span class="number">3</span>); <span class="comment">// '字'</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>substr() – 类似于 slice(), 但是第二个参数规定被提取部分的长度</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> str = <span class="string">'提取字符串'</span>;</span><br><span class="line">str.substring(<span class="number">2</span>,<span class="number">3</span>); <span class="comment">// '字符串'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 如果省略第二个参数，则该 substr() 将裁剪字符串的剩余部分。</span></span><br><span class="line"> str.substring(<span class="number">2</span>); <span class="comment">// '取字符串'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//如果首个参数为负，则从字符串的结尾计算位置。第二个参数不能为负，因为它定义的是长度。</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="4-replace-–-用另一个值替换在字符串中指定的值"><a href="#4-replace-–-用另一个值替换在字符串中指定的值" class="headerlink" title="4.replace() – 用另一个值替换在字符串中指定的值"></a>4.replace() – 用另一个值替换在字符串中指定的值</h3>  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> str = <span class="string">'hello world'</span>;</span><br><span class="line">str.replace(<span class="regexp">/l/ig</span>,<span class="string">'替换'</span>); <span class="comment">// "he替换替换o wor替换d" </span></span><br><span class="line"><span class="comment">// 返回的是新字符串。</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="5-toUpperCase-–-把字符串转换为大写"><a href="#5-toUpperCase-–-把字符串转换为大写" class="headerlink" title="5.toUpperCase() – 把字符串转换为大写"></a>5.toUpperCase() – 把字符串转换为大写</h3>  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> str = <span class="string">'hello world'</span>;</span><br><span class="line">str.toUpperCase(); <span class="comment">// "HELLO WORLD"</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="6-toLowerCase-–-把字符串转换为小写"><a href="#6-toLowerCase-–-把字符串转换为小写" class="headerlink" title="6.toLowerCase() –  把字符串转换为小写"></a>6.toLowerCase() –  把字符串转换为小写</h3>  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> str = <span class="string">'HELLO WORLD'</span>;</span><br><span class="line">str.toLowerCase(); <span class="comment">// "hello world"</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="7-concat-–-连接两个或多个字符串"><a href="#7-concat-–-连接两个或多个字符串" class="headerlink" title="7.concat() –  连接两个或多个字符串"></a>7.concat() –  连接两个或多个字符串</h3>  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> str = <span class="string">'hello'</span>;</span><br><span class="line"><span class="keyword">const</span> str2 = <span class="string">'world'</span>;</span><br><span class="line">str.concat(str2); <span class="comment">// "helloworld"</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="8-trim-–-删除字符串两端的空白符："><a href="#8-trim-–-删除字符串两端的空白符：" class="headerlink" title="8.trim() –  删除字符串两端的空白符："></a>8.trim() –  删除字符串两端的空白符：</h3>  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> str = <span class="string">' hello world '</span>;</span><br><span class="line">str.trim(); <span class="comment">// "hello world"</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="9-split-–-将字符串转换为数组"><a href="#9-split-–-将字符串转换为数组" class="headerlink" title="9.split() – 将字符串转换为数组"></a>9.split() – 将字符串转换为数组</h3> <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> str = <span class="string">'1,2,3,4'</span>;</span><br><span class="line">str.split(<span class="string">','</span>); <span class="comment">// ["1", "2", "3", "4"]</span></span><br></pre></td></tr></table></figure>
+      </div>
+      
+      
+        <br>
+        
+
+
+  <section class='meta' id="footer-meta">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-01-02T09:48:57+08:00">
+  <a class='notlink'>
+    <i class="fas fa-clock" aria-hidden="true"></i>
+    <p>更新于 2020年1月2日</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/字符串/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>字符串</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/字符串方法/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>字符串方法</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/数组/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>数组</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/数组方法/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>数组方法</p></a></div>
+
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="QQ好友" rel="external nofollow noopener noreferrer"
+          
+          href="http://connect.qq.com/widget/shareqq/index.html?url=https://wxmac.github.io/2020/01/20/13.数组和字符串相关方法/&title=十三、数组和字符串相关方法 | wxmac的前端笔记&summary=一：数组方法"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/qq.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="QQ空间" rel="external nofollow noopener noreferrer"
+          
+          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://wxmac.github.io/2020/01/20/13.数组和字符串相关方法/&title=十三、数组和字符串相关方法 | wxmac的前端笔记&summary=一：数组方法"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/qzone.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="微博" rel="external nofollow noopener noreferrer"
+          
+          href="http://service.weibo.com/share/share.php?url=https://wxmac.github.io/2020/01/20/13.数组和字符串相关方法/&title=十三、数组和字符串相关方法 | wxmac的前端笔记&summary=一：数组方法"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/weibo.png">
+          
+        </a>
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+  </section>
+
+
+      
+      
+          <div class="prev-next">
+              
+                  <section class="prev">
+                      <span class="art-item-left">
+                          <h6><i class="fas fa-chevron-left" aria-hidden="true"></i>&nbsp;上一页</h6>
+                          <h4>
+                              <a href="/2020/01/25/14.eventloop事件循环/" rel="prev" title="十四、eventloop事件循环">
+                                
+                                    十四、eventloop事件循环
+                                
+                              </a>
+                          </h4>
+                          
+                              
+                              <h6 class="tags">
+                                  <a class="tag" href="/tags/eventloop/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> eventloop</a> <a class="tag" href="/tags/事件循环/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> 事件循环</a>
+                              </h6>
+                          
+                      </span>
+                  </section>
+              
+              
+                  <section class="next">
+                      <span class="art-item-right" aria-hidden="true">
+                          <h6>下一页&nbsp;<i class="fas fa-chevron-right" aria-hidden="true"></i></h6>
+                          <h4>
+                              <a href="/2020/01/15/12.数组去重/" rel="prev" title="十二、数组去重">
+                                  
+                                      十二、数组去重
+                                  
+                              </a>
+                          </h4>
+                          
+                              
+                              <h6 class="tags">
+                                  <a class="tag" href="/tags/数组/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> 数组</a> <a class="tag" href="/tags/数组去重/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> 数组去重</a>
+                              </h6>
+                          
+                      </span>
+                  </section>
+              
+          </div>
+      
+    </section>
+  </article>
+
+
+
+  <!-- 显示推荐文章和评论 -->
+
+
+
+  <article class="post white-box comments">
+    <section class="article typo">
+      <h4><i class="fas fa-comments fa-fw" aria-hidden="true"></i>&nbsp;评论</h4>
+      
+      
+      
+      
+        <section id="comments">
+          <div id="valine_container" class="valine_thread">
+            <i class="fas fa-spinner fa-spin fa-fw"></i>
+          </div>
+        </section>
+      
+    </section>
+  </article>
+
+
+
+
+
+
+<!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
+
+
+
+  <script>
+    window.subData = {
+      title: '十三、数组和字符串相关方法',
+      tools: true
+    }
+  </script>
+
+
+</div>
+<aside class='l_side'>
+  
+    
+    
+      
+      
+        
+          
+          
+            
+              <section class='widget author'>
+  <div class='content pure'>
+    
+      <div class='avatar'>
+        <img class='avatar' src='/images/head.png'/>
+      </div>
+    
+    
+      <div class='text'>
+        
+        
+        
+          <p><span id="jinrishici-sentence">wxmac的前端笔记</span></p>
+          <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+        
+      </div>
+    
+    
+      <div class="social-wrapper">
+        
+          
+            <a href="mailto:13116700755@163.com"
+              class="social fas fa-envelope flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+            </a>
+          
+        
+          
+            <a href="https://music.163.com/#/my/m/music/playlist?id=2630738399"
+              class="social fas fa-headphones-alt flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+            </a>
+          
+        
+      </div>
+    
+  </div>
+</section>
+
+            
+          
+        
+          
+          
+        
+          
+          
+        
+          
+          
+        
+      
+        
+          
+          
+        
+          
+          
+        
+          
+          
+        
+          
+          
+        
+      
+        
+          
+          
+        
+          
+          
+            
+              
+  <section class='widget toc-wrapper'>
+    
+<header class='pure'>
+  <div><i class="fas fa-list fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;本文目录</div>
+  
+    <!-- <div class='wrapper'><a class="s-toc rightBtn" rel="external nofollow noopener noreferrer" href="javascript:void(0)"><i class="fas fa-thumbtack fa-fw"></i></a></div> -->
+  
+</header>
+
+    <div class='content pure'>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一：数组方法"><span class="toc-text">一：数组方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-splice-–-拼接数组"><span class="toc-text">1.splice() – 拼接数组</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-slice-–-裁剪数组"><span class="toc-text">2.slice() – 裁剪数组</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-toString-、join-–-把数组转换为字符串"><span class="toc-text">3.toString()、join() – 把数组转换为字符串</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-pop-–-方法从数组中删除最后一个元素"><span class="toc-text">4.pop() – 方法从数组中删除最后一个元素</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-push-–-向数组末尾添加一个新的元素"><span class="toc-text">5.push() – 向数组末尾添加一个新的元素</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-shift-–-删除首个数组元素"><span class="toc-text">6.shift() – 删除首个数组元素</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-unshift-–-向数组头部添加新元素"><span class="toc-text">7.unshift() – 向数组头部添加新元素</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-concat-–-合并数组"><span class="toc-text">8.concat() – 合并数组</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-sort-–-数组排序"><span class="toc-text">9.sort() – 数组排序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-reverse-–-反转数组"><span class="toc-text">9.reverse() – 反转数组</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二：字符串方法"><span class="toc-text">二：字符串方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-indexOf-–-返回字符串中指定文本-首次-出现的索引（位置）"><span class="toc-text">1.indexOf() – 返回字符串中指定文本 首次 出现的索引（位置）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-lastIndexOf-–-返回指定文本在字符串中-最后-一次出现的索引"><span class="toc-text">2.lastIndexOf() – 返回指定文本在字符串中 最后 一次出现的索引</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-slice-、substring-、substr-–-裁剪字符串"><span class="toc-text">3.slice()、substring()、substr() – 裁剪字符串</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-replace-–-用另一个值替换在字符串中指定的值"><span class="toc-text">4.replace() – 用另一个值替换在字符串中指定的值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-toUpperCase-–-把字符串转换为大写"><span class="toc-text">5.toUpperCase() – 把字符串转换为大写</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-toLowerCase-–-把字符串转换为小写"><span class="toc-text">6.toLowerCase() –  把字符串转换为小写</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-concat-–-连接两个或多个字符串"><span class="toc-text">7.concat() –  连接两个或多个字符串</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-trim-–-删除字符串两端的空白符："><span class="toc-text">8.trim() –  删除字符串两端的空白符：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-split-–-将字符串转换为数组"><span class="toc-text">9.split() – 将字符串转换为数组</span></a></li></ol></li></ol>
+    </div>
+  </section>
+
+
+            
+          
+        
+          
+          
+        
+          
+          
+        
+      
+        
+          
+          
+        
+          
+          
+        
+          
+          
+            
+              <section class='widget grid'>
+  
+<header class='pure'>
+  <div><i class="fas fa-map-signs fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;站内导航</div>
+  
+</header>
+
+  <div class='content pure'>
+    <ul class="grid navgation">
+      
+        <li><a class="flat-box" title="/" href="/"
+          
+          
+          id="home">
+          
+            <i class="fas fa-clock fa-fw" aria-hidden="true"></i>
+          
+          近期文章
+        </a></li>
+      
+        <li><a class="flat-box" title="/archives/" href="/archives/"
+          
+            rel="nofollow"
+          
+          
+          id="archives">
+          
+            <i class="fas fa-archive fa-fw" aria-hidden="true"></i>
+          
+          文章归档
+        </a></li>
+      
+    </ul>
+  </div>
+</section>
+
+            
+          
+        
+          
+          
+        
+      
+        
+          
+          
+        
+          
+          
+        
+          
+          
+        
+          
+          
+        
+      
+        
+          
+          
+        
+          
+          
+        
+          
+          
+        
+          
+          
+            
+              
+  <section class='widget tagcloud'>
+    
+<header class='pure'>
+  <div><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;热门标签</div>
+  
+    <a class="rightBtn"
+    
+      rel="nofollow"
+    
+    
+    href="/tags/"
+    title="/tags/">
+    <i class="fas fa-expand-arrows-alt fa-fw"></i></a>
+  
+</header>
+
+    <div class='content pure'>
+      <a href="/tags/canvas/" style="font-size: 14px; color: #999">canvas</a><a href="/tags/css/" style="font-size: 14px; color: #999">css</a><a href="/tags/eventloop/" style="font-size: 14px; color: #999">eventloop</a><a href="/tags/flat/" style="font-size: 14px; color: #999">flat</a><a href="/tags/html2canvas/" style="font-size: 14px; color: #999">html2canvas</a><a href="/tags/js/" style="font-size: 24px; color: #555">js</a><a href="/tags/lottery/" style="font-size: 14px; color: #999">lottery</a><a href="/tags/pushState/" style="font-size: 14px; color: #999">pushState</a><a href="/tags/react/" style="font-size: 17.33px; color: #828282">react</a><a href="/tags/reduce/" style="font-size: 14px; color: #999">reduce</a><a href="/tags/url/" style="font-size: 14px; color: #999">url</a><a href="/tags/vscode/" style="font-size: 14px; color: #999">vscode</a><a href="/tags/webpack/" style="font-size: 14px; color: #999">webpack</a><a href="/tags/事件循环/" style="font-size: 14px; color: #999">事件循环</a><a href="/tags/函数/" style="font-size: 14px; color: #999">函数</a><a href="/tags/字符串/" style="font-size: 14px; color: #999">字符串</a><a href="/tags/字符串方法/" style="font-size: 14px; color: #999">字符串方法</a><a href="/tags/小技巧/" style="font-size: 17.33px; color: #828282">小技巧</a><a href="/tags/小挂件/" style="font-size: 14px; color: #999">小挂件</a><a href="/tags/扁平化数组/" style="font-size: 14px; color: #999">扁平化数组</a><a href="/tags/抽奖/" style="font-size: 14px; color: #999">抽奖</a><a href="/tags/拷贝/" style="font-size: 14px; color: #999">拷贝</a><a href="/tags/数组/" style="font-size: 20.67px; color: #6c6c6c">数组</a><a href="/tags/数组去重/" style="font-size: 14px; color: #999">数组去重</a><a href="/tags/数组方法/" style="font-size: 14px; color: #999">数组方法</a><a href="/tags/节流-防抖/" style="font-size: 14px; color: #999">节流/防抖</a>
+    </div>
+  </section>
+
+
+            
+          
+        
+      
+        
+          
+          
+        
+          
+          
+        
+          
+          
+        
+          
+          
+        
+      
+        
+          
+          
+        
+          
+          
+        
+          
+          
+        
+          
+          
+        
+      
+    
+
+  
+</aside>
+
+<footer id="footer" class="clearfix">
+  
+  
+    <div class="social-wrapper">
+      
+        
+          <a href="mailto:13116700755@163.com"
+            class="social fas fa-envelope flat-btn"
+            target="_blank"
+            rel="external nofollow noopener noreferrer">
+          </a>
+        
+      
+        
+          <a href="https://music.163.com/#/my/m/music/playlist?id=2630738399"
+            class="social fas fa-headphones-alt flat-btn"
+            target="_blank"
+            rel="external nofollow noopener noreferrer">
+          </a>
+        
+      
+    </div>
+  
+  <br>
+  <div><p>Copyright wxmac@2019</p>
+</div>
+  <div>
+    本站使用
+    <a href="https://xaoxuu.com/wiki/material-x/" target="_blank" class="codename">Material X</a>
+    作为主题
+    
+    。
+  </div>
+
+  
+</footer>
+<script src="/js/jquery.js" type="text/javascript"></script>
+<!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script> -->
+<script>setLoadingBarProgress(80);</script>
+
+
+
+      <script>setLoadingBarProgress(60);</script>
+    </div>
+    <a class="s-top fas fa-arrow-up fa-fw" href='javascript:void(0)'></a>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+
+  <script>
+    var GOOGLE_CUSTOM_SEARCH_API_KEY = "";
+    var GOOGLE_CUSTOM_SEARCH_ENGINE_ID = "";
+    var ALGOLIA_API_KEY = "";
+    var ALGOLIA_APP_ID = "";
+    var ALGOLIA_INDEX_NAME = "";
+    var AZURE_SERVICE_NAME = "";
+    var AZURE_INDEX_NAME = "";
+    var AZURE_QUERY_KEY = "";
+    var BAIDU_API_ID = "";
+    var SEARCH_SERVICE = "hexo" || "hexo";
+    var ROOT = "/"||"/";
+    if(!ROOT.endsWith('/'))ROOT += '/';
+  </script>
+
+<script src="//instant.page/1.2.2" type="module" integrity="sha384-2xV8M5griQmzyiY3CDqh1dn4z3llDVqZDqzjzcY+jCBCk/a5fXJmuZ/40JJAPeoU"></script>
+
+
+  <script async src="https://cdn.jsdelivr.net/npm/scrollreveal@4.0.5/dist/scrollreveal.min.js"></script>
+  <script type="text/javascript">
+    $(function() {
+      const $reveal = $('.reveal');
+      if ($reveal.length === 0) return;
+      const sr = ScrollReveal({ distance: 0 });
+      sr.reveal('.reveal');
+    });
+  </script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.js"></script>
+  <script type="text/javascript">
+    $(function() {
+      Waves.attach('.flat-btn', ['waves-button']);
+      Waves.attach('.float-btn', ['waves-button', 'waves-float']);
+      Waves.attach('.float-btn-light', ['waves-button', 'waves-float', 'waves-light']);
+      Waves.attach('.flat-box', ['waves-block']);
+      Waves.attach('.float-box', ['waves-block', 'waves-float']);
+      Waves.attach('.waves-image');
+      Waves.init();
+    });
+  </script>
+
+
+  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-busuanzi@2.3/js/busuanzi.pure.mini.js"></script>
+
+
+
+
+  
+  
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-backstretch/2.0.4/jquery.backstretch.min.js"></script>
+    <script type="text/javascript">
+      $(function(){
+        if ('') {
+          $('').backstretch(
+          ["/images/banner.jpg"],
+          {
+            duration: "6000",
+            fade: "2500"
+          });
+        } else {
+          $.backstretch(
+          ["/images/banner.jpg"],
+          {
+            duration: "6000",
+            fade: "2500"
+          });
+        }
+      });
+    </script>
+  
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  
+    
+      <script src="/js/volantis.js" type="text/javascript"></script>
+    
+  
+  <script>
+  var GUEST_INFO = ['nick','mail','link'];
+  var guest_info = 'nick,mail'.split(',').filter(function(item){
+    return GUEST_INFO.indexOf(item) > -1
+  });
+  var notify = 'true' == true;
+  var verify = 'true' == true;
+  var valine = new Valine();
+  valine.init({
+    el: '#valine_container',
+    notify: notify,
+    verify: verify,
+    guest_info: guest_info,
+    
+    appId: "6clP1BEAuM8LjCTmJON7godt-gzGzoHsz",
+    appKey: "TH5FPTPYJHpWi9KDHni6NA8Y",
+    placeholder: "快来评论吧~",
+    pageSize:'10',
+    avatar:'mp',
+    lang:'zh-cn',
+    highlight:'true'
+  })
+  </script>
+
+
+
+  <script src="/js/app.js" type="text/javascript"></script>
+
+
+  <script src="/js/search.js" type="text/javascript"></script>
+
+
+
+
+<!-- 复制 -->
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  let COPY_SUCCESS = "复制成功";
+  let COPY_FAILURE = "复制失败";
+  /*页面载入完成后，创建复制按钮*/
+  !function (e, t, a) {
+    /* code */
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '  <i class="fa fa-copy"></i><span>复制</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+
+      clipboard.on('success', function(e) {
+        //您可以加入成功提示
+        // console.info('Action:', e.action);
+        // console.info('Text:', e.text);
+        // console.info('Trigger:', e.trigger);
+        success_prompt(COPY_SUCCESS);
+        e.clearSelection();
+      });
+      clipboard.on('error', function(e) {
+        //您可以加入失败提示
+        console.error('Action:', e.action);
+        console.error('Trigger:', e.trigger);
+        fail_prompt(COPY_FAILURE);
+      });
+    }
+    initCopyCode();
+
+  }(window, document);
+
+  /**
+   * 弹出式提示框，默认1.5秒自动消失
+   * @param message 提示信息
+   * @param style 提示样式，有alert-success、alert-danger、alert-warning、alert-info
+   * @param time 消失时间
+   */
+  var prompt = function (message, style, time)
+  {
+      style = (style === undefined) ? 'alert-success' : style;
+      time = (time === undefined) ? 1500 : time*1000;
+      $('<div>')
+          .appendTo('body')
+          .addClass('alert ' + style)
+          .html(message)
+          .show()
+          .delay(time)
+          .fadeOut();
+  };
+
+  // 成功提示
+  var success_prompt = function(message, time)
+  {
+      prompt(message, 'alert-success', time);
+  };
+
+  // 失败提示
+  var fail_prompt = function(message, time)
+  {
+      prompt(message, 'alert-danger', time);
+  };
+
+  // 提醒
+  var warning_prompt = function(message, time)
+  {
+      prompt(message, 'alert-warning', time);
+  };
+
+  // 信息提示
+  var info_prompt = function(message, time)
+  {
+      prompt(message, 'alert-info', time);
+  };
+
+</script>
+
+
+<!-- fancybox -->
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script>
+  let LAZY_LOAD_IMAGE = "";
+  $(".article-entry").find("fancybox").find("img").each(function () {
+      var element = document.createElement("a");
+      $(element).attr("data-fancybox", "gallery");
+      $(element).attr("href", $(this).attr("src"));
+      /* 图片采用懒加载处理时,
+       * 一般图片标签内会有个属性名来存放图片的真实地址，比如 data-original,
+       * 那么此处将原本的属性名src替换为对应属性名data-original,
+       * 修改如下
+       */
+       if (LAZY_LOAD_IMAGE) {
+         $(element).attr("href", $(this).attr("data-original"));
+       }
+      $(this).wrap(element);
+  });
+</script>
+
+
+
+
+
+  <script>setLoadingBarProgress(100);</script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/hibiki.model.json"},"display":{"position":"left","width":145,"height":315,"hOffset":100},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.8},"dialog":{"enable":true},"log":false});</script></body>
+</html>
