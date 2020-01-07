@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   
-  <title>四、react &amp; html2canvas 生成图片下载实践 | wxmac的前端笔记</title>
+  <title>十六、自己实现map、indexOf、concat，来自jquery源码 | wxmac的前端笔记</title>
   
   <meta name="keywords" content="wxmac 个人博客">
   
@@ -189,8 +189,8 @@
         
   
     <h1 class="title">
-      <a href="/2019/12/16/4.react & html2canvas实践/">
-        四、react & html2canvas 生成图片下载实践
+      <a href="/2020/02/01/16.实现map、indexOf、concat/">
+        十六、自己实现map、indexOf、concat，来自jquery源码
       </a>
     </h1>
   
@@ -221,7 +221,7 @@
             <div class="new-meta-item date">
   <a class='notlink'>
     <i class="fas fa-calendar-alt" aria-hidden="true"></i>
-    <p>2019-12-16</p>
+    <p>2020-02-01</p>
   </a>
 </div>
 
@@ -271,17 +271,17 @@
 
     <section class="article typo">
       <div class="article-entry" itemprop="articleBody">
-        <h2 id="html2canvas的选择"><a href="#html2canvas的选择" class="headerlink" title="html2canvas的选择"></a>html2canvas的选择</h2><p>现在一般生成图片有前端处理和后端处理两种方式，后端生成的方案不需要前端出力，只需要拿路径渲染，但是会出现数据延时，模板更换困难等问题，出于灵活性和减少后端工作量考虑，我们采取 html2canvas  绘制页面。</p>
-<p> <a href="https://www.npmjs.com/package/html2canvas" target="_blank" rel="external">html2canvas npm</a><br> <a href="http://html2canvas.hertzen.com/" target="_blank" rel="external">html2canvas 介绍</a></p>
- <a id="more"></a>
+        <ul>
+<li><p>看了jq源码，受益良多。</p>
+<a id="more"></a>
 
-<h3 id="1-在react中的使用"><a href="#1-在react中的使用" class="headerlink" title="1.在react中的使用"></a>1.在react中的使用</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//安装</span></span><br><span class="line">npm install --save html2canvas</span><br><span class="line">or</span><br><span class="line">yarn add html2canvas</span><br><span class="line"></span><br><span class="line"><span class="comment">//引入</span></span><br><span class="line"><span class="keyword">import</span> html2canvas <span class="keyword">from</span> <span class="string">'html2canvas'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//使用</span></span><br><span class="line">html2canvas(<span class="built_in">document</span>.body).then(<span class="function"><span class="keyword">function</span>(<span class="params">canvas</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">document</span>.body.appendChild(canvas);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">//如果想生成一部分页面的话，html2canvas可以换成 this.refs.demo</span></span><br><span class="line"><span class="comment">//&lt;div ref="demo"&gt;&lt;/div&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="1-map"><a href="#1-map" class="headerlink" title="1.map"></a>1.map</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">map</span>(<span class="params"> elems, callback, arg </span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> length, value,</span><br><span class="line">        ret = [];</span><br><span class="line">    <span class="keyword">if</span> ( <span class="built_in">Array</span>.isArray(elems) ) &#123; <span class="comment">// 数组</span></span><br><span class="line">        length = elems.length;</span><br><span class="line">        <span class="keyword">for</span> ( <span class="keyword">let</span> i = <span class="number">0</span> ; i &lt; length; i++ ) &#123;</span><br><span class="line">            value = callback( elems[ i ], i, arg );</span><br><span class="line">            <span class="keyword">if</span> ( value != <span class="literal">null</span> ) &#123;</span><br><span class="line">                ret.push( value );</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">for</span> ( <span class="keyword">let</span> i <span class="keyword">in</span> elems ) &#123;</span><br><span class="line">            value = callback( elems[ i ], i, arg );</span><br><span class="line">            <span class="keyword">if</span> ( value != <span class="literal">null</span> ) &#123;</span><br><span class="line">                ret.push( value );</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 1.数组</span></span><br><span class="line"> <span class="comment">/**</span><br><span class="line">    const arr1 = ['a','b','c','d','e','f'];</span><br><span class="line">    map(arr1, (item,i) =&gt; &#123;</span><br><span class="line">        console.log(item, i)</span><br><span class="line">    &#125;)</span><br><span class="line">    输出：</span><br><span class="line">        a 0</span><br><span class="line">        b 1</span><br><span class="line">        c 2</span><br><span class="line">        d 3</span><br><span class="line">        e 4</span><br><span class="line">        f 5</span><br><span class="line">* **/</span> </span><br><span class="line"></span><br><span class="line"><span class="comment">//  2.对象</span></span><br><span class="line">   <span class="comment">/**</span><br><span class="line">    const obj = &#123;</span><br><span class="line">        'a':1111,</span><br><span class="line">        'b':2222</span><br><span class="line">    &#125;;</span><br><span class="line">    map(obj, (item,i) =&gt; &#123;</span><br><span class="line">        console.log(item, i)</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">    //  输出 </span><br><span class="line">        a "111"</span><br><span class="line">        b "222"</span><br><span class="line">  * **/</span></span><br></pre></td></tr></table></figure>
 
-<p>上面就会把页面简单的绘制出来。</p>
-<h2 id="2-canvas-下载"><a href="#2-canvas-下载" class="headerlink" title="2.canvas 下载"></a>2.canvas 下载</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">html2canvas(<span class="keyword">this</span>.refs.demo).then(<span class="function"><span class="keyword">function</span>(<span class="params">canvas</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> imgUrl = canvas.toDataURL(<span class="string">"image/png"</span>); <span class="comment">// 获取图片的url</span></span><br><span class="line">    <span class="keyword">const</span> elA = <span class="built_in">document</span>.createElement(<span class="string">"a"</span>);</span><br><span class="line">    elA.download = +<span class="keyword">new</span> <span class="built_in">Date</span>() + <span class="string">".png"</span>;</span><br><span class="line">    elA.href = imgUrl ;</span><br><span class="line">    elA.click();</span><br><span class="line">    elA.remove();</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">//微信中不能下载图片，可以展示图片并提示用户长按保存图片</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-indexOf"><a href="#2-indexOf" class="headerlink" title="2.indexOf"></a>2.indexOf</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> indexOf = <span class="function"><span class="keyword">function</span>(<span class="params"> list, elem </span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> len = list.length;</span><br><span class="line">    <span class="keyword">for</span> ( <span class="keyword">let</span> i = <span class="number">0</span> ; i &lt; len; i++ ) &#123;</span><br><span class="line">        <span class="keyword">if</span> ( list[i] === elem ) &#123;</span><br><span class="line">            <span class="keyword">return</span> i;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/***</span><br><span class="line"> *  let arr = [1,2,3,4,5,6];</span><br><span class="line"> * console.log( indexOf(arr,2) )</span><br><span class="line"> * // 返回下标 1</span><br><span class="line"> * </span><br><span class="line"> * </span><br><span class="line"> * let obj = 'abcdefg';</span><br><span class="line"> * console.log( indexOf(obj,c) )</span><br><span class="line"> * // 返回下标 2</span><br><span class="line">*/</span></span><br></pre></td></tr></table></figure>
 
-<h2 id="3-参考"><a href="#3-参考" class="headerlink" title="3.参考"></a>3.参考</h2><p> <a href="https://juejin.im/post/5df2e8ab6fb9a0163770816d" target="_blank" rel="external">参考1</a></p>
-
+<h3 id="concat"><a href="#concat" class="headerlink" title="concat"></a>concat</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> merge = ( first, second ) =&gt; &#123;</span><br><span class="line">    <span class="keyword">let</span> len = second.length,</span><br><span class="line">        i = first.length;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span>  j = <span class="number">0</span> ; j &lt; len; j++ ) &#123;</span><br><span class="line">        first[ i++ ] = second[ j ];</span><br><span class="line">    &#125;</span><br><span class="line">    first.length = i;</span><br><span class="line">    <span class="keyword">return</span> first;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span><br><span class="line"> * let arr1 = [1,2,3,4,5,6];</span><br><span class="line"> * let arr2 = ['a','b','c','d','e','f'];</span><br><span class="line"> * console.log( merge(arr1,arr2) )</span><br><span class="line"> * 输出： [1, 2, 3, 4, 5, 6, "a", "b", "c", "d", "e", "f"]</span><br><span class="line"> * **/</span></span><br></pre></td></tr></table></figure>
       </div>
       
       
@@ -293,10 +293,10 @@
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2019-12-26T11:50:51+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-01-07T15:51:19+08:00">
   <a class='notlink'>
     <i class="fas fa-clock" aria-hidden="true"></i>
-    <p>更新于 2019年12月26日</p>
+    <p>更新于 2020年1月7日</p>
   </a>
 </div>
 
@@ -305,7 +305,7 @@
         
           
   
-  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/html2canvas/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>html2canvas</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/js/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>js</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/react/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>react</p></a></div>
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/map/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>map</p></a></div>
 
 
         
@@ -318,8 +318,7 @@
       
         <a class="-mob-share-qq" title="QQ好友" rel="external nofollow noopener noreferrer"
           
-          href="http://connect.qq.com/widget/shareqq/index.html?url=https://wxmac.github.io/2019/12/16/4.react & html2canvas实践/&title=四、react & html2canvas 生成图片下载实践 | wxmac的前端笔记&summary=html2canvas的选择现在一般生成图片有前端处理和后端处理两种方式，后端生成的方案不需要前端出力，只需要拿路径渲染，但是会出现数据延时，模板更换困难等问题，出于灵活性和减少后端工作量考虑，我们采取 html2canvas  绘制页面。
- html2canvas npm html2canvas 介绍"
+          href="http://connect.qq.com/widget/shareqq/index.html?url=https://wxmac.github.io/2020/02/01/16.实现map、indexOf、concat/&title=十六、自己实现map、indexOf、concat，来自jquery源码 | wxmac的前端笔记&summary=看了jq源码，受益良多。"
           
           >
           
@@ -331,8 +330,7 @@
       
         <a class="-mob-share-qzone" title="QQ空间" rel="external nofollow noopener noreferrer"
           
-          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://wxmac.github.io/2019/12/16/4.react & html2canvas实践/&title=四、react & html2canvas 生成图片下载实践 | wxmac的前端笔记&summary=html2canvas的选择现在一般生成图片有前端处理和后端处理两种方式，后端生成的方案不需要前端出力，只需要拿路径渲染，但是会出现数据延时，模板更换困难等问题，出于灵活性和减少后端工作量考虑，我们采取 html2canvas  绘制页面。
- html2canvas npm html2canvas 介绍"
+          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://wxmac.github.io/2020/02/01/16.实现map、indexOf、concat/&title=十六、自己实现map、indexOf、concat，来自jquery源码 | wxmac的前端笔记&summary=看了jq源码，受益良多。"
           
           >
           
@@ -344,8 +342,7 @@
       
         <a class="-mob-share-weibo" title="微博" rel="external nofollow noopener noreferrer"
           
-          href="http://service.weibo.com/share/share.php?url=https://wxmac.github.io/2019/12/16/4.react & html2canvas实践/&title=四、react & html2canvas 生成图片下载实践 | wxmac的前端笔记&summary=html2canvas的选择现在一般生成图片有前端处理和后端处理两种方式，后端生成的方案不需要前端出力，只需要拿路径渲染，但是会出现数据延时，模板更换困难等问题，出于灵活性和减少后端工作量考虑，我们采取 html2canvas  绘制页面。
- html2canvas npm html2canvas 介绍"
+          href="http://service.weibo.com/share/share.php?url=https://wxmac.github.io/2020/02/01/16.实现map、indexOf、concat/&title=十六、自己实现map、indexOf、concat，来自jquery源码 | wxmac的前端笔记&summary=看了jq源码，受益良多。"
           
           >
           
@@ -369,40 +366,21 @@
       
           <div class="prev-next">
               
-                  <section class="prev">
-                      <span class="art-item-left">
-                          <h6><i class="fas fa-chevron-left" aria-hidden="true"></i>&nbsp;上一页</h6>
-                          <h4>
-                              <a href="/2019/12/18/5.js 深拷贝与浅拷贝/" rel="prev" title="五、js 深拷贝与浅拷贝">
-                                
-                                    五、js 深拷贝与浅拷贝
-                                
-                              </a>
-                          </h4>
-                          
-                              
-                              <h6 class="tags">
-                                  <a class="tag" href="/tags/js/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> js</a> <a class="tag" href="/tags/小技巧/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> 小技巧</a> <a class="tag" href="/tags/拷贝/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> 拷贝</a>
-                              </h6>
-                          
-                      </span>
-                  </section>
-              
               
                   <section class="next">
                       <span class="art-item-right" aria-hidden="true">
                           <h6>下一页&nbsp;<i class="fas fa-chevron-right" aria-hidden="true"></i></h6>
                           <h4>
-                              <a href="/2019/12/12/3.一些自己在使用css、js技巧/" rel="prev" title="三、一些自己在使用css、js技巧">
+                              <a href="/2020/01/30/15.利用less实现一个雪花❄️/" rel="prev" title="十五、利用less实现一个雪花❄️">
                                   
-                                      三、一些自己在使用css、js技巧
+                                      十五、利用less实现一个雪花❄️
                                   
                               </a>
                           </h4>
                           
                               
                               <h6 class="tags">
-                                  <a class="tag" href="/tags/css/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> css</a> <a class="tag" href="/tags/js/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> js</a> <a class="tag" href="/tags/小技巧/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> 小技巧</a>
+                                  <a class="tag" href="/tags/less/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> less</a> <a class="tag" href="/tags/雪花/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> 雪花</a>
                               </h6>
                           
                       </span>
@@ -446,7 +424,7 @@
 
   <script>
     window.subData = {
-      title: '四、react & html2canvas 生成图片下载实践',
+      title: '十六、自己实现map、indexOf、concat，来自jquery源码',
       tools: true
     }
   </script>
@@ -549,7 +527,7 @@
 </header>
 
     <div class='content pure'>
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#html2canvas的选择"><span class="toc-text">html2canvas的选择</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-在react中的使用"><span class="toc-text">1.在react中的使用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-canvas-下载"><span class="toc-text">2.canvas 下载</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-参考"><span class="toc-text">3.参考</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-map"><span class="toc-text">1.map</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-indexOf"><span class="toc-text">2.indexOf</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#concat"><span class="toc-text">concat</span></a></li></ol>
     </div>
   </section>
 
