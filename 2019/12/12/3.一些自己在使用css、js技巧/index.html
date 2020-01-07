@@ -312,9 +312,12 @@
 </li>
 <li><p>调用系统的某些功能</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">// 多选 </span><br><span class="line">&lt;input type="file" multiple /&gt;</span><br><span class="line">//  选择视频或者拍摄视频 </span><br><span class="line">&lt;input type="file" accept="video/*" /&gt;</span><br><span class="line">// 选择照片或者拍摄照片</span><br><span class="line">&lt;input type="file" accept="image/*" /&gt;</span><br><span class="line">// 附加</span><br><span class="line">// 发送邮件</span><br><span class="line">&lt;a href="mailto:839626987@qq.com"&gt;发邮件给：13116700755@163.com&lt;/a&gt;</span><br><span class="line">// 发送短信 </span><br><span class="line">&lt;a href="sms:10086"&gt;发短信给: 10086&lt;/a&gt;</span><br><span class="line">// 拨号</span><br><span class="line">&lt;a href="tel:10086"&gt;打电话给: 10086&lt;/a&gt;</span><br></pre></td></tr></table></figure>
-
 </li>
 </ul>
+</li>
+<li><p>flex布局最后一行列表左对齐的方法</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">.container &#123;</span><br><span class="line">    display: flex;</span><br><span class="line">    justify-content: space-between;</span><br><span class="line">    flex-wrap: wrap;</span><br><span class="line">    .list &#123;</span><br><span class="line">        background-color: skyblue;</span><br><span class="line">        margin: <span class="number">10</span>px;</span><br><span class="line">    &#125;</span><br><span class="line">    &amp;::after &#123;</span><br><span class="line">        content: <span class="string">''</span>;</span><br><span class="line">        flex: auto;    <span class="comment">/* 或者flex: 1 */</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 </li>
 </ol>
 <h2 id="JS"><a href="#JS" class="headerlink" title="JS"></a>JS</h2><p>1.判断 val 是否存在</p>
@@ -357,6 +360,11 @@
 </li>
 </ol>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> formatTime = (time) =&gt; &#123;</span><br><span class="line">    <span class="keyword">let</span> ms = (time % <span class="number">6000</span>) % <span class="number">10</span>;</span><br><span class="line">    </span><br><span class="line">    time = <span class="built_in">parseInt</span>(time / <span class="number">10</span>, <span class="number">10</span>);</span><br><span class="line">    <span class="keyword">let</span> sec = time % <span class="number">60</span>;</span><br><span class="line">    <span class="keyword">let</span> hour = <span class="built_in">parseInt</span>(time / <span class="number">3600</span>, <span class="number">10</span>);</span><br><span class="line">    <span class="keyword">let</span> min = <span class="built_in">parseInt</span>((time - (hour * <span class="number">3600</span>)) / <span class="number">60</span>, <span class="number">10</span>);</span><br><span class="line"></span><br><span class="line">    hour =  hour &lt; <span class="number">10</span> ? (<span class="string">'0'</span> + hour) : hour;</span><br><span class="line">    min =  min &lt; <span class="number">10</span> ? (<span class="string">'0'</span> + min) : min;</span><br><span class="line">    sec = sec &lt; <span class="number">10</span> ? (<span class="string">'0'</span> + sec) : sec;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> hour + <span class="string">':'</span> + min + <span class="string">':'</span> + sec + <span class="string">'.'</span> + ms;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span><br><span class="line">    let time = 100 * 10 ; // s</span><br><span class="line">    let timer = null;</span><br><span class="line">    timer = setInterval(() =&gt; &#123;</span><br><span class="line">        time = --time</span><br><span class="line">        if(time &gt; 0)&#123;</span><br><span class="line">            const date = formatTime(time)</span><br><span class="line">            $('.time').html(date)</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            clearInterval(timer)</span><br><span class="line">            $('.time').html('00')</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,100)</span><br><span class="line">**/</span></span><br></pre></td></tr></table></figure>
+
+<ol start="13">
+<li>利用数组获取当前时间</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">  <span class="keyword">const</span> showTime = () =&gt; &#123;</span><br><span class="line">      <span class="keyword">let</span> date = <span class="keyword">new</span> <span class="built_in">Date</span>();</span><br><span class="line"><span class="keyword">let</span> h = date.getHours();</span><br><span class="line"><span class="keyword">let</span> m = date.getMinutes();</span><br><span class="line">      <span class="keyword">let</span> s = date.getSeconds();</span><br><span class="line">      <span class="keyword">let</span> arrTime = [ </span><br><span class="line">	h &lt; <span class="number">10</span> ? <span class="number">0</span> : <span class="built_in">parseInt</span>( h/<span class="number">10</span> ), </span><br><span class="line">	h % <span class="number">10</span>,	</span><br><span class="line">	m &lt; <span class="number">10</span> ? <span class="number">0</span> : <span class="built_in">parseInt</span>( m/<span class="number">10</span> ), </span><br><span class="line">	m % <span class="number">10</span>,</span><br><span class="line">	s &lt; <span class="number">10</span> ? <span class="number">0</span> : <span class="built_in">parseInt</span>( s/<span class="number">10</span> ), </span><br><span class="line">	s % <span class="number">10</span>,	</span><br><span class="line">      ];</span><br><span class="line">      <span class="keyword">return</span> arrTime; <span class="comment">// 返回的是时间数组，例[ 1,2,0,0,0,0 ] 就是12:00:00</span></span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
       </div>
       
       
@@ -368,10 +376,10 @@
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-01-02T14:25:59+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-01-06T18:27:00+08:00">
   <a class='notlink'>
     <i class="fas fa-clock" aria-hidden="true"></i>
-    <p>更新于 2020年1月2日</p>
+    <p>更新于 2020年1月6日</p>
   </a>
 </div>
 
@@ -734,7 +742,7 @@
 </header>
 
     <div class='content pure'>
-      <a href="/tags/canvas/" style="font-size: 14px; color: #999">canvas</a><a href="/tags/css/" style="font-size: 14px; color: #999">css</a><a href="/tags/eventloop/" style="font-size: 14px; color: #999">eventloop</a><a href="/tags/flat/" style="font-size: 14px; color: #999">flat</a><a href="/tags/html2canvas/" style="font-size: 14px; color: #999">html2canvas</a><a href="/tags/js/" style="font-size: 24px; color: #555">js</a><a href="/tags/lottery/" style="font-size: 14px; color: #999">lottery</a><a href="/tags/pushState/" style="font-size: 14px; color: #999">pushState</a><a href="/tags/react/" style="font-size: 17.33px; color: #828282">react</a><a href="/tags/reduce/" style="font-size: 14px; color: #999">reduce</a><a href="/tags/url/" style="font-size: 14px; color: #999">url</a><a href="/tags/vscode/" style="font-size: 14px; color: #999">vscode</a><a href="/tags/webpack/" style="font-size: 14px; color: #999">webpack</a><a href="/tags/事件循环/" style="font-size: 14px; color: #999">事件循环</a><a href="/tags/函数/" style="font-size: 14px; color: #999">函数</a><a href="/tags/字符串/" style="font-size: 14px; color: #999">字符串</a><a href="/tags/字符串方法/" style="font-size: 14px; color: #999">字符串方法</a><a href="/tags/小技巧/" style="font-size: 17.33px; color: #828282">小技巧</a><a href="/tags/小挂件/" style="font-size: 14px; color: #999">小挂件</a><a href="/tags/扁平化数组/" style="font-size: 14px; color: #999">扁平化数组</a><a href="/tags/抽奖/" style="font-size: 14px; color: #999">抽奖</a><a href="/tags/拷贝/" style="font-size: 14px; color: #999">拷贝</a><a href="/tags/数组/" style="font-size: 20.67px; color: #6c6c6c">数组</a><a href="/tags/数组去重/" style="font-size: 14px; color: #999">数组去重</a><a href="/tags/数组方法/" style="font-size: 14px; color: #999">数组方法</a><a href="/tags/节流-防抖/" style="font-size: 14px; color: #999">节流/防抖</a>
+      <a href="/tags/canvas/" style="font-size: 14px; color: #999">canvas</a><a href="/tags/css/" style="font-size: 14px; color: #999">css</a><a href="/tags/eventloop/" style="font-size: 14px; color: #999">eventloop</a><a href="/tags/flat/" style="font-size: 14px; color: #999">flat</a><a href="/tags/html2canvas/" style="font-size: 14px; color: #999">html2canvas</a><a href="/tags/js/" style="font-size: 24px; color: #555">js</a><a href="/tags/less/" style="font-size: 14px; color: #999">less</a><a href="/tags/lottery/" style="font-size: 14px; color: #999">lottery</a><a href="/tags/pushState/" style="font-size: 14px; color: #999">pushState</a><a href="/tags/react/" style="font-size: 17.33px; color: #828282">react</a><a href="/tags/reduce/" style="font-size: 14px; color: #999">reduce</a><a href="/tags/url/" style="font-size: 14px; color: #999">url</a><a href="/tags/vscode/" style="font-size: 14px; color: #999">vscode</a><a href="/tags/webpack/" style="font-size: 14px; color: #999">webpack</a><a href="/tags/事件循环/" style="font-size: 14px; color: #999">事件循环</a><a href="/tags/函数/" style="font-size: 14px; color: #999">函数</a><a href="/tags/字符串/" style="font-size: 14px; color: #999">字符串</a><a href="/tags/字符串方法/" style="font-size: 14px; color: #999">字符串方法</a><a href="/tags/小技巧/" style="font-size: 17.33px; color: #828282">小技巧</a><a href="/tags/小挂件/" style="font-size: 14px; color: #999">小挂件</a><a href="/tags/扁平化数组/" style="font-size: 14px; color: #999">扁平化数组</a><a href="/tags/抽奖/" style="font-size: 14px; color: #999">抽奖</a><a href="/tags/拷贝/" style="font-size: 14px; color: #999">拷贝</a><a href="/tags/数组/" style="font-size: 20.67px; color: #6c6c6c">数组</a><a href="/tags/数组去重/" style="font-size: 14px; color: #999">数组去重</a><a href="/tags/数组方法/" style="font-size: 14px; color: #999">数组方法</a><a href="/tags/节流-防抖/" style="font-size: 14px; color: #999">节流/防抖</a><a href="/tags/雪花/" style="font-size: 14px; color: #999">雪花</a>
     </div>
   </section>
 
@@ -815,6 +823,26 @@
 <script src="/js/jquery.js" type="text/javascript"></script>
 <!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script> -->
 <script>setLoadingBarProgress(80);</script>
+
+<script>
+// 浏览器搞笑标题
+var OriginTitle = document.title;
+var titleTime;
+document.addEventListener('visibilitychange', function () {
+    if (document.hidden) {
+        $('[rel="icon"]').attr('href', "/funny.ico");
+        document.title = '╭(°A°`)╮ 页面崩溃啦 ~';
+        clearTimeout(titleTime);
+    }
+    else {
+        $('[rel="icon"]').attr('href', "/favicon.ico");
+        document.title = '(ฅ>ω<*ฅ) 噫又好啦 ~' + OriginTitle;
+        titleTime = setTimeout(function () {
+            document.title = OriginTitle;
+        }, 2000);
+    }
+});
+</script>
 
 
 
