@@ -273,7 +273,7 @@
       <div class="article-entry" itemprop="articleBody">
         <h2 id="疑难问题归纳-–-更新中"><a href="#疑难问题归纳-–-更新中" class="headerlink" title="疑难问题归纳 – 更新中"></a>疑难问题归纳 – 更新中</h2> <a id="more"></a>
 
-<h3 id="双iframe问题"><a href="#双iframe问题" class="headerlink" title="双iframe问题"></a>双iframe问题</h3><ul>
+<h3 id="一-双iframe问题"><a href="#一-双iframe问题" class="headerlink" title="一.双iframe问题"></a>一.双iframe问题</h3><ul>
 <li><p>最近遇到一个需求，点击title，切换页面，但是第一个title是已有页面，第二个是新写的，于是想到了iframe。写了两个iframe，对应下面的的写法，点击title，显示对应的页面，一切都很完美。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;div  className=&#123; <span class="string">`<span class="subst">$&#123;welfaretitleIndex == 0  ?  styleCss.welafreMain : ''&#125;</span>`</span>  &#125;&gt;</span><br><span class="line">    <span class="xml"><span class="tag">&lt;<span class="title">iframe</span>   <span class="attribute">className</span>=<span class="value">&#123;</span> <span class="attribute">styleCss.welfare_iframe</span> &#125; <span class="attribute">title</span>=<span class="value">"1"</span> <span class="attribute">src</span>=<span class="value">&#123;</span> <span class="attribute">urlOne</span> &#125; <span class="attribute">frameBorder</span>=<span class="value">"0"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="title">iframe</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">div</span>  <span class="attribute">className</span>=<span class="value">&#123;</span> `$&#123; <span class="attribute">styleCss.blobkWelafreMain</span> &#125; $&#123;<span class="attribute">welfaretitleIndex</span> =<span class="value">=</span> <span class="attribute">1</span>  ?  <span class="attribute">styleCss.welafreMain</span> <span class="attribute">:</span> ''&#125;`  &#125;&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">iframe</span>  <span class="attribute">className</span>=<span class="value">&#123;</span> <span class="attribute">styleCss.welfare_iframe</span> &#125; <span class="attribute">title</span>=<span class="value">"2"</span> <span class="attribute">src</span>=<span class="value">&#123;</span> <span class="attribute">urlTwo</span> &#125; <span class="attribute">frameBorder</span>=<span class="value">"0"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="title">iframe</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
 </li>
@@ -283,7 +283,7 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;div  className=&#123; <span class="string">`<span class="subst">$&#123; styleCss.blobkWelafreMain &#125;</span> <span class="subst">$&#123;welfaretitleIndex == 1  ?  styleCss.welafreMain : ''&#125;</span>`</span>  &#125;&gt;</span><br><span class="line">     <span class="xml"><span class="tag">&lt;<span class="title">iframe</span> <span class="attribute">ref</span>=<span class="value">"ifm"</span>  <span class="attribute">className</span>=<span class="value">&#123;</span> <span class="attribute">styleCss.welfare_iframe</span> &#125; <span class="attribute">title</span>=<span class="value">"1"</span> <span class="attribute">src</span>=<span class="value">&#123;</span> <span class="attribute">this.url</span> &#125; <span class="attribute">frameBorder</span>=<span class="value">"0"</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;/<span class="title">iframe</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="title">div</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
 
 <hr>
-<h3 id="react白屏问题"><a href="#react白屏问题" class="headerlink" title="react白屏问题"></a>react白屏问题</h3><ul>
+<h3 id="二-react白屏问题"><a href="#二-react白屏问题" class="headerlink" title="二.react白屏问题"></a>二.react白屏问题</h3><ul>
 <li>新项目是我用react重构的，刚开始很好，没出现问题。后来运营集中反馈，vivo、oppo手机在app中打开活动页面出现白屏，但是很难复现。只能去问度娘了。</li>
 </ul>
 <ol>
@@ -306,7 +306,7 @@
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-02-26T16:53:05+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-02-26T16:54:41+08:00">
   <a class='notlink'>
     <i class="fas fa-clock" aria-hidden="true"></i>
     <p>更新于 2020年2月26日</p>
@@ -540,7 +540,7 @@
 </header>
 
     <div class='content pure'>
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#疑难问题归纳-–-更新中"><span class="toc-text">疑难问题归纳 – 更新中</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#双iframe问题"><span class="toc-text">双iframe问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#react白屏问题"><span class="toc-text">react白屏问题</span></a></li></ol></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#疑难问题归纳-–-更新中"><span class="toc-text">疑难问题归纳 – 更新中</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#一-双iframe问题"><span class="toc-text">一.双iframe问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二-react白屏问题"><span class="toc-text">二.react白屏问题</span></a></li></ol></li></ol>
     </div>
   </section>
 
