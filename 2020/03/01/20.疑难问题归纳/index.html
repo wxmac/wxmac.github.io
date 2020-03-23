@@ -303,8 +303,12 @@
 </li>
 </ul>
 <h3 id="四-ios-视频无法自动播放问题"><a href="#四-ios-视频无法自动播放问题" class="headerlink" title="四.ios 视频无法自动播放问题"></a>四.ios 视频无法自动播放问题</h3><ul>
-<li>这个之前没有遇到过，在谷歌模拟器里是好的，但是在ios微信里面，视频无法自动播放，需要做一下判断，在wx.ready调用就好了。<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> u = navigator.userAgent;</span><br><span class="line"><span class="keyword">const</span> isiOS = !!u.match(<span class="regexp">/\(i[^;]+;( U;)? CPU.+Mac OS X/</span>);</span><br><span class="line"><span class="keyword">if</span>(isiOS)&#123;</span><br><span class="line">    <span class="keyword">const</span> video = <span class="keyword">this</span>.refs.videoEl;</span><br><span class="line">    <span class="comment">// config必须存在</span></span><br><span class="line">    wx.config(&#123;</span><br><span class="line">        <span class="comment">// 配置信息, 即使不正确也能使用 wx.ready</span></span><br><span class="line">        debug: <span class="literal">false</span>,</span><br><span class="line">        appId: <span class="string">''</span>,</span><br><span class="line">        timestamp: <span class="number">1</span>,</span><br><span class="line">        nonceStr: <span class="string">''</span>,</span><br><span class="line">        signature: <span class="string">''</span>,</span><br><span class="line">        jsApiList: []</span><br><span class="line">    &#125;);</span><br><span class="line">    wx.ready(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        video.play();</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<li><p>这个之前没有遇到过，在谷歌模拟器里是好的，但是在ios微信里面，视频无法自动播放，需要做一下判断，在wx.ready调用就好了。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> u = navigator.userAgent;</span><br><span class="line"><span class="keyword">const</span> isiOS = !!u.match(<span class="regexp">/\(i[^;]+;( U;)? CPU.+Mac OS X/</span>);</span><br><span class="line"><span class="keyword">if</span>(isiOS)&#123;</span><br><span class="line">    <span class="keyword">const</span> video = <span class="keyword">this</span>.refs.videoEl;</span><br><span class="line">    <span class="comment">// config必须存在</span></span><br><span class="line">    wx.config(&#123;</span><br><span class="line">        <span class="comment">// 配置信息, 即使不正确也能使用 wx.ready</span></span><br><span class="line">        debug: <span class="literal">false</span>,</span><br><span class="line">        appId: <span class="string">''</span>,</span><br><span class="line">        timestamp: <span class="number">1</span>,</span><br><span class="line">        nonceStr: <span class="string">''</span>,</span><br><span class="line">        signature: <span class="string">''</span>,</span><br><span class="line">        jsApiList: []</span><br><span class="line">    &#125;);</span><br><span class="line">    wx.ready(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        video.play();</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+<h3 id="四-html2canvas-生成-ios无法显示问题"><a href="#四-html2canvas-生成-ios无法显示问题" class="headerlink" title="四.html2canvas 生成 ios无法显示问题"></a>四.html2canvas 生成 ios无法显示问题</h3><ul>
+<li>在使用html2canvas的时候，在模拟器上显示完美，但是在ios上，图片就会显示不出来。onLoad的什么都加了，最后发现是less中rem的问题。canvas在ios中不支持rem；所以把所有的rem写死，换成了px。</li>
+</ul>
 </li>
 </ul>
 
@@ -319,10 +323,10 @@
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-03-11T09:05:59+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-03-23T15:51:36+08:00">
   <a class='notlink'>
     <i class="fas fa-clock" aria-hidden="true"></i>
-    <p>更新于 2020年3月11日</p>
+    <p>更新于 2020年3月23日</p>
   </a>
 </div>
 
@@ -391,6 +395,25 @@
       
       
           <div class="prev-next">
+              
+                  <section class="prev">
+                      <span class="art-item-left">
+                          <h6><i class="fas fa-chevron-left" aria-hidden="true"></i>&nbsp;上一页</h6>
+                          <h4>
+                              <a href="/2020/03/20/21.添加水印/" rel="prev" title="二十一、添加水印">
+                                
+                                    二十一、添加水印
+                                
+                              </a>
+                          </h4>
+                          
+                              
+                              <h6 class="tags">
+                                  <a class="tag" href="/tags/水印/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> 水印</a>
+                              </h6>
+                          
+                      </span>
+                  </section>
               
               
                   <section class="next">
@@ -553,7 +576,7 @@
 </header>
 
     <div class='content pure'>
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#疑难问题归纳-–-更新中"><span class="toc-text">疑难问题归纳 – 更新中</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#一-双iframe问题"><span class="toc-text">一.双iframe问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二-react白屏问题"><span class="toc-text">二.react白屏问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三-微信二次分享问题"><span class="toc-text">三.微信二次分享问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#四-ios-视频无法自动播放问题"><span class="toc-text">四.ios 视频无法自动播放问题</span></a></li></ol></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#疑难问题归纳-–-更新中"><span class="toc-text">疑难问题归纳 – 更新中</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#一-双iframe问题"><span class="toc-text">一.双iframe问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二-react白屏问题"><span class="toc-text">二.react白屏问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三-微信二次分享问题"><span class="toc-text">三.微信二次分享问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#四-ios-视频无法自动播放问题"><span class="toc-text">四.ios 视频无法自动播放问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#四-html2canvas-生成-ios无法显示问题"><span class="toc-text">四.html2canvas 生成 ios无法显示问题</span></a></li></ol></li></ol>
     </div>
   </section>
 
@@ -666,7 +689,7 @@
 </header>
 
     <div class='content pure'>
-      <a href="/tags/canvas/" style="font-size: 14px; color: #999">canvas</a><a href="/tags/css/" style="font-size: 14px; color: #999">css</a><a href="/tags/eventloop/" style="font-size: 14px; color: #999">eventloop</a><a href="/tags/flat/" style="font-size: 14px; color: #999">flat</a><a href="/tags/html2canvas/" style="font-size: 14px; color: #999">html2canvas</a><a href="/tags/js/" style="font-size: 24px; color: #555">js</a><a href="/tags/less/" style="font-size: 14px; color: #999">less</a><a href="/tags/lottery/" style="font-size: 14px; color: #999">lottery</a><a href="/tags/map/" style="font-size: 14px; color: #999">map</a><a href="/tags/postMessage/" style="font-size: 14px; color: #999">postMessage</a><a href="/tags/pushState/" style="font-size: 14px; color: #999">pushState</a><a href="/tags/react/" style="font-size: 17.33px; color: #828282">react</a><a href="/tags/reduce/" style="font-size: 14px; color: #999">reduce</a><a href="/tags/url/" style="font-size: 14px; color: #999">url</a><a href="/tags/vscode/" style="font-size: 14px; color: #999">vscode</a><a href="/tags/webpack/" style="font-size: 14px; color: #999">webpack</a><a href="/tags/事件循环/" style="font-size: 14px; color: #999">事件循环</a><a href="/tags/函数/" style="font-size: 14px; color: #999">函数</a><a href="/tags/字符串/" style="font-size: 14px; color: #999">字符串</a><a href="/tags/字符串方法/" style="font-size: 14px; color: #999">字符串方法</a><a href="/tags/小技巧/" style="font-size: 20.67px; color: #6c6c6c">小技巧</a><a href="/tags/小挂件/" style="font-size: 14px; color: #999">小挂件</a><a href="/tags/归纳问题/" style="font-size: 14px; color: #999">归纳问题</a><a href="/tags/扁平化数组/" style="font-size: 14px; color: #999">扁平化数组</a><a href="/tags/抽奖/" style="font-size: 14px; color: #999">抽奖</a><a href="/tags/拷贝/" style="font-size: 14px; color: #999">拷贝</a><a href="/tags/数组/" style="font-size: 20.67px; color: #6c6c6c">数组</a><a href="/tags/数组去重/" style="font-size: 14px; color: #999">数组去重</a><a href="/tags/数组方法/" style="font-size: 14px; color: #999">数组方法</a><a href="/tags/父子页面通信/" style="font-size: 14px; color: #999">父子页面通信</a><a href="/tags/节流-防抖/" style="font-size: 14px; color: #999">节流/防抖</a><a href="/tags/设计模式/" style="font-size: 17.33px; color: #828282">设计模式</a><a href="/tags/雪花/" style="font-size: 14px; color: #999">雪花</a>
+      <a href="/tags/canvas/" style="font-size: 14px; color: #999">canvas</a><a href="/tags/css/" style="font-size: 14px; color: #999">css</a><a href="/tags/eventloop/" style="font-size: 14px; color: #999">eventloop</a><a href="/tags/flat/" style="font-size: 14px; color: #999">flat</a><a href="/tags/html2canvas/" style="font-size: 14px; color: #999">html2canvas</a><a href="/tags/js/" style="font-size: 24px; color: #555">js</a><a href="/tags/less/" style="font-size: 14px; color: #999">less</a><a href="/tags/lottery/" style="font-size: 14px; color: #999">lottery</a><a href="/tags/map/" style="font-size: 14px; color: #999">map</a><a href="/tags/postMessage/" style="font-size: 14px; color: #999">postMessage</a><a href="/tags/pushState/" style="font-size: 14px; color: #999">pushState</a><a href="/tags/react/" style="font-size: 17.33px; color: #828282">react</a><a href="/tags/reduce/" style="font-size: 14px; color: #999">reduce</a><a href="/tags/url/" style="font-size: 14px; color: #999">url</a><a href="/tags/vscode/" style="font-size: 14px; color: #999">vscode</a><a href="/tags/webpack/" style="font-size: 14px; color: #999">webpack</a><a href="/tags/事件循环/" style="font-size: 14px; color: #999">事件循环</a><a href="/tags/函数/" style="font-size: 14px; color: #999">函数</a><a href="/tags/刮刮乐/" style="font-size: 14px; color: #999">刮刮乐</a><a href="/tags/字符串/" style="font-size: 14px; color: #999">字符串</a><a href="/tags/字符串方法/" style="font-size: 14px; color: #999">字符串方法</a><a href="/tags/小技巧/" style="font-size: 20.67px; color: #6c6c6c">小技巧</a><a href="/tags/小挂件/" style="font-size: 14px; color: #999">小挂件</a><a href="/tags/归纳问题/" style="font-size: 14px; color: #999">归纳问题</a><a href="/tags/扁平化数组/" style="font-size: 14px; color: #999">扁平化数组</a><a href="/tags/抽奖/" style="font-size: 14px; color: #999">抽奖</a><a href="/tags/拷贝/" style="font-size: 14px; color: #999">拷贝</a><a href="/tags/数组/" style="font-size: 20.67px; color: #6c6c6c">数组</a><a href="/tags/数组去重/" style="font-size: 14px; color: #999">数组去重</a><a href="/tags/数组方法/" style="font-size: 14px; color: #999">数组方法</a><a href="/tags/水印/" style="font-size: 14px; color: #999">水印</a><a href="/tags/父子页面通信/" style="font-size: 14px; color: #999">父子页面通信</a><a href="/tags/节流-防抖/" style="font-size: 14px; color: #999">节流/防抖</a><a href="/tags/设计模式/" style="font-size: 17.33px; color: #828282">设计模式</a><a href="/tags/雪花/" style="font-size: 14px; color: #999">雪花</a>
     </div>
   </section>
 
