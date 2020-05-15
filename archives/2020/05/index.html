@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   
-  <title>六、函数节流和防抖 | wxmac的前端笔记</title>
+  <title>Archives: 2020/5 | wxmac的前端笔记</title>
   
   <meta name="keywords" content="wxmac 个人博客">
   
@@ -46,7 +46,7 @@
   
   
   <div class="cover-wrapper">
-    <cover class='cover post half'>
+    <cover class='cover  half'>
       
         
   <h1 class='title'>wxmac的前端笔记</h1>
@@ -175,10 +175,22 @@
   <div class="l_body">
     <div class='body-wrapper'>
       <div class='l_main'>
-  
-
-  <article id="post" class="post white-box article-type-post" itemscope itemprop="blogPost">
+	
+		
+  <section class="post-list">
     
+      
+        
+          
+        
+      
+    
+    
+      
+        
+          <div class='post-wrapper'>
+            <article class="post reveal ">
+  
 
 
   <section class='meta'>
@@ -187,13 +199,11 @@
     <div class="meta" id="header-meta">
       
         
-  
-    <h1 class="title">
-      <a href="/2019/12/23/6.函数节流和防抖/">
-        六、函数节流和防抖
-      </a>
-    </h1>
-  
+  <h2 class="title">
+    <a href="/2020/05/01/23.执行上下文/">
+      二十三、执行上下文
+    </a>
+  </h2>
 
 
       
@@ -221,7 +231,7 @@
             <div class="new-meta-item date">
   <a class='notlink'>
     <i class="fas fa-calendar-alt" aria-hidden="true"></i>
-    <p>2019-12-23</p>
+    <p>2020-05-01</p>
   </a>
 </div>
 
@@ -229,24 +239,6 @@
         
           
             
-
-          
-        
-          
-            
-  
-    <div class="new-meta-item browse busuanzi">
-      <a class='notlink'>
-        <i class="fas fa-eye" aria-hidden="true"></i>
-        <p>
-          <span id="busuanzi_value_page_pv">
-            <i class="fas fa-spinner fa-spin fa-fw" aria-hidden="true"></i>
-          </span>
-        </p>
-      </a>
-    </div>
-  
-
 
           
         
@@ -269,201 +261,43 @@
   </section>
 
 
-    <section class="article typo">
-      <div class="article-entry" itemprop="articleBody">
-        <h2 id="1-节流"><a href="#1-节流" class="headerlink" title="1.节流"></a>1.节流</h2><ul>
-<li>核心思想: 如果在定时器的时间范围内再次触发，则不予理睬，等当前定时器完成，才能启动下一个定时器任务。</li>
-</ul>
-<a id="more"></a>
-
- <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> throttle = (fn, delay) =&gt; &#123;</span><br><span class="line">    <span class="keyword">let</span> flag = <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">return</span> (...args) =&gt; &#123;</span><br><span class="line">        <span class="keyword">let</span> context = <span class="keyword">this</span>;</span><br><span class="line">        <span class="keyword">if</span> (!flag) <span class="keyword">return</span>;</span><br><span class="line">        flag = <span class="literal">false</span>;</span><br><span class="line">        setTimeout(() =&gt; &#123;</span><br><span class="line">            fn.apply(context, args);</span><br><span class="line">            flag = <span class="literal">true</span>;</span><br><span class="line">        &#125;, delay);</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h2 id="2-防抖"><a href="#2-防抖" class="headerlink" title="2.防抖"></a>2.防抖</h2><ul>
-<li><p>核心思想: 每次事件触发都删除原来的定时器，建立新的定时器，反复触发函数，那么从最后一次触发开始计时。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> debounce = (fn, delay) =&gt; &#123;</span><br><span class="line">    <span class="keyword">let</span> timer = <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">return</span>  (...args) =&gt; &#123;</span><br><span class="line">        <span class="keyword">let</span> context = <span class="keyword">this</span>;</span><br><span class="line">        <span class="keyword">if</span>(timer)&#123;  </span><br><span class="line">            clearTimeout(timer)</span><br><span class="line">        &#125;;</span><br><span class="line">        timer = setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">            fn.apply(context, args);</span><br><span class="line">        &#125;, delay);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="3-合并"><a href="#3-合并" class="headerlink" title="3.合并"></a>3.合并</h2></li>
-<li><p>现在我们可以把防抖和节流放到一起，有时候触发的太频繁会导致一次响应都没有，我们希望到了固定的时间必须给用户一个响应。</p>
-</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> throttle = (fn, delay) =&gt; &#123;</span><br><span class="line">    <span class="keyword">let</span> flag = <span class="literal">true</span>, timer = <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params">...args</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">let</span> context = <span class="keyword">this</span>;</span><br><span class="line">        <span class="keyword">if</span>( !flag )&#123; <span class="keyword">return</span> &#125;;  </span><br><span class="line">        clearTimeout(timer);</span><br><span class="line">        flag = <span class="literal">false</span>;</span><br><span class="line">        timer = setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">            flag = <span class="literal">true</span>;</span><br><span class="line">            fn.apply(context, args);</span><br><span class="line">        &#125;, delay);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="4-实践-–-图片懒加载"><a href="#4-实践-–-图片懒加载" class="headerlink" title="4.实践 – 图片懒加载"></a>4.实践 – 图片懒加载</h2><h3 id="clientHeight-、scrollTop-、-offsetTop"><a href="#clientHeight-、scrollTop-、-offsetTop" class="headerlink" title="clientHeight 、scrollTop 、 offsetTop"></a>clientHeight 、scrollTop 、 offsetTop</h3><ul>
-<li>思路： 给img一个默认图片，以及data-src属性，当页面滚动到对应img元素的时候，把data-src赋值给src。<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//给img一个默认图片</span></span><br><span class="line">&lt;img src=<span class="string">"default.png"</span> data-src=<span class="string">"xxx/img.png"</span> /&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment">//通过监听 scroll 事件来判断图片是否到达视口:</span></span><br><span class="line"><span class="keyword">let</span> img = <span class="built_in">document</span>.getElementsByTagName(<span class="string">"img"</span>);</span><br><span class="line"><span class="keyword">let</span> num = img.length;</span><br><span class="line"><span class="keyword">let</span> count = <span class="number">0</span>; <span class="comment">//计数器，从第一张图片开始计</span></span><br><span class="line"></span><br><span class="line">lazyload(); <span class="comment">//首次加载</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">'scroll'</span>, throttle(lazyload, <span class="number">200</span>)); <span class="comment">//节流</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">lazyload</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> viewHeight = <span class="built_in">document</span>.documentElement.clientHeight;<span class="comment">// 视口高度</span></span><br><span class="line">    <span class="keyword">let</span> scrollTop = <span class="built_in">document</span>.documentElement.scrollTop || <span class="built_in">document</span>.body.scrollTop;<span class="comment">//滚动条滚动的高度</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> i = count; i &lt; num; i++) &#123;</span><br><span class="line">        <span class="comment">//元素现在已经出现在视口中</span></span><br><span class="line">        <span class="keyword">if</span>( img[i].offsetTop &lt; scrollHeight + viewHeight ) &#123;</span><br><span class="line">            <span class="keyword">if</span>(img[i].getAttribute(<span class="string">'src'</span>) !== <span class="string">'default.png'</span>) <span class="keyword">continue</span>; <span class="comment">//如果src不是default.png'，跳过循环，继续往下循环</span></span><br><span class="line">            img[i].src = img[i].getAttribute(<span class="string">"data-src"</span>);</span><br><span class="line">            count ++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//scrollTop + clientHeight === scrollHeight 即触发下拉加载的条件</span></span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-
-      </div>
+  <section class="article typo">
+    <div class="article-entry" itemprop="articleBody">
+      <h2 id="执行上下文"><a href="#执行上下文" class="headerlink" title="执行上下文"></a>执行上下文</h2>
       
-      
-        <br>
-        
-
-
-  <section class='meta' id="footer-meta">
-    <div class='new-meta-box'>
-      
-        
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-02-26T16:43:29+08:00">
-  <a class='notlink'>
-    <i class="fas fa-clock" aria-hidden="true"></i>
-    <p>更新于 2020年2月26日</p>
-  </a>
-</div>
-
-        
-      
-        
-          
-  
-  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/函数/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>函数</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/节流-防抖/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>节流/防抖</p></a></div>
-
-
-        
-      
-        
-          
-  <div class="new-meta-item share -mob-share-list">
-  <div class="-mob-share-list share-body">
-    
-      
-        <a class="-mob-share-qq" title="QQ好友" rel="external nofollow noopener noreferrer"
-          
-          href="http://connect.qq.com/widget/shareqq/index.html?url=https://wxmac.github.io/2019/12/23/6.函数节流和防抖/&title=六、函数节流和防抖 | wxmac的前端笔记&summary=1.节流
-核心思想: 如果在定时器的时间范围内再次触发，则不予理睬，等当前定时器完成，才能启动下一个定时器任务。"
-          
-          >
-          
-            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/qq.png">
-          
-        </a>
-      
-    
-      
-        <a class="-mob-share-qzone" title="QQ空间" rel="external nofollow noopener noreferrer"
-          
-          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://wxmac.github.io/2019/12/23/6.函数节流和防抖/&title=六、函数节流和防抖 | wxmac的前端笔记&summary=1.节流
-核心思想: 如果在定时器的时间范围内再次触发，则不予理睬，等当前定时器完成，才能启动下一个定时器任务。"
-          
-          >
-          
-            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/qzone.png">
-          
-        </a>
-      
-    
-      
-        <a class="-mob-share-weibo" title="微博" rel="external nofollow noopener noreferrer"
-          
-          href="http://service.weibo.com/share/share.php?url=https://wxmac.github.io/2019/12/23/6.函数节流和防抖/&title=六、函数节流和防抖 | wxmac的前端笔记&summary=1.节流
-核心思想: 如果在定时器的时间范围内再次触发，则不予理睬，等当前定时器完成，才能启动下一个定时器任务。"
-          
-          >
-          
-            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/assets@19.1.9/logo/128/weibo.png">
-          
-        </a>
-      
-    
-  </div>
-</div>
-
-
-
-        
+        <div class="readmore">
+          <a href="/2020/05/01/23.执行上下文/" class="flat-box">
+            <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
+            阅读全文
+          </a>
+        </div>
       
     </div>
+    
+      <div class="full-width auto-padding tags">
+        
+          <a href="/tags/执行上下文/" rel="nofollow"><i class="fas fa-tag fa-fw"></i> 执行上下文</a>
+        
+      </div>
+    
   </section>
+</article>
 
-
-      
-      
-          <div class="prev-next">
-              
-                  <section class="prev">
-                      <span class="art-item-left">
-                          <h6><i class="fas fa-chevron-left" aria-hidden="true"></i>&nbsp;上一页</h6>
-                          <h4>
-                              <a href="/2019/12/25/7.不刷新修改url链接/" rel="prev" title="七、不刷新修改url链接">
-                                
-                                    七、不刷新修改url链接
-                                
-                              </a>
-                          </h4>
-                          
-                              
-                              <h6 class="tags">
-                                  <a class="tag" href="/tags/pushState/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> pushState</a> <a class="tag" href="/tags/url/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> url</a>
-                              </h6>
-                          
-                      </span>
-                  </section>
-              
-              
-                  <section class="next">
-                      <span class="art-item-right" aria-hidden="true">
-                          <h6>下一页&nbsp;<i class="fas fa-chevron-right" aria-hidden="true"></i></h6>
-                          <h4>
-                              <a href="/2019/12/18/5.js 深拷贝与浅拷贝/" rel="prev" title="五、js 深拷贝与浅拷贝">
-                                  
-                                      五、js 深拷贝与浅拷贝
-                                  
-                              </a>
-                          </h4>
-                          
-                              
-                              <h6 class="tags">
-                                  <a class="tag" href="/tags/js/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> js</a> <a class="tag" href="/tags/小技巧/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> 小技巧</a> <a class="tag" href="/tags/拷贝/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> 拷贝</a>
-                              </h6>
-                          
-                      </span>
-                  </section>
-              
           </div>
+        
       
-    </section>
-  </article>
+    
+  </section>
+  
+    
+    <!-- 根据主题中的设置决定是否在archive中针对摘要部分的MathJax公式加载mathjax.js文件 -->
+    
+    
+
+  
 
 
-
-  <!-- 显示推荐文章和评论 -->
-
-
-
-  <article class="post white-box comments">
-    <section class="article typo">
-      <h4><i class="fas fa-comments fa-fw" aria-hidden="true"></i>&nbsp;评论</h4>
-      
-      
-      
-      
-        <section id="comments">
-          <div id="valine_container" class="valine_thread">
-            <i class="fas fa-spinner fa-spin fa-fw"></i>
-          </div>
-        </section>
-      
-    </section>
-  </article>
-
-
-
-
-
-
-<!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
-
-
-
-  <script>
-    window.subData = {
-      title: '六、函数节流和防抖',
-      tools: true
-    }
-  </script>
-
-
+	
 </div>
 <aside class='l_side'>
   
@@ -548,25 +382,6 @@
           
         
           
-          
-            
-              
-  <section class='widget toc-wrapper'>
-    
-<header class='pure'>
-  <div><i class="fas fa-list fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;本文目录</div>
-  
-    <!-- <div class='wrapper'><a class="s-toc rightBtn" rel="external nofollow noopener noreferrer" href="javascript:void(0)"><i class="fas fa-thumbtack fa-fw"></i></a></div> -->
-  
-</header>
-
-    <div class='content pure'>
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-节流"><span class="toc-text">1.节流</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-防抖"><span class="toc-text">2.防抖</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-合并"><span class="toc-text">3.合并</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-实践-–-图片懒加载"><span class="toc-text">4.实践 – 图片懒加载</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#clientHeight-、scrollTop-、-offsetTop"><span class="toc-text">clientHeight 、scrollTop 、 offsetTop</span></a></li></ol></li></ol>
-    </div>
-  </section>
-
-
-            
           
         
           
@@ -683,34 +498,6 @@
           
         
       
-        
-          
-          
-        
-          
-          
-        
-          
-          
-        
-          
-          
-        
-      
-        
-          
-          
-        
-          
-          
-        
-          
-          
-        
-          
-          
-        
-      
     
 
   
@@ -796,6 +583,14 @@ document.addEventListener('visibilitychange', function () {
   setInterval("createtime()",250);
 </script>
 
+
+
+
+
+	<!-- 根据主题中的设置决定是否在archive中针对摘要部分的MathJax公式加载mathjax.js文件 -->
+	
+
+	
 
 
       <script>setLoadingBarProgress(60);</script>
@@ -884,36 +679,6 @@ document.addEventListener('visibilitychange', function () {
 
 
 
-
-  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-  
-    
-      <script src="/js/volantis.js" type="text/javascript"></script>
-    
-  
-  <script>
-  var GUEST_INFO = ['nick','mail','link'];
-  var guest_info = 'nick,mail'.split(',').filter(function(item){
-    return GUEST_INFO.indexOf(item) > -1
-  });
-  var notify = 'true' == true;
-  var verify = 'true' == true;
-  var valine = new Valine();
-  valine.init({
-    el: '#valine_container',
-    notify: notify,
-    verify: verify,
-    guest_info: guest_info,
-    
-    appId: "6clP1BEAuM8LjCTmJON7godt-gzGzoHsz",
-    appKey: "TH5FPTPYJHpWi9KDHni6NA8Y",
-    placeholder: "快来评论吧~",
-    pageSize:'10',
-    avatar:'mp',
-    lang:'zh-cn',
-    highlight:'true'
-  })
-  </script>
 
 
 
