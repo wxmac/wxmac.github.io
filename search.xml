@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>二十四、Code Helper进程占用大量CPU</title>
+      <link href="/2020/06/18/24.Code%20Helper%E8%BF%9B%E7%A8%8B%E5%8D%A0%E7%94%A8%E5%A4%A7%E9%87%8FCPU/"/>
+      <url>/2020/06/18/24.Code%20Helper%E8%BF%9B%E7%A8%8B%E5%8D%A0%E7%94%A8%E5%A4%A7%E9%87%8FCPU/</url>
+      
+        <content type="html"><![CDATA[<h2 id="设备及软件："><a href="#设备及软件：" class="headerlink" title="设备及软件："></a>设备及软件：</h2><ul><li>设备：Mac </li><li>软件：VSCode</li></ul><h2 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h2><ul><li>在Mac中使用VSCode运行时发现项目编译非常卡顿，时间长达五六分钟以上，并且项目启动后访问页面，页面也会有明显的卡顿。</li></ul><a id="more"></a><ul><li><p>解决方案：将以下代码插入到VSCode的setting.json中去，并退出重新启动VSCode和项目</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"files.exclude"</span>: &#123;</span><br><span class="line"><span class="string">"**/.git"</span>: <span class="literal">true</span>,</span><br><span class="line"><span class="string">"**/.svn"</span>: <span class="literal">true</span>,</span><br><span class="line"><span class="string">"**/.hg"</span>: <span class="literal">true</span>,</span><br><span class="line"><span class="string">"**/CVS"</span>: <span class="literal">true</span>,</span><br><span class="line"><span class="string">"**/.DS_Store"</span>: <span class="literal">true</span>,</span><br><span class="line"><span class="string">"**/tmp"</span>: <span class="literal">true</span>,</span><br><span class="line"><span class="string">"**/node_modules"</span>: <span class="literal">true</span>,</span><br><span class="line"><span class="string">"**/bower_components"</span>: <span class="literal">true</span>,</span><br><span class="line"><span class="string">"**/dist"</span>: <span class="literal">true</span></span><br><span class="line">&#125;,</span><br><span class="line"><span class="string">"files.watcherExclude"</span>: &#123;</span><br><span class="line"><span class="string">"**/.git/objects/**"</span>: <span class="literal">true</span>,</span><br><span class="line"><span class="string">"**/.git/subtree-cache/**"</span>: <span class="literal">true</span>,</span><br><span class="line"><span class="string">"**/node_modules/**"</span>: <span class="literal">true</span>,</span><br><span class="line"><span class="string">"**/tmp/**"</span>: <span class="literal">true</span>,</span><br><span class="line"><span class="string">"**/bower_components/**"</span>: <span class="literal">true</span>,</span><br><span class="line"><span class="string">"**/dist/**"</span>: <span class="literal">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li><li><p>最后CPU降下来了。</p></li></ul>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> vscdoe code Helper </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>二十三、执行上下文</title>
       <link href="/2020/05/01/23.%E6%89%A7%E8%A1%8C%E4%B8%8A%E4%B8%8B%E6%96%87/"/>
       <url>/2020/05/01/23.%E6%89%A7%E8%A1%8C%E4%B8%8A%E4%B8%8B%E6%96%87/</url>
