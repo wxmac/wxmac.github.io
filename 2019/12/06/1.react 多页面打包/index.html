@@ -330,11 +330,14 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"homepage"</span>: <span class="string">"../"</span>,</span><br></pre></td></tr></table></figure>
 
 <ul>
-<li><p>顺便提一下，本地跨域，同样在 package.json 配置一下 proxy就可以了：</p>
+<li><p>(1)：顺便提一下，本地跨域，同样在 package.json 配置一下 proxy就可以了：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"proxy"</span>: <span class="string">"域名"</span>,</span><br></pre></td></tr></table></figure>
-
+</li>
+<li><p>(2)：2020/7/15 更新 – 跨域配置 - 在src下新建 setupProxy.js</p>
 </li>
 </ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123; createProxyMiddleware &#125; = <span class="built_in">require</span>(<span class="string">"http-proxy-middleware"</span>);</span><br><span class="line"><span class="keyword">const</span> targetUrl = <span class="string">"https://wechattest.youbeichefu.com"</span>; <span class="comment">// 配置域名 -- 测试</span></span><br><span class="line"><span class="comment">// const targetUrl = "https://prewechat.youbeichefu.com"; // 配置域名 -- 预发布</span></span><br><span class="line"><span class="comment">// const targetUrl = "https://wechat.youbeichefu.com"; // 配置域名 -- 线上</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> regArr = [ <span class="comment">// 配置匹配的请求链接</span></span><br><span class="line">	<span class="string">'/func'</span>, </span><br><span class="line">	<span class="string">'/userApi'</span>, </span><br><span class="line">	<span class="string">'/washstation'</span>, </span><br><span class="line">	<span class="string">'/app'</span>, </span><br><span class="line">	<span class="string">'/parkingLot'</span>, </span><br><span class="line">	<span class="string">'/static/web'</span>,</span><br><span class="line">	<span class="string">'/file'</span></span><br><span class="line">]; </span><br><span class="line"><span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span>(<span class="params">app</span>) </span>&#123;</span><br><span class="line">	app.use(</span><br><span class="line">		createProxyMiddleware(regArr, &#123;</span><br><span class="line">			target: targetUrl,</span><br><span class="line">			changeOrigin: <span class="literal">true</span>, <span class="comment">// needed for virtual hosted sites</span></span><br><span class="line">		&#125;)</span><br><span class="line">	);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
 <p>(2).打完包之后，放到服务器上，跳转访问路径也要配置的</p>
  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"> </span><br><span class="line"><span class="comment">//比如本地 </span></span><br><span class="line">http:<span class="comment">//localhost:3000/home/home.html;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//线上:</span></span><br><span class="line">https:www.baidu.com/dist/demo/home/home.html</span><br><span class="line"></span><br><span class="line"><span class="comment">//那么当你跳转链接的时候，就要这样：</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//跳转</span></span><br><span class="line"><span class="keyword">const</span> param = <span class="built_in">window</span>.location.href.includes(<span class="string">'baidu'</span>) ? <span class="string">'/dist/demo'</span> : <span class="string">''</span>;</span><br><span class="line"><span class="built_in">window</span>.location.href = param + <span class="string">'/home/home.html'</span>;</span><br></pre></td></tr></table></figure>
 
@@ -350,10 +353,10 @@
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-02-26T16:41:21+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-07-14T15:12:39+08:00">
   <a class='notlink'>
     <i class="fas fa-clock" aria-hidden="true"></i>
-    <p>更新于 2020年2月26日</p>
+    <p>更新于 2020年7月14日</p>
   </a>
 </div>
 
