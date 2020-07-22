@@ -274,6 +274,29 @@
         <h2 id="eventloop事件循环"><a href="#eventloop事件循环" class="headerlink" title="eventloop事件循环"></a>eventloop事件循环</h2><ul>
 <li>js是单线程执行的，eventloop事件循环就是解决javaScript单线程运行阻塞的一种机制。</li>
 </ul>
+<h2 id="消息队列"><a href="#消息队列" class="headerlink" title="消息队列"></a>消息队列</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> bar = () =&gt; <span class="built_in">console</span>.log(<span class="string">'bar'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> baz = () =&gt; <span class="built_in">console</span>.log(<span class="string">'baz'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> foo = () =&gt; &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'foo'</span>)</span><br><span class="line">  setTimeout(bar, <span class="number">0</span>)</span><br><span class="line">  baz()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">foo()</span><br><span class="line"></span><br><span class="line">该代码会打印：</span><br><span class="line">foo</span><br><span class="line">baz</span><br><span class="line">bar</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li><p>当调用 setTimeout() 时，浏览器或 Node.js 会启动定时器。 当定时器到期时（在此示例中会立即到期，因为将超时值设为 0），则回调函数会被放入“消息队列”中。</p>
+</li>
+<li><p>在消息队列中，用户触发的事件（如单击或键盘事件、或获取响应）也会在此排队，然后代码才有机会对其作出反应。 类似 onLoad 这样的 DOM 事件也如此。</p>
+</li>
+<li><p>事件循环会赋予调用堆栈优先级，它首先处理在调用堆栈中找到的所有东西，一旦其中没有任何东西，便开始处理消息队列中的东西。</p>
+</li>
+</ol>
+<h2 id="ES6-作业队列"><a href="#ES6-作业队列" class="headerlink" title="ES6 作业队列"></a>ES6 作业队列</h2><ul>
+<li><p>ECMAScript 2015 引入了作业队列的概念，Promise 使用了该队列（也在 ES6/ES2015 中引入）。 这种方式会尽快地执行异步函数的结果，而不是放在调用堆栈的末尾。</p>
+</li>
+<li><p>当前函数结束之前 resolve 的 Promise 会在当前函数之后被立即执行。</p>
+</li>
+<li><p>有个游乐园中过山车的比喻很好：消息队列将你排在队列的后面（在所有其他人的后面），你不得不等待你的回合，而工作队列则是快速通道票，这样你就可以在完成上一次乘车后立即乘坐另一趟车。</p>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> bar = () =&gt; <span class="built_in">console</span>.log(<span class="string">'bar'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> baz = () =&gt; <span class="built_in">console</span>.log(<span class="string">'baz'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> foo = () =&gt; &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'foo'</span>)</span><br><span class="line">  setTimeout(bar, <span class="number">0</span>)</span><br><span class="line">  <span class="keyword">new</span> <span class="built_in">Promise</span>((resolve, reject) =&gt;</span><br><span class="line">    resolve(<span class="string">'应该在 baz 之后、bar 之前'</span>)</span><br><span class="line">  ).then(resolve =&gt; <span class="built_in">console</span>.log(resolve))</span><br><span class="line">  baz()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">foo()</span><br><span class="line"></span><br><span class="line">这会打印：</span><br><span class="line">foo</span><br><span class="line">baz</span><br><span class="line">应该在 baz 之后、bar 之前</span><br><span class="line">bar</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>这是 Promise（以及基于 promise 构建的 async/await）与通过 setTimeout() 或其他平台 API 的普通的旧异步函数之间的巨大区别。</li>
+</ul>
 <h3 id="一、宏任务和微任务"><a href="#一、宏任务和微任务" class="headerlink" title="一、宏任务和微任务"></a>一、宏任务和微任务</h3><ul>
 <li>在 js 中，任务分为宏任务(macrotask)和微任务(microtask)，这两个任务分别维护一个队列，均采用先进先出(类似放盘子)的策略进行执行，同步执行的任务都在宏任务上执行。</li>
 </ul>
@@ -288,10 +311,12 @@
 2. 执行过程中如果遇到微任务，就将它添加到微任务的任务队列中
 3. 宏任务执行完毕后，立即执行当前微任务队列中的所有微任务（依次执行）
 4. 当前宏任务执行完毕，开始检查渲染，然后GUI线程接管渲染
-5. 渲染完毕后，JS线程继续接管，开始下一个宏任务（从事件队列中获取）</code></pre><h3 id="三、🌰"><a href="#三、🌰" class="headerlink" title="三、🌰"></a>三、🌰</h3><h3 id="1-尝试输出以下代码"><a href="#1-尝试输出以下代码" class="headerlink" title="1.尝试输出以下代码"></a>1.尝试输出以下代码</h3> <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="number">1</span>);</span><br><span class="line">setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="number">2</span>);</span><br><span class="line">&#125;, <span class="number">0</span>);</span><br><span class="line"><span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="number">3</span>);</span><br><span class="line">    resolve(<span class="built_in">Date</span>.now());</span><br><span class="line">&#125;).then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="number">4</span>);</span><br><span class="line">&#125;);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">5</span>);</span><br><span class="line">setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve</span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="number">6</span>);</span><br><span class="line">        resolve(<span class="built_in">Date</span>.now());</span><br><span class="line">    &#125;).then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="number">7</span>);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;, <span class="number">0</span>);</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>那么以上代码的执行过程是什么样的呢？</li>
+5. 渲染完毕后，JS线程继续接管，开始下一个宏任务（从事件队列中获取）</code></pre><h3 id="三、🌰"><a href="#三、🌰" class="headerlink" title="三、🌰"></a>三、🌰</h3><ul>
+<li><p>按消息队列 和  作业队列 思路更简单。先执行作业队列， 后执行 作业队列。</p>
+<h3 id="1-尝试输出以下代码"><a href="#1-尝试输出以下代码" class="headerlink" title="1.尝试输出以下代码"></a>1.尝试输出以下代码</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="number">1</span>);</span><br><span class="line">setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="number">2</span>);</span><br><span class="line">&#125;, <span class="number">0</span>);</span><br><span class="line"><span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="number">3</span>);</span><br><span class="line">    resolve(<span class="built_in">Date</span>.now());</span><br><span class="line">&#125;).then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="number">4</span>);</span><br><span class="line">&#125;);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="number">5</span>);</span><br><span class="line">setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve</span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="number">6</span>);</span><br><span class="line">        resolve(<span class="built_in">Date</span>.now());</span><br><span class="line">    &#125;).then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="number">7</span>);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;, <span class="number">0</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>那么以上代码的执行过程是什么样的呢？</p>
+</li>
 </ul>
 <pre><code>-  1 3 5 4 2 6 7 
 1. 代码从上往下执行，首先输出 1，
@@ -328,10 +353,10 @@
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-02-26T16:51:02+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-07-22T16:04:49+08:00">
   <a class='notlink'>
     <i class="fas fa-clock" aria-hidden="true"></i>
-    <p>更新于 2020年2月26日</p>
+    <p>更新于 2020年7月22日</p>
   </a>
 </div>
 
@@ -581,7 +606,7 @@
 </header>
 
     <div class='content pure'>
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#eventloop事件循环"><span class="toc-text">eventloop事件循环</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#一、宏任务和微任务"><span class="toc-text">一、宏任务和微任务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二、运行机制"><span class="toc-text">二、运行机制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三、🌰"><span class="toc-text">三、🌰</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-尝试输出以下代码"><span class="toc-text">1.尝试输出以下代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-尝试输出以下代码"><span class="toc-text">2.尝试输出以下代码</span></a></li></ol></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#eventloop事件循环"><span class="toc-text">eventloop事件循环</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#消息队列"><span class="toc-text">消息队列</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ES6-作业队列"><span class="toc-text">ES6 作业队列</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#一、宏任务和微任务"><span class="toc-text">一、宏任务和微任务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二、运行机制"><span class="toc-text">二、运行机制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三、🌰"><span class="toc-text">三、🌰</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-尝试输出以下代码"><span class="toc-text">1.尝试输出以下代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-尝试输出以下代码"><span class="toc-text">2.尝试输出以下代码</span></a></li></ol></li></ol>
     </div>
   </section>
 
