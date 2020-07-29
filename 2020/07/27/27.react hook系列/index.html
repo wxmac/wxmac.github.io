@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   
-  <title>五、js 深拷贝与浅拷贝 | wxmac的前端笔记</title>
+  <title>二十七、React hook系列 | wxmac的前端笔记</title>
   
   <meta name="keywords" content="wxmac 个人博客">
   
@@ -189,8 +189,8 @@
         
   
     <h1 class="title">
-      <a href="/2019/12/18/5.js 深拷贝与浅拷贝/">
-        五、js 深拷贝与浅拷贝
+      <a href="/2020/07/27/27.react hook系列/">
+        二十七、React hook系列
       </a>
     </h1>
   
@@ -221,7 +221,7 @@
             <div class="new-meta-item date">
   <a class='notlink'>
     <i class="fas fa-calendar-alt" aria-hidden="true"></i>
-    <p>2019-12-18</p>
+    <p>2020-07-27</p>
   </a>
 </div>
 
@@ -271,41 +271,38 @@
 
     <section class="article typo">
       <div class="article-entry" itemprop="articleBody">
-        <h2 id="1-基本数据类型和引用数据类型"><a href="#1-基本数据类型和引用数据类型" class="headerlink" title="1.基本数据类型和引用数据类型"></a>1.基本数据类型和引用数据类型</h2><p> 数据分为基本数据类型和引用数据类型</p>
-<p> 基本数据类型:</p>
- <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">String</span>、<span class="built_in">Number</span>、<span class="built_in">Boolean</span>、Null、Undefined、<span class="built_in">Symbol</span>、BigInt(?)</span><br></pre></td></tr></table></figure>
+        <h3 id="1-useEffect"><a href="#1-useEffect" class="headerlink" title="1.useEffect"></a>1.useEffect</h3><ul>
+<li><p>使用useEffect获取验证码倒计时：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span><br><span class="line"> * @description: 设置按钮状态</span><br><span class="line"> */</span></span><br><span class="line"><span class="keyword">import</span> React, &#123; useEffect &#125; <span class="keyword">from</span> <span class="string">"react"</span>;</span><br><span class="line"><span class="keyword">const</span> [ btnConent, setBtnConent ] = useState(<span class="string">'获取验证码'</span>)  <span class="comment">// 按钮文字</span></span><br><span class="line"><span class="keyword">const</span> [ count, setCount ] = useState(<span class="string">''</span>)  <span class="comment">//  // 秒数初始化为60秒</span></span><br><span class="line"><span class="keyword">const</span> [ liked, setLiked ] = useState(<span class="literal">true</span>)  <span class="comment">// 文案默认为‘获取验证码‘</span></span><br><span class="line"></span><br><span class="line">useEffect(() =&gt; &#123;</span><br><span class="line">    <span class="keyword">if</span> (count &gt; <span class="number">0</span> &amp;&amp; count &lt; <span class="number">60</span>) &#123;</span><br><span class="line">      setBtnConent(<span class="string">`<span class="subst">$&#123;count&#125;</span>s后重发`</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      clearInterval(timeChange);</span><br><span class="line">      setLiked(<span class="literal">true</span>);</span><br><span class="line">      setCount(<span class="number">60</span>);</span><br><span class="line">      setBtnConent(<span class="string">'获取验证码'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;, [count]);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 发送成功 执行倒计时</span></span><br><span class="line"><span class="keyword">let</span> timeChange = setInterval(() =&gt; setCount(t =&gt; --t), <span class="number">1000</span>);</span><br></pre></td></tr></table></figure>
 
-<p> 引用数据类型:</p>
- <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Array</span>、<span class="built_in">Object</span></span><br></pre></td></tr></table></figure>
-
-<a id="more"></a>
-
-<h2 id="2-概念"><a href="#2-概念" class="headerlink" title="2.概念"></a>2.概念</h2><p> 浅拷贝：</p>
- <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">仅仅复制对象的引用，而不是对象本身</span><br></pre></td></tr></table></figure>
-
-
-<p> 深拷贝：</p>
- <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">把复制的对象所引用的全部对象都复制一遍</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>简单来说，浅拷贝就是这个人的影子，深拷贝就是复制了这个人。</li>
-</ul>
-<h2 id="3-方法"><a href="#3-方法" class="headerlink" title="3.方法"></a>3.方法</h2><h3 id="浅拷贝"><a href="#浅拷贝" class="headerlink" title="浅拷贝"></a>浅拷贝</h3> <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> shallowClone = (obj) =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> result = [];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i <span class="keyword">in</span> obj) &#123;</span><br><span class="line">        <span class="keyword">if</span> (obj.hasOwnProperty(i)) &#123;</span><br><span class="line">            result[i] = obj[i];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><p>Object的 hasOwnProperty()方法返回一个布尔值，判断对象是否包含特定的自身（非继承）属性,hasOwnProperty()方法来忽略继承属性.。</p>
+<h3 id="2-useContext"><a href="#2-useContext" class="headerlink" title="2.useContext"></a>2.useContext</h3></li>
+<li><p>如果需要在组件之间共享状态，可以使用useContext()。</p>
 <ol>
-<li>object.assign() 把任意多个的源对象自身的可枚举属性拷贝给目标对象，然后返回目标对象</li>
-<li>Array.prototype.concat() 数组的一个内置方法，用户合并两个或者多个数组，不会改变现有数组，而是返回一个新数组</li>
-<li>Array.prototype.slice() 数组的一个内置方法，该方法会返回一个新的对象，不会改变原数组 </li>
-<li>obj展开运算符 […]<br>以上几种方式也可以<h3 id="深拷贝"><a href="#深拷贝" class="headerlink" title="深拷贝"></a>深拷贝</h3></li>
+<li>现在有俩个组件Navbar和Messages，我们希望它们之间共享状态。</li>
 </ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> deepClone = (obj) =&gt; &#123;</span><br><span class="line">    <span class="keyword">let</span> result = <span class="built_in">Array</span>.isArray(obj) ? [] : &#123;&#125;;</span><br><span class="line">    <span class="keyword">for</span>( <span class="keyword">let</span> i <span class="keyword">in</span> obj )&#123;</span><br><span class="line">        <span class="keyword">if</span>( obj.hasOwnProperty(i) )&#123;</span><br><span class="line">            <span class="keyword">if</span>( <span class="keyword">typeof</span> obj[i] === <span class="string">'object'</span> &amp;&amp;  obj[i] !== <span class="literal">null</span>)&#123;</span><br><span class="line">                result[i] = deepClone(obj[i]) <span class="comment">//递归复制</span></span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                result[i] = obj[i]</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//Object的hasOwnProperty()方法返回一个布尔值，判断对象是否包含特定的自身（非继承）属性。hasOwnProperty()方法来忽略继承属性</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>JSON.stringfy()和JSON.parse()会忽略undefined、function、symbol，导致属性丢失。</p>
 </li>
 </ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;div className=<span class="string">"helloworld"</span>&gt;</span><br><span class="line">  <span class="xml"><span class="tag">&lt;<span class="title">Page</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">HelloWorld</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
 
+<ul>
+<li>第一步在它们的父组件上使用React的Context API，在组件外部建立一个Context。</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> TestContext = React.createContext(&#123;)&#125;;</span><br><span class="line"></span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="title">TestContext.Provider</span> </span><br><span class="line">	<span class="attribute">value</span>=<span class="value">&#123;&#123;</span></span><br><span class="line">		<span class="attribute">username:</span> '<span class="attribute">helloworld</span>',</span><br><span class="line">	&#125;&#125;</span><br><span class="line">&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="title">div</span> <span class="attribute">className</span>=<span class="value">"helloworld"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">Page</span> /&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">HelloWorld</span> /&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">TestContext.Provider</span>/&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>TestContext.Provider提供了一个Context对象，这个对象是可以被子组件共享的。</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Page = () =&gt; &#123;</span><br><span class="line">	<span class="keyword">const</span> &#123; username &#125; = useContext(TestContext);</span><br><span class="line">	<span class="keyword">return</span> (</span><br><span class="line">		<span class="xml"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">className</span>=<span class="value">"page"</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="title">p</span>&gt;</span>&#123; username &#125;<span class="tag">&lt;/<span class="title">p</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">	)</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> HelloWorld = () =&gt; &#123;</span><br><span class="line">	<span class="keyword">const</span> &#123; username &#125; = useContext(TestContext);</span><br><span class="line">	<span class="keyword">return</span> (</span><br><span class="line">		<span class="xml"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">className</span>=<span class="value">"helloworld"</span>&gt;</span></span><br><span class="line">      		<span class="tag">&lt;<span class="title">p</span>&gt;</span>1 message for &#123; username &#125;<span class="tag">&lt;/<span class="title">p</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">	)</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>完整代码如下：<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React, &#123; useContext &#125; <span class="keyword">from</span> <span class="string">"react"</span>;</span><br><span class="line"><span class="keyword">import</span> ReactDOM <span class="keyword">from</span> <span class="string">"react-dom"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> TestContext= React.createContext(&#123;&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// page</span></span><br><span class="line"><span class="keyword">const</span> Page = () =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> &#123; username &#125; = useContext(TestContext)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="xml"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">className</span>=<span class="value">"page"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="title">p</span>&gt;</span>&#123; username &#125;<span class="tag">&lt;/<span class="title">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">  )</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// HelloWorld</span></span><br><span class="line"><span class="keyword">const</span> HelloWorld = () =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> &#123; username &#125; = useContext(TestContext)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    <span class="xml"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">className</span>=<span class="value">"helloworld"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="title">p</span>&gt;</span>1 message for &#123; username &#125;<span class="tag">&lt;/<span class="title">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">  )</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">App</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">	<span class="xml"><span class="tag">&lt;<span class="title">TestContext.Provider</span> </span><br><span class="line">		<span class="attribute">value</span>=<span class="value">&#123;&#123;</span></span><br><span class="line">			<span class="attribute">username:</span> '<span class="attribute">helloworld</span>',</span><br><span class="line">		&#125;&#125;</span><br><span class="line">	&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="title">div</span> <span class="attribute">className</span>=<span class="value">"helloworld"</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="title">Page</span> /&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="title">HelloWorld</span> /&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="title">TestContext.Provider</span>/&gt;</span></span><br><span class="line">  )</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> rootElement = <span class="built_in">document</span>.getElementById(<span class="string">"root"</span>);</span><br><span class="line">ReactDOM.render(<span class="xml"><span class="tag">&lt;<span class="title">App</span> /&gt;</span>, rootElement);</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="3-useReducer"><a href="#3-useReducer" class="headerlink" title="3.useReducer"></a>3.useReducer</h3><ul>
+<li>对于复杂的state操作逻辑，嵌套的state的对象，推荐使用useReducer。</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> initState = &#123;</span><br><span class="line">	name: <span class="string">''</span>,</span><br><span class="line">	pwd: <span class="string">''</span>,</span><br><span class="line">	isLoading: <span class="literal">false</span>,</span><br><span class="line">	error: <span class="string">''</span>,</span><br><span class="line">	isLoggedIn: <span class="literal">false</span>,</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">loginReducer</span>(<span class="params">state, action</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">switch</span>(action.type) &#123;</span><br><span class="line">		<span class="keyword">case</span> <span class="string">'login'</span>:</span><br><span class="line">			<span class="keyword">return</span> &#123;</span><br><span class="line">				...state,</span><br><span class="line">				isLoading: <span class="literal">true</span>,</span><br><span class="line">				error: <span class="string">''</span>,</span><br><span class="line">			&#125;</span><br><span class="line">		<span class="keyword">case</span> <span class="string">'success'</span>:</span><br><span class="line">			<span class="keyword">return</span> &#123;</span><br><span class="line">				...state,</span><br><span class="line">				isLoggedIn: <span class="literal">true</span>,</span><br><span class="line">				isLoading: <span class="literal">false</span>,</span><br><span class="line">			&#125;</span><br><span class="line">		<span class="keyword">case</span> <span class="string">'error'</span>:</span><br><span class="line">			<span class="keyword">return</span> &#123;</span><br><span class="line">				...state,</span><br><span class="line">				error: action.payload.error,</span><br><span class="line">				name: <span class="string">''</span>,</span><br><span class="line">				pwd: <span class="string">''</span>,</span><br><span class="line">				isLoading: <span class="literal">false</span>,</span><br><span class="line">			&#125;</span><br><span class="line">		<span class="keyword">default</span>: </span><br><span class="line">			<span class="keyword">return</span> state;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">LoginPage</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">const</span> [state, dispatch] = useReducer(loginReducer, initState);</span><br><span class="line">	<span class="keyword">const</span> &#123; name, pwd, isLoading, error, isLoggedIn &#125; = state;</span><br><span class="line">	<span class="keyword">const</span> login = (event) =&gt; &#123;</span><br><span class="line">		event.preventDefault();</span><br><span class="line">		dispatch(&#123; type: <span class="string">'login'</span> &#125;);</span><br><span class="line">		login(&#123; name, pwd &#125;)</span><br><span class="line">			.then(() =&gt; &#123;</span><br><span class="line">				dispatch(&#123; type: <span class="string">'success'</span> &#125;);</span><br><span class="line">			&#125;)</span><br><span class="line">			.catch((error) =&gt; &#123;</span><br><span class="line">				dispatch(&#123;</span><br><span class="line">					type: <span class="string">'error'</span></span><br><span class="line">					payload: &#123; error: error.message &#125;</span><br><span class="line">				&#125;);</span><br><span class="line">			&#125;);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> ( </span><br><span class="line">		<span class="comment">//  返回页面JSX Element</span></span><br><span class="line">	)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 而使用 useState 会很混乱</span></span><br><span class="line"><span class="keyword">const</span> [state, setState] = useState(&#123;</span><br><span class="line">	name: <span class="string">''</span>,</span><br><span class="line">	pwd: <span class="string">''</span>,</span><br><span class="line">	isLoading: <span class="literal">false</span>,</span><br><span class="line">	error: <span class="string">''</span>,</span><br><span class="line">	isLoggedIn: <span class="literal">false</span>,</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
       </div>
       
       
@@ -317,10 +314,10 @@
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-02-26T16:43:12+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-07-29T11:00:25+08:00">
   <a class='notlink'>
     <i class="fas fa-clock" aria-hidden="true"></i>
-    <p>更新于 2020年2月26日</p>
+    <p>更新于 2020年7月29日</p>
   </a>
 </div>
 
@@ -329,7 +326,7 @@
         
           
   
-  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/js/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>js</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/小技巧/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>小技巧</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/拷贝/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>拷贝</p></a></div>
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/react/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>react</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/react-hook/" rel="nofollow"><i class="fas fa-tag" aria-hidden="true"></i><p>react hook</p></a></div>
 
 
         
@@ -342,12 +339,7 @@
       
         <a class="-mob-share-qq" title="QQ好友" rel="external nofollow noopener noreferrer"
           
-          href="http://connect.qq.com/widget/shareqq/index.html?url=https://wxmac.github.io/2019/12/18/5.js 深拷贝与浅拷贝/&title=五、js 深拷贝与浅拷贝 | wxmac的前端笔记&summary=1.基本数据类型和引用数据类型 数据分为基本数据类型和引用数据类型
- 基本数据类型:
- 1String、Number、Boolean、Null、Undefined、Symbol、BigInt(?)
-
- 引用数据类型:
- 1Array、Object"
+          href="http://connect.qq.com/widget/shareqq/index.html?url=https://wxmac.github.io/2020/07/27/27.react hook系列/&title=二十七、React hook系列 | wxmac的前端笔记&summary="
           
           >
           
@@ -359,12 +351,7 @@
       
         <a class="-mob-share-qzone" title="QQ空间" rel="external nofollow noopener noreferrer"
           
-          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://wxmac.github.io/2019/12/18/5.js 深拷贝与浅拷贝/&title=五、js 深拷贝与浅拷贝 | wxmac的前端笔记&summary=1.基本数据类型和引用数据类型 数据分为基本数据类型和引用数据类型
- 基本数据类型:
- 1String、Number、Boolean、Null、Undefined、Symbol、BigInt(?)
-
- 引用数据类型:
- 1Array、Object"
+          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://wxmac.github.io/2020/07/27/27.react hook系列/&title=二十七、React hook系列 | wxmac的前端笔记&summary="
           
           >
           
@@ -376,12 +363,7 @@
       
         <a class="-mob-share-weibo" title="微博" rel="external nofollow noopener noreferrer"
           
-          href="http://service.weibo.com/share/share.php?url=https://wxmac.github.io/2019/12/18/5.js 深拷贝与浅拷贝/&title=五、js 深拷贝与浅拷贝 | wxmac的前端笔记&summary=1.基本数据类型和引用数据类型 数据分为基本数据类型和引用数据类型
- 基本数据类型:
- 1String、Number、Boolean、Null、Undefined、Symbol、BigInt(?)
-
- 引用数据类型:
- 1Array、Object"
+          href="http://service.weibo.com/share/share.php?url=https://wxmac.github.io/2020/07/27/27.react hook系列/&title=二十七、React hook系列 | wxmac的前端笔记&summary="
           
           >
           
@@ -405,40 +387,21 @@
       
           <div class="prev-next">
               
-                  <section class="prev">
-                      <span class="art-item-left">
-                          <h6><i class="fas fa-chevron-left" aria-hidden="true"></i>&nbsp;上一页</h6>
-                          <h4>
-                              <a href="/2019/12/23/6.函数节流和防抖/" rel="prev" title="六、函数节流和防抖">
-                                
-                                    六、函数节流和防抖
-                                
-                              </a>
-                          </h4>
-                          
-                              
-                              <h6 class="tags">
-                                  <a class="tag" href="/tags/函数/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> 函数</a> <a class="tag" href="/tags/节流-防抖/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> 节流/防抖</a>
-                              </h6>
-                          
-                      </span>
-                  </section>
-              
               
                   <section class="next">
                       <span class="art-item-right" aria-hidden="true">
                           <h6>下一页&nbsp;<i class="fas fa-chevron-right" aria-hidden="true"></i></h6>
                           <h4>
-                              <a href="/2019/12/16/4.react &amp; html2canvas实践/" rel="prev" title="四、react &amp; html2canvas 生成图片下载实践">
+                              <a href="/2020/07/21/26.WebComponents/" rel="prev" title="二十六、Web Components">
                                   
-                                      四、react &amp; html2canvas 生成图片下载实践
+                                      二十六、Web Components
                                   
                               </a>
                           </h4>
                           
                               
                               <h6 class="tags">
-                                  <a class="tag" href="/tags/html2canvas/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> html2canvas</a> <a class="tag" href="/tags/js/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> js</a> <a class="tag" href="/tags/react/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> react</a>
+                                  <a class="tag" href="/tags/Web-Components/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> Web Components</a> <a class="tag" href="/tags/组件化/"><i class="fas fa-tag fa-fw" aria-hidden="true"></i> 组件化</a>
                               </h6>
                           
                       </span>
@@ -482,7 +445,7 @@
 
   <script>
     window.subData = {
-      title: '五、js 深拷贝与浅拷贝',
+      title: '二十七、React hook系列',
       tools: true
     }
   </script>
@@ -585,7 +548,7 @@
 </header>
 
     <div class='content pure'>
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-基本数据类型和引用数据类型"><span class="toc-text">1.基本数据类型和引用数据类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-概念"><span class="toc-text">2.概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-方法"><span class="toc-text">3.方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#浅拷贝"><span class="toc-text">浅拷贝</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#深拷贝"><span class="toc-text">深拷贝</span></a></li></ol></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-useEffect"><span class="toc-text">1.useEffect</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-useContext"><span class="toc-text">2.useContext</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-useReducer"><span class="toc-text">3.useReducer</span></a></li></ol>
     </div>
   </section>
 
