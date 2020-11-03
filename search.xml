@@ -8,7 +8,7 @@
       <link href="/2020/11/01/35.%20h5%E8%B7%B3%E8%BD%AC%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E5%85%B3%E6%B3%A8%E9%A1%B5%E9%9D%A2/"/>
       <url>/2020/11/01/35.%20h5%E8%B7%B3%E8%BD%AC%E5%BE%AE%E4%BF%A1%E5%85%AC%E4%BC%97%E5%8F%B7%E5%85%B3%E6%B3%A8%E9%A1%B5%E9%9D%A2/</url>
       
-        <content type="html"><![CDATA[<ul><li><p>只能跳转到一个固定的公众号页面，也有关注功能。</p></li><li><p>步骤：</p><ol><li>扫码进入要关注的公众号后台；</li><li>在首页点击查看源代码， 搜索 uin_base64；</li><li>把下面链接的 __biz 换成 uin_base64的值：</li></ol><ul><li><a href="https://mp.weixin.qq.com/mp/profile_ext?action=home&amp;__biz=MzAwMTgyNzA1Mw==&amp;scene=110#wechat_redirect" target="_blank" rel="external">https://mp.weixin.qq.com/mp/profile_ext?action=home&amp;__biz=MzAwMTgyNzA1Mw==&amp;scene=110#wechat_redirect</a></li></ul></li></ul><p> <img src="/images/wxh5.png" alt></p>]]></content>
+        <content type="html"><![CDATA[<ul><li><p>只能跳转到一个固定的公众号页面，也有关注功能。</p></li><li><p>步骤：</p><ol><li><p>扫码进入要关注的公众号后台；<br><img src="/images/wxh50.png" alt></p><hr></li><li><p>在首页点击查看源代码， 搜索 uin_base64；<br><img src="/images/wxh5.png" alt></p><hr></li><li><p>把下面链接的 __biz 换成 uin_base64的值：</p></li></ol><ul><li><a href="https://mp.weixin.qq.com/mp/profile_ext?action=home&amp;__biz=MzAwMTgyNzA1Mw==&amp;scene=110#wechat_redirect" target="_blank" rel="external">https://mp.weixin.qq.com/mp/profile_ext?action=home&amp;__biz=MzAwMTgyNzA1Mw==&amp;scene=110#wechat_redirect</a></li></ul></li></ul>]]></content>
       
       
       
